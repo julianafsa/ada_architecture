@@ -1,10 +1,6 @@
 package br.com.ada.stickers.model.dto;
 
-import br.com.ada.stickers.model.enumeration.RaritySticker;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +15,11 @@ public class StickerCreationDTO {
     @NotBlank(message = "Description field is missing or blank.")
     private String description;
 
-    @NotNull(message = "Rarirty field is missing or blank.")
-    private RaritySticker rarity;
+    @NotBlank(message = "Rarirty field is missing or blank.")
+    @Pattern(regexp="^[1-4]{1}")
+    private String rarity;
 
-    @NotBlank(message = "Price field is missing or blank.")
+    @NotNull(message = "Price field is missing or blank.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer=10, fraction=2)
     private BigDecimal price;

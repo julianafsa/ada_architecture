@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface StickerMapper {
-    StickerDTO parseDTO(Sticker user);
-    Sticker parseEntity(StickerDTO userDTO);
-    Sticker parseEntity(StickerCreationDTO userDTO);
-    Sticker parseEntity(StickerUpdateDTO userDTO);
-    List<StickerDTO> parseListDTO(List<Sticker> users);
+    StickerDTO parseDTO(Sticker entity);
+    Sticker parseEntity(StickerDTO dto);
+    Sticker parseEntity(StickerCreationDTO creationDTO);
+    Sticker parseEntity(StickerUpdateDTO updateDTO);
+    List<StickerDTO> parseListDTO(List<Sticker> entities);
 }

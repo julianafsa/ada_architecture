@@ -1,6 +1,5 @@
 package br.com.ada.stickers.model.dto;
 
-import br.com.ada.stickers.model.enumeration.RaritySticker;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,7 @@ public class StickerDTO {
 
     private String description;
 
-    private RaritySticker rarity;
+    private String rarity;
 
     private BigDecimal price;
 }
