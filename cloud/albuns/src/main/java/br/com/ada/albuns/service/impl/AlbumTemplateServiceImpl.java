@@ -46,4 +46,23 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
     return mapper.parseDTO(albumTemplate);
   }
 
+  @Override
+  public AlbumTemplateDTO edit(Long id, AlbumTemplateDTO albumTemplateDTO) {
+    if (repository.existsById(id)) {
+      AlbumTemplate entity = mapper.parseEntity(albumTemplateDTO);
+      entity.setId(id);
+      entity = repository.save(entity);
+      return mapper.parseDTO(entity);
+    }
+    throw new EntityNotFoundException();
+  }
+
+  @Override
+  public void delete(Long id) {
+    if (!repository.existsById(id)) {
+      throw new EntityNotFoundException();
+    }
+    repository.deleteById(id);
+  }
+
 }

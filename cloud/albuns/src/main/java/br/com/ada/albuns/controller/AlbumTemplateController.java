@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,5 +64,32 @@ public class AlbumTemplateController {
           return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       }
   }  
+
+  @PutMapping("/{id}")
+  public ResponseEntity<AlbumTemplateDTO> edit(@PathVariable("id") Long id,
+                                         @RequestBody @Valid AlbumTemplateDTO albumTemplateDTO) {
+      try {
+          return ResponseEntity.ok(service.edit(id, albumTemplateDTO));
+      } catch (EntityNotFoundException ex) {
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      } catch (Exception ex) {
+          log.error(ex.getMessage());
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
+      try {
+          service.delete(id);
+          return ResponseEntity.status(HttpStatus.OK).build();
+      } catch (EntityNotFoundException ex) {
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      } catch (Exception ex) {
+          log.error(ex.getMessage());
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+  }
+
 
 }
