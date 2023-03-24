@@ -1,7 +1,6 @@
 package br.com.ada.albuns.model.entity;
 
 import java.math.BigDecimal;
-import java.sql.String;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +22,7 @@ public class AlbumTemplate {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private Integer id;
+  private Long id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -32,7 +31,7 @@ public class AlbumTemplate {
   private String cover;
 
   @Column(name = "numStickers", nullable = false, unique = true)
-  private Integer numStickers;
+  private Long numStickers;
 
   @Column(name = "price", nullable = false, unique = true)
   private BigDecimal price;

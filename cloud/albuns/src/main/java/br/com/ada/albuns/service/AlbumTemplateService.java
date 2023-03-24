@@ -8,7 +8,7 @@ public interface AlbumTemplateService {
 
   List<AlbumTemplateDTO> findAll();
 
-  AlbumTemplateDTO findById(Integer id);
+  AlbumTemplateDTO findById(Long id);
 
   AlbumTemplateDTO create(AlbumTemplateDTO entity);
   

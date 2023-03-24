@@ -29,7 +29,7 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
   }
 
   @Override
-  public AlbumTemplateDTO findById(Integer id) {
+  public AlbumTemplateDTO findById(Long id) {
     Optional<AlbumTemplate> albumTemplateOptional = repository.findById(id);
     if (albumTemplateOptional.isPresent()) {
       AlbumTemplate albumTemplate = albumTemplateOptional.get();
