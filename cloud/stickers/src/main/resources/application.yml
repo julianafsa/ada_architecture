@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~\stickersdb
+    url: jdbc:h2:mem:stickersdb
     #url: jdbc:h2:file:.\src\main\resources\stickers_db\stickersdb
     driverClassName: org.h2.Driver
     username: sa

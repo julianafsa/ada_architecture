@@ -3,18 +3,12 @@ package br.com.ada.stickers.model.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @NoArgsConstructor
 public class StickerDTO {
-    private Long id;
+    private String id;
 
-    private String image;
+    private StickerTemplateDTO stickerTemplate;
 
-    private String description;
-
-    private String rarity;
-
-    private BigDecimal price;
+    private String albumId;
 }

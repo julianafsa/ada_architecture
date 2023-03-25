@@ -9,8 +9,8 @@ import java.util.List;
 public interface StickerService {
 
     List<StickerDTO> findAll();
-    StickerDTO findById(Long id);
+    StickerDTO findById(String id);
     StickerDTO create(StickerCreationDTO creationDTO);
-    StickerDTO edit(Long id, StickerUpdateDTO updateDTO);
-    void delete(Long id);
+    StickerDTO edit(String id, StickerUpdateDTO updateDTO);
+    void delete(String id);
 }

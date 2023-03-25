@@ -19,6 +19,9 @@ public class StickerServiceImpl implements StickerService {
     private final StickerRepository repository;
     private final StickerMapper mapper;
 
+    //@PersistenceContext
+    //private EntityManager em;
+
     public StickerServiceImpl(final StickerRepository repository, final StickerMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
@@ -30,7 +33,7 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
-    public StickerDTO findById(final Long id) {
+    public StickerDTO findById(final String id) {
         Optional<Sticker> optional = repository.findById(id);
         if (optional.isPresent()) {
             final Sticker entity = optional.get();
@@ -40,15 +43,17 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
+    //@Transactional
     public StickerDTO create(final StickerCreationDTO creationDTO) {
         Sticker entity = mapper.parseEntity(creationDTO);
         entity.setId(null);
         entity = repository.save(entity);
+        //em.refresh(entity);
         return mapper.parseDTO(entity);
     }
 
     @Override
-    public StickerDTO edit(final Long id, final StickerUpdateDTO updateDTO) {
+    public StickerDTO edit(final String id, final StickerUpdateDTO updateDTO) {
         if (repository.existsById(id)) {
             Sticker entity = mapper.parseEntity(updateDTO);
             entity.setId(id);
@@ -59,7 +64,7 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         if (!repository.existsById(id)) {
             throw new EntityNotFoundException();
         }
