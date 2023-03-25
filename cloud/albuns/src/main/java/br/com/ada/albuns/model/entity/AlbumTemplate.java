@@ -1,6 +1,7 @@
 package br.com.ada.albuns.model.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,19 +14,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "template")
+@Table(name = "album_template")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlbumTemplate {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id")
-  private Long id;
-  
-  @Column(name = "uuid", nullable = false)
-  private String uuid;
+  private String id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -36,7 +34,13 @@ public class AlbumTemplate {
   @Column(name = "numStickers", nullable = false, unique = true)
   private Long numStickers;
 
-  @Column(name = "price", nullable = false, unique = true)
+  @Column(name = "albumPrice", nullable = false, unique = true)
   private BigDecimal price;
+
+  @Column(name = "launchDate", nullable = false)
+  private LocalDateTime launchDate;
+
+  @Column(name = "expirationDate", nullable = false)
+  private LocalDateTime expirationDate;
   
 }
