@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~\albunsdb
+    url: jdbc:h2:file:.\src\main\resources\album_db\albunsdb
     driverClassName: org.h2.Driver
     username: sa
     password: password

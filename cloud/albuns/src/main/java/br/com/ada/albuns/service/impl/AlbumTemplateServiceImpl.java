@@ -2,7 +2,6 @@ package br.com.ada.albuns.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,8 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
   }
 
   @Override
-  public AlbumTemplateDTO findByUuid(String uuid) {
-    Optional<AlbumTemplate> albumTemplateOptional = repository.findByUuid(uuid);
+  public AlbumTemplateDTO findById(String id) {
+    Optional<AlbumTemplate> albumTemplateOptional = repository.findById(id);
     if (albumTemplateOptional.isPresent()) {
       AlbumTemplate albumTemplate = albumTemplateOptional.get();
       return mapper.parseDTO(albumTemplate);
@@ -43,25 +42,28 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
   public AlbumTemplateDTO create(AlbumTemplateDTO entity) {
     AlbumTemplate albumTemplate = mapper.parseEntity(entity);
     albumTemplate.setId(null);
-    albumTemplate.setUuid(UUID.randomUUID().toString());
+
     repository.save(albumTemplate);
     return mapper.parseDTO(albumTemplate);
   }
 
   @Override
-  public AlbumTemplateDTO edit(String uuid, AlbumTemplateDTO albumTemplateDTO) {
-    AlbumTemplate dbEntity = repository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException());
-    AlbumTemplate entity = mapper.parseEntity(albumTemplateDTO);
-    entity.setId(dbEntity.getId());
-    entity.setUuid(uuid);
-    entity = repository.save(entity);
-    return mapper.parseDTO(entity);
+  public AlbumTemplateDTO edit(String id, AlbumTemplateDTO albumTemplateDTO) {
+    if (repository.existsById(id)) {
+      AlbumTemplate entity = mapper.parseEntity(albumTemplateDTO);
+      entity.setId(id);
+      entity = repository.save(entity);
+      return mapper.parseDTO(entity);
+    }
+    throw new EntityNotFoundException();
   }
 
   @Override
-  public void delete(String uuid) {
-    AlbumTemplate dbEntity = repository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException());
-    repository.deleteById(dbEntity.getId());
+  public void delete(String id) {
+    if (!repository.existsById(id)) {
+      throw new EntityNotFoundException();
+    }
+    repository.deleteById(id);
   }
 
 }
