@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AlbumTemplateDTO {
 
-  private Long id;
+  private String uuid;
 
   private String name;
 

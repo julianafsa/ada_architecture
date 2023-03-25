@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/templates")
+@RequestMapping("/album/templates")
 @Slf4j
 public class AlbumTemplateController {
 
@@ -40,10 +40,10 @@ public class AlbumTemplateController {
       return ResponseEntity.ok(result);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<AlbumTemplateDTO> findById(@PathVariable("id") Long id) {
+  @GetMapping("/{uuid}")
+  public ResponseEntity<AlbumTemplateDTO> findByUuid(@PathVariable("uuid") String uuid) {
       try {
-          return ResponseEntity.ok(service.findById(id));
+          return ResponseEntity.ok(service.findByUuid(uuid));
       } catch (EntityNotFoundException ex) {
           return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
       } catch (Exception ex) {
@@ -65,11 +65,11 @@ public class AlbumTemplateController {
       }
   }  
 
-  @PutMapping("/{id}")
-  public ResponseEntity<AlbumTemplateDTO> edit(@PathVariable("id") Long id,
+  @PutMapping("/{uuid}")
+  public ResponseEntity<AlbumTemplateDTO> edit(@PathVariable("uuid") String uuid,
                                          @RequestBody @Valid AlbumTemplateDTO albumTemplateDTO) {
       try {
-          return ResponseEntity.ok(service.edit(id, albumTemplateDTO));
+          return ResponseEntity.ok(service.edit(uuid, albumTemplateDTO));
       } catch (EntityNotFoundException ex) {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
       } catch (Exception ex) {
@@ -78,10 +78,10 @@ public class AlbumTemplateController {
       }
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
+  @DeleteMapping("/{uuid}")
+  public ResponseEntity<Object> delete(@PathVariable("uuid") String uuid) {
       try {
-          service.delete(id);
+          service.delete(uuid);
           return ResponseEntity.status(HttpStatus.OK).build();
       } catch (EntityNotFoundException ex) {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

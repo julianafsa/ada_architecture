@@ -23,6 +23,9 @@ public class AlbumTemplate {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
+  
+  @Column(name = "uuid", nullable = false)
+  private String uuid;
 
   @Column(name = "name", nullable = false)
   private String name;

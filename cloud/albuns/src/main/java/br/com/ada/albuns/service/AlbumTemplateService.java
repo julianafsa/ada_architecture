@@ -7,9 +7,9 @@ import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
 public interface AlbumTemplateService {
 
   List<AlbumTemplateDTO> findAll();
-  AlbumTemplateDTO findById(Long id);
+  AlbumTemplateDTO findByUuid(String uuid);
   AlbumTemplateDTO create(AlbumTemplateDTO entity);
-  AlbumTemplateDTO edit(Long id, AlbumTemplateDTO entity);
-  void delete(Long id);
+  AlbumTemplateDTO edit(String uuid, AlbumTemplateDTO entity);
+  void delete(String uuid);
   
 }
