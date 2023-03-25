@@ -5,28 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @Entity
-@Table(name = "stickers")
+@Table(name = "sticker")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sticker {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
-    @Column(name = "image", nullable = false)
-    private String image;
+    @Column(name = "stickerTemplateId", nullable = false)
+    private String stickerTemplateId;
 
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @Column(name = "rarity", nullable = false)
-    private String rarity;
-
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    @Column(name = "albumId", nullable = false)
+    private String albumId;
 }

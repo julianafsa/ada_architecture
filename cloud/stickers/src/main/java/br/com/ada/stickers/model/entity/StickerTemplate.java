@@ -18,7 +18,7 @@ public class StickerTemplate {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "albumTemplateUuid", nullable = false)
+    @Column(name = "albumTemplateId", nullable = false)
     private String albumTemplateId;
 
     @Column(name = "number", nullable = false)

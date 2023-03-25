@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/stickers")
+@RequestMapping(value = "/sticker")
 public class StickerController {
 
     protected final StickerService service;
@@ -36,7 +36,7 @@ public class StickerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StickerDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<StickerDTO> findById(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(service.findById(id));
         } catch (EntityNotFoundException ex) {
@@ -61,7 +61,7 @@ public class StickerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StickerDTO> edit(@PathVariable("id") Long id,
+    public ResponseEntity<StickerDTO> edit(@PathVariable("id") String id,
                                            @RequestBody @Valid StickerUpdateDTO updateDTO) {
         try {
             return ResponseEntity.ok(service.edit(id, updateDTO));
@@ -74,7 +74,7 @@ public class StickerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> delete(@PathVariable("id") String id) {
         try {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).build();
