@@ -19,6 +19,9 @@ public class StickerServiceImpl implements StickerService {
     private final StickerRepository repository;
     private final StickerMapper mapper;
 
+    //@PersistenceContext
+    //private EntityManager em;
+
     public StickerServiceImpl(final StickerRepository repository, final StickerMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
@@ -40,10 +43,12 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
+    //@Transactional
     public StickerDTO create(final StickerCreationDTO creationDTO) {
         Sticker entity = mapper.parseEntity(creationDTO);
         entity.setId(null);
         entity = repository.save(entity);
+        //em.refresh(entity);
         return mapper.parseDTO(entity);
     }
 

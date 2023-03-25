@@ -16,8 +16,9 @@ public class Sticker {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "stickerTemplateId", nullable = false)
-    private String stickerTemplateId;
+    @JoinColumn(name = "stickerTemplateIdFk", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private StickerTemplate stickerTemplate;
 
     @Column(name = "albumId", nullable = false)
     private String albumId;

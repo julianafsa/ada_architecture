@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class StickerDTO {
     private String id;
 
-    private String stickerTemplateId;
+    private StickerTemplateDTO stickerTemplate;
 
     private String albumId;
 }

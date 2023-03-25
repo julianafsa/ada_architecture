@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,7 +23,7 @@ public class StickerTemplate {
     private String albumTemplateId;
 
     @Column(name = "number", nullable = false)
-    private int number;
+    private Integer number;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -31,8 +32,11 @@ public class StickerTemplate {
     private String image;
 
     @Column(name = "rarity", nullable = false)
-    private int rarity;
+    private Integer rarity;
 
     @Column(name = "sticker_price", nullable = false)
     private BigDecimal stickerPrice;
+
+    @OneToMany(mappedBy = "stickerTemplate")
+    private List<Sticker> stickers;
 }
