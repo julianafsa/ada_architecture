@@ -22,4 +22,7 @@ public class Sticker {
 
     @Column(name = "albumId", nullable = false)
     private String albumId;
+
+    @OneToOne(mappedBy = "sticker")
+    private StickerJournal stickJournal;
 }
