@@ -25,4 +25,7 @@ public class Sticker {
 
     @OneToOne(mappedBy = "sticker")
     private StickerJournal stickJournal;
+
+    @OneToOne(mappedBy = "sticker")
+    private StickerToSell stickerToSell;
 }
