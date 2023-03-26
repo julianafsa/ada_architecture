@@ -5,14 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.entity.AlbumTemplate;
 import br.com.ada.albuns.model.mapper.AlbumTemplateMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.repository.AlbumTemplateRepository;
-import br.com.ada.albuns.service.AlbumService;
 import br.com.ada.albuns.service.AlbumTemplateService;
 import jakarta.persistence.EntityNotFoundException;
 

@@ -2,6 +2,7 @@ package br.com.ada.albuns.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,10 @@ public class AlbumController {
 
     protected final AlbumService service;
 
-    public AlbumController(AlbumService service) {
+    // Using the Design Pattern: Decorator Pattern
+    // The AlbumServiceWithJournal is an implementation that creates the album and logs the
+    // transaction to the album journal
+    public AlbumController(@Qualifier("AlbumServiceWithJournal") AlbumService service) {
         this.service = service;
     }
 

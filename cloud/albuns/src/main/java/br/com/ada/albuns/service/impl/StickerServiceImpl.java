@@ -2,7 +2,6 @@ package br.com.ada.albuns.service.impl;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +38,11 @@ public class StickerServiceImpl implements StickerService {
 
 	    Album defaultAlbum = albumRepository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
 	    List<StickerTemplateDTO> stickerTemplates = stickerTemplatesResponse.getBody();
-	    stickerTemplates.forEach(stickerTemplate -> {
-	    	this.createStickers(stickerTemplate, defaultAlbum);
-	    });
+	    if (stickerTemplates != null) {
+		    stickerTemplates.forEach(stickerTemplate -> {
+		    	this.createStickers(stickerTemplate, defaultAlbum);
+		    });
+	    }
 	}
 	
 	private void createStickers(StickerTemplateDTO stickerTemplateDTO, Album album) {
