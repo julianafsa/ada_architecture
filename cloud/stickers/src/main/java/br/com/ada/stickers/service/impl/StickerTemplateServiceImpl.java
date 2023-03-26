@@ -25,8 +25,14 @@ public class StickerTemplateServiceImpl implements StickerTemplateService {
     }
     
     @Override
-    public List<StickerTemplateDTO> findAll() {
-        return mapper.parseListDTO(repository.findAll());
+    public List<StickerTemplateDTO> findAll(Optional<String> opAlbumTemplateId) {
+    	List<StickerTemplate> stickerTemplates;
+    	if (opAlbumTemplateId.isPresent()) {
+    		stickerTemplates = repository.findByAlbumTemplateId(opAlbumTemplateId.get());
+    	} else {
+    		stickerTemplates = repository.findAll();
+    	}
+        return mapper.parseListDTO(stickerTemplates);
     }
 
     @Override

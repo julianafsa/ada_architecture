@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.albuns.client.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class StickerTemplateUpdateDTO {
+public class StickerTemplateCreationDTO {
     @NotBlank(message = "albumTemplateUuid field is missing or blank.")
     private String albumTemplateId;
 
@@ -21,7 +21,7 @@ public class StickerTemplateUpdateDTO {
     @NotBlank(message = "Image field is missing or blank.")
     private String image;
 
-    @NotNull(message = "Rarity field is missing or blank.")
+    @NotNull(message = "Rarirty field is missing or blank.")
     //@Pattern(regexp="[1-4]")
     private Integer rarity;
 

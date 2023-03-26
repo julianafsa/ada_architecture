@@ -5,10 +5,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
+import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.entity.AlbumTemplate;
 import br.com.ada.albuns.model.mapper.AlbumTemplateMapper;
+import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.repository.AlbumTemplateRepository;
+import br.com.ada.albuns.service.AlbumService;
 import br.com.ada.albuns.service.AlbumTemplateService;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,10 +21,12 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
 
   private final AlbumTemplateRepository repository;
   private final AlbumTemplateMapper mapper;
+  private final AlbumRepository albumRepository;
 
-  public AlbumTemplateServiceImpl(AlbumTemplateRepository repository, AlbumTemplateMapper mapper) {
+  public AlbumTemplateServiceImpl(AlbumTemplateRepository repository, AlbumTemplateMapper mapper, AlbumRepository albumRepository) {
     this.repository = repository;
     this.mapper = mapper;
+    this.albumRepository = albumRepository;
   }
 
   @Override
@@ -43,7 +49,8 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
     AlbumTemplate albumTemplate = mapper.parseEntity(entity);
     albumTemplate.setId(null);
 
-    repository.save(albumTemplate);
+    albumTemplate = repository.save(albumTemplate);
+    this.createDefaultAlbum(albumTemplate);
     return mapper.parseDTO(albumTemplate);
   }
 
@@ -64,6 +71,15 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
       throw new EntityNotFoundException();
     }
     repository.deleteById(id);
+  }
+  
+  private void createDefaultAlbum(AlbumTemplate albumTemplate) {
+	  Album album = Album.builder()
+			  .id(null)
+			  .userId(null)
+			  .albumTemplateId(albumTemplate.getId())
+			  .build();
+	  albumRepository.save(album);
   }
 
 }

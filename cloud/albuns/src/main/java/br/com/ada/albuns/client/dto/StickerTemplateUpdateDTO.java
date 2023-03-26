@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.albuns.client.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

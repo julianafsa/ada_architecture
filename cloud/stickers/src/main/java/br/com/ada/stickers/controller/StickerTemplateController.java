@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin(origins = "*")
@@ -23,10 +24,11 @@ public class StickerTemplateController {
     protected final StickerTemplateService service;
     public StickerTemplateController(final StickerTemplateService service) {
         this.service = service;
+    
     }
     @GetMapping
-    public ResponseEntity<List<StickerTemplateDTO>> findAll() {
-        final List<StickerTemplateDTO> response = service.findAll();
+    public ResponseEntity<List<StickerTemplateDTO>> findAll(@RequestParam("albumTemplateId") Optional<String> opAlbumTemplateId) {
+        final List<StickerTemplateDTO> response = service.findAll(opAlbumTemplateId);
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
         }

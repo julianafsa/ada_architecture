@@ -54,7 +54,7 @@ public class StickerServiceImpl implements StickerService {
     public StickerDTO create(final StickerCreationDTO creationDTO) {
         Sticker entity = mapper.parseEntity(creationDTO);
         StickerTemplate stickerTemplateEntity = stickerTemplateMapper.parseEntity(
-                stickerTemplateService.findById(creationDTO.getStickerTemplate().getId()));
+                stickerTemplateService.findById(creationDTO.getStickerTemplateId()));
         entity.setId(null);
         entity.setStickerTemplate(stickerTemplateEntity);
         entity = repository.save(entity);

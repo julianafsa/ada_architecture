@@ -31,10 +31,10 @@ public class AlbumTemplate {
   @Column(name = "cover", nullable = false)
   private String cover;
 
-  @Column(name = "numStickers", nullable = false, unique = true)
+  @Column(name = "numStickers", nullable = false)
   private Long numStickers;
 
-  @Column(name = "albumPrice", nullable = false, unique = true)
+  @Column(name = "albumPrice", nullable = false)
   private BigDecimal price;
 
   @Column(name = "launchDate", nullable = false)
