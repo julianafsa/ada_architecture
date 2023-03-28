@@ -12,7 +12,7 @@ import br.com.ada.albuns.client.dto.StickerTemplateUpdateDTO;
 
 import java.util.List;
 
-@FeignClient(value = "stickerTemplateClient", url = "http://localhost:8090/sticker/template")
+@FeignClient(name = "stickers", path="/sticker/template", contextId="stickers-teamplate")
 public interface StickerTemplateClient {
 
     @GetMapping
