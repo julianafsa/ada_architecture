@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,8 +24,8 @@ public class Sticker {
     @Column(name = "albumId", nullable = false)
     private String albumId;
 
-    @OneToOne(mappedBy = "sticker")
-    private StickerJournal stickJournal;
+    @OneToMany(mappedBy = "sticker")
+    private List<StickerJournal> stickJournal;
 
     @OneToOne(mappedBy = "sticker")
     private StickerToSell stickerToSell;

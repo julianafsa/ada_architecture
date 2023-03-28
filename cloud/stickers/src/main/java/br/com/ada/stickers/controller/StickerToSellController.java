@@ -3,6 +3,7 @@ package br.com.ada.stickers.controller;
 import br.com.ada.stickers.model.dto.StickerToSellCreationDTO;
 import br.com.ada.stickers.model.dto.StickerToSellDTO;
 import br.com.ada.stickers.model.dto.StickerToSellUpdateDTO;
+import br.com.ada.stickers.model.mapper.StickerToSellMapper;
 import br.com.ada.stickers.service.StickerToSellService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -20,9 +21,12 @@ import java.util.List;
 @RequestMapping(value = "/sticker/sell")
 public class StickerToSellController {
 
-    protected final StickerToSellService service;
-    public StickerToSellController(final StickerToSellService service) {
+    private final StickerToSellService service;
+    private final StickerToSellMapper mapper;
+    public StickerToSellController(final StickerToSellService service,
+                                   final StickerToSellMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GetMapping
@@ -37,7 +41,7 @@ public class StickerToSellController {
     @GetMapping("/{id}")
     public ResponseEntity<StickerToSellDTO> findById(@PathVariable("id") String id) {
         try {
-            return ResponseEntity.ok(service.findById(id));
+            return ResponseEntity.ok(mapper.parseDTO(service.findById(id)));
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception ex) {
