@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequestMapping(value = "/sticker/template")
 public class StickerTemplateController {
 
-    protected final StickerTemplateService service;
+    private final StickerTemplateService service;
     public StickerTemplateController(final StickerTemplateService service) {
         this.service = service;
     
