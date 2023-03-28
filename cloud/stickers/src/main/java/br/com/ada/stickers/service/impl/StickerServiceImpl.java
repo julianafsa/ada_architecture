@@ -24,10 +24,10 @@ public class StickerServiceImpl implements StickerService {
     private final StickerTemplateService stickerTemplateService;
     private final StickerTemplateMapper stickerTemplateMapper;
 
-    //@PersistenceContext
-    //private EntityManager em;
-
-    public StickerServiceImpl(final StickerRepository repository, final StickerMapper mapper, final StickerTemplateService stickerTemplateService, final StickerTemplateMapper stickerTemplateMapper) {
+    public StickerServiceImpl(final StickerRepository repository,
+                              final StickerMapper mapper,
+                              final StickerTemplateService stickerTemplateService,
+                              final StickerTemplateMapper stickerTemplateMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.stickerTemplateService = stickerTemplateService;
@@ -63,14 +63,25 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
-    public StickerDTO edit(final String id, final StickerUpdateDTO updateDTO) {
+    public Sticker edit(final String id, final StickerUpdateDTO updateDTO) {
         if (repository.existsById(id)) {
             Sticker entity = mapper.parseEntity(updateDTO);
             entity.setId(id);
             entity = repository.save(entity);
-            return mapper.parseDTO(entity);
+            return entity;
         }
         throw new EntityNotFoundException();
+    }
+
+    @Override
+    public List<Sticker> editAll(final List<Sticker> entities) {
+        for (Sticker stickerToUpdate : entities) {
+            if (!repository.existsById(stickerToUpdate.getId())) {
+                throw new EntityNotFoundException();
+            }
+        }
+        repository.saveAll(entities);
+        return entities;
     }
 
     @Override
@@ -80,4 +91,10 @@ public class StickerServiceImpl implements StickerService {
         }
         repository.deleteById(id);
     }
+
+    @Override
+    public List<Sticker> findByAlbumId(String albumId) {
+        return repository.findByAlbumId(albumId);
+    }
+
 }

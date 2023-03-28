@@ -2,6 +2,7 @@ package br.com.ada.stickers.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @Entity
 @Table(name = "sticker_journal")
 @NoArgsConstructor
@@ -26,8 +28,8 @@ public class StickerJournal {
     @Column(name = "destinationAlbumId", nullable = false)
     private String destinationAlbumId;
 
-    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "stickerIdFk", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Sticker sticker;
 
     @Column(name = "date", nullable = false, updatable = false)

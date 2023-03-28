@@ -24,9 +24,6 @@ public class StickerToSellServiceImpl implements StickerToSellService {
     private final StickerService stickerService;
     private final StickerMapper stickerMapper;
 
-    //@PersistenceContext
-    //private EntityManager em;
-
     public StickerToSellServiceImpl(final StickerToSellRepository repository,
                                     final StickerToSellMapper mapper,
                                     final StickerService stickerService,
@@ -43,11 +40,10 @@ public class StickerToSellServiceImpl implements StickerToSellService {
     }
 
     @Override
-    public StickerToSellDTO findById(final String id) {
+    public StickerToSell findById(final String id) {
         Optional<StickerToSell> optional = repository.findById(id);
         if (optional.isPresent()) {
-            final StickerToSell entity = optional.get();
-            return mapper.parseDTO(entity);
+            return optional.get();
         }
         throw new EntityNotFoundException();
     }
@@ -61,7 +57,6 @@ public class StickerToSellServiceImpl implements StickerToSellService {
         entity.setId(null);
         entity.setSticker(stickerEntity);
         entity = repository.save(entity);
-        //em.refresh(entity);
         return mapper.parseDTO(entity);
     }
 
@@ -84,5 +79,19 @@ public class StickerToSellServiceImpl implements StickerToSellService {
             throw new EntityNotFoundException();
         }
         repository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByStickerId(String stickerId) {
+        Optional<StickerToSell> optional = repository.findByStickerId(stickerId);
+        if (!optional.isPresent()) {
+            throw new EntityNotFoundException();
+        }
+        repository.deleteById(optional.get().getId());
+    }
+
+    @Override
+    public Optional<StickerToSell> findByStickerId(String stickerId) {
+        return repository.findByStickerId(stickerId);
     }
 }
