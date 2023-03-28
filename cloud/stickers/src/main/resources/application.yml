@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: stickers
   datasource:
     url: jdbc:h2:mem:stickersdb
     #url: jdbc:h2:file:.\src\main\resources\stickers_db\stickersdb
@@ -12,6 +14,13 @@ spring:
 
 server:
   port: 8090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 
 # actuator
 management:
