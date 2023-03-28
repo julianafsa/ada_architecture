@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,7 +20,7 @@ import br.com.ada.stickers.model.dto.StickerTemplateDTO;
 import br.com.ada.stickers.model.dto.StickerTemplateUpdateDTO;
 import br.com.ada.stickers.service.impl.StickerTemplateServiceImpl;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class StickerTemplateControllerTest {
 
   @Mock

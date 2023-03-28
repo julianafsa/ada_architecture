@@ -1,24 +1,21 @@
 package br.com.ada.stickers.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.ada.stickers.model.dto.StickerTemplateDTO;
 import br.com.ada.stickers.model.entity.StickerTemplate;
-// import br.com.ada.stickers.model.dto.StickerTemplateDTO;
 import br.com.ada.stickers.model.mapper.StickerTemplateMapper;
 import br.com.ada.stickers.repository.StickerTemplateRepository;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class StickerTemplateServiceImplTest {
 
   @Mock
