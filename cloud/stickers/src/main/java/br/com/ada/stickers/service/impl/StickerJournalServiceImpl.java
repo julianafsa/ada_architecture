@@ -52,7 +52,7 @@ public class StickerJournalServiceImpl implements StickerJournalService {
                 stickerService.findById(creationDTO.getSticker().getId()));
         entity.setId(null);
         entity.setSticker(stickerEntity);
-        repository.save(entity);
+        entity = repository.save(entity);
         return mapper.parseDTO(entity);
     }
 
