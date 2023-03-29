@@ -1,9 +1,9 @@
 package br.com.ada.albuns.client.dto;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 public class StickerDTO {
     private String id;

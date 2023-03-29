@@ -50,11 +50,16 @@ public class AlbumController {
     /* Retrieve All Albums */
     @GetMapping
     public ResponseEntity<List<AlbumDTO>> findAll() {
-        List<AlbumDTO> result = service.findAll();
-        if (result.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
-        }
-        return ResponseEntity.ok(result);
+    	try {
+	        List<AlbumDTO> result = service.findAll();
+	        if (result.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	        }
+	        return ResponseEntity.ok(result);
+    	} catch (Exception ex) {
+    		log.error(ex.getMessage());
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    	}
     }
 
     /* Retrieve Album By Id */

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ada.albuns.model.dto.AlbumJournalDTO;
 import br.com.ada.albuns.service.AlbumJournalService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/album/journal")
 public class AlbumJournalController {
@@ -24,10 +26,15 @@ public class AlbumJournalController {
     /* Retrieve All Album Journals */
     @GetMapping
     public ResponseEntity<List<AlbumJournalDTO>> findAll() {
-        List<AlbumJournalDTO> result = service.findAll();
-        if (result.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
+    	try {
+	        List<AlbumJournalDTO> result = service.findAll();
+	        if (result.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	        }
+	        return ResponseEntity.ok(result);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.ok(result);
     }
 }

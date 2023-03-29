@@ -42,10 +42,9 @@ public class AlbumServiceImpl implements AlbumService {
     Album album = mapper.parseEntity(entity);
     album.setId(null);
 
-    repository.save(album);
+    album = repository.save(album);
     
     stickerService.createStickersForAlbum(entity.getAlbumTemplateId());
-    
     
     return mapper.parseDTO(album);
   }

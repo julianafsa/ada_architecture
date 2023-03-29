@@ -48,11 +48,15 @@ public class AlbumTemplateController {
     /* Retrive All Album Teamplate */
     @GetMapping
     public ResponseEntity<List<AlbumTemplateDTO>> findAll() {
-        List<AlbumTemplateDTO> result = service.findAll();
-        if (result.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
-        }
-        return ResponseEntity.ok(result);
+    	try {
+	        List<AlbumTemplateDTO> result = service.findAll();
+	        if (result.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	        }
+	        return ResponseEntity.ok(result);
+    	} catch (Exception ex) {
+    		return ResponseEntity.internalServerError().build();
+    	}
     }
 
     /* Retrive Album By Id */
@@ -78,7 +82,7 @@ public class AlbumTemplateController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception ex) {
             log.error(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -92,7 +96,7 @@ public class AlbumTemplateController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception ex) {
             log.error(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
