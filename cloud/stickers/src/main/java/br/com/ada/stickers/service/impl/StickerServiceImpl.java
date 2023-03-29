@@ -64,8 +64,9 @@ public class StickerServiceImpl implements StickerService {
 
     @Override
     public Sticker edit(final String id, final StickerUpdateDTO updateDTO) {
-        if (repository.existsById(id)) {
-            Sticker entity = mapper.parseEntity(updateDTO);
+        final Optional<Sticker> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            Sticker entity = optional.get();
             entity.setId(id);
             entity = repository.save(entity);
             return entity;
