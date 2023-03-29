@@ -49,7 +49,6 @@ public class StickerToSellServiceImpl implements StickerToSellService {
     }
 
     @Override
-    //@Transactional
     public StickerToSellDTO create(final StickerToSellCreationDTO creationDTO) {
         StickerToSell entity = mapper.parseEntity(creationDTO);
         Sticker stickerEntity = stickerMapper.parseEntity(
