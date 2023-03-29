@@ -1,9 +1,5 @@
 package br.com.ada.albuns.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
@@ -11,9 +7,12 @@ import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.service.AlbumService;
 import br.com.ada.albuns.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-public class AlbumServiceImpl implements AlbumService {
+public class  AlbumServiceImpl implements AlbumService {
 
   private final AlbumRepository repository;
   private final AlbumMapper mapper;
