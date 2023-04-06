@@ -13,4 +13,7 @@ import br.com.ada.albuns.client.dto.StickerDTO;
 public interface StickerClient {
     @PostMapping
     ResponseEntity<StickerDTO> create(@RequestBody @Valid StickerCreationDTO creationDTO);
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") String id);
 }

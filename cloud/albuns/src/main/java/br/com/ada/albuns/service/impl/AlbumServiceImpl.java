@@ -42,9 +42,21 @@ public class AlbumServiceImpl implements AlbumService {
     Album album = mapper.parseEntity(entity);
     album.setId(null);
 
+    boolean shouldRevertAlbumCreation = false;
     album = repository.save(album);
     
-    stickerService.createStickersForAlbum(entity.getAlbumTemplateId());
+    try {
+	    if (!stickerService.createStickersForAlbum(entity.getAlbumTemplateId())) {
+	    	shouldRevertAlbumCreation = true;
+	    }
+    } catch (Exception e) {
+    	shouldRevertAlbumCreation = true;
+    }
+    
+    if (shouldRevertAlbumCreation) {
+    	repository.delete(album);
+    	throw new RuntimeException("Error creating album");
+    }
     
     return mapper.parseDTO(album);
   }
