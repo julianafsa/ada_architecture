@@ -10,6 +10,7 @@ import br.com.ada.stickers.model.mapper.StickerJournalMapperImpl;
 import br.com.ada.stickers.model.mapper.StickerMapper;
 import br.com.ada.stickers.model.mapper.StickerMapperImpl;
 import br.com.ada.stickers.repository.StickerJournalRepository;
+import br.com.ada.stickers.service.Redis;
 import br.com.ada.stickers.service.StickerJournalService;
 import br.com.ada.stickers.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,6 +36,7 @@ class StickerJournalServiceImplTest {
     private StickerJournalService service;
     private StickerService stickerService;
     private StickerMapper stickerMapper;
+    private Redis jedis;
 
     @BeforeEach
     public void init() {
@@ -42,8 +44,9 @@ class StickerJournalServiceImplTest {
         this.mapper = new StickerJournalMapperImpl();
         this.stickerService = mock(StickerService.class);
         this.stickerMapper = new StickerMapperImpl();
+        this.jedis = new RedisImpl();
         this.service = new StickerJournalServiceImpl(
-                repository, mapper, stickerService, stickerMapper);
+                repository, mapper, stickerService, stickerMapper, jedis);
     }
 
     @Test
