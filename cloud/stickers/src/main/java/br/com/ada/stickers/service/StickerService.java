@@ -1,5 +1,6 @@
 package br.com.ada.stickers.service;
 
+import br.com.ada.stickers.model.dto.CreateStickerMessage;
 import br.com.ada.stickers.model.dto.StickerCreationDTO;
 import br.com.ada.stickers.model.dto.StickerDTO;
 import br.com.ada.stickers.model.dto.StickerUpdateDTO;
@@ -16,4 +17,5 @@ public interface StickerService {
     void delete(String id);
     List<Sticker> findByAlbumId(String albumId);
     List<Sticker> editAll(List<Sticker> entities);
+    boolean createStickersForAlbum(CreateStickerMessage createStickerMessage);
 }

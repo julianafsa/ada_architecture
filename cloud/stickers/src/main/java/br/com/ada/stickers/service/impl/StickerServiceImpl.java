@@ -1,8 +1,6 @@
 package br.com.ada.stickers.service.impl;
 
-import br.com.ada.stickers.model.dto.StickerCreationDTO;
-import br.com.ada.stickers.model.dto.StickerDTO;
-import br.com.ada.stickers.model.dto.StickerUpdateDTO;
+import br.com.ada.stickers.model.dto.*;
 import br.com.ada.stickers.model.entity.Sticker;
 import br.com.ada.stickers.model.entity.StickerTemplate;
 import br.com.ada.stickers.model.mapper.StickerMapper;
@@ -11,12 +9,15 @@ import br.com.ada.stickers.repository.StickerRepository;
 import br.com.ada.stickers.service.StickerService;
 import br.com.ada.stickers.service.StickerTemplateService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class StickerServiceImpl implements StickerService {
 
     private final StickerRepository repository;
@@ -98,4 +99,93 @@ public class StickerServiceImpl implements StickerService {
         return repository.findByAlbumId(albumId);
     }
 
+
+    @Override
+    public boolean createStickersForAlbum(CreateStickerMessage createStickerMessage) {
+        List<StickerDTO> stickersCreated = new ArrayList<>();
+        boolean shouldRevertStickersCreation = false;
+
+        try {
+            List<StickerTemplateDTO> stickerTemplates = stickerTemplateService.findAll(Optional.ofNullable(createStickerMessage.getAlbumTemplateId()));
+//            if (!stickerTemplatesResponse.getStatusCode().equals(HttpStatus.OK)) {
+//                log.error("Error retrieving sticker templates: {}", stickerTemplatesResponse.getStatusCode());
+//                throw new EntityNotFoundException("No sticker template found for this album template");
+//            }
+
+            //Album defaultAlbum = albumRepository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException("Default album not found"));
+
+            if (stickerTemplates != null) {
+                for (StickerTemplateDTO stickerTemplate : stickerTemplates) {
+                    List<StickerDTO> stickersCreatedInThisStep =this.createStickers(stickerTemplate, createStickerMessage);
+                    if (stickersCreatedInThisStep != null) {
+                        stickersCreated.addAll(stickersCreatedInThisStep);
+                    } else {
+                        shouldRevertStickersCreation = true;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            shouldRevertStickersCreation = true;
+        }
+
+        if (shouldRevertStickersCreation) {
+            //this.revertStickersCreation(stickersCreated);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    private List<StickerDTO> createStickers(StickerTemplateDTO stickerTemplateDTO, CreateStickerMessage createStickerMessage) {
+        List<StickerDTO> stickersCreated = new ArrayList<>();
+        boolean shouldRevertStickersCreation = false;
+
+        try {
+            StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
+                    .stickerTemplateId(stickerTemplateDTO.getId())
+                    .albumId(createStickerMessage.getAlbumId())
+                    .build();
+
+            int quantity = this.calculateQuantityByRarity(stickerTemplateDTO);
+
+            for (int i = 0; i < quantity; i++) {
+
+                log.info("Creating sticker {} for {}", i + 1, stickerTemplateDTO.getDescription());
+                StickerDTO response = this.create(stickerCreationDTO);
+
+            }
+        } catch (Exception e) {
+            shouldRevertStickersCreation = true;
+        }
+
+        if (shouldRevertStickersCreation) {
+            this.revertStickersCreation(stickersCreated);
+            return null;
+        }
+
+        return stickersCreated;
+    }
+
+    private int calculateQuantityByRarity(StickerTemplateDTO stickerTemplateDTO) {
+        return switch(stickerTemplateDTO.getRarity()) {
+            case 1 -> 1;
+            case 2 -> 3;
+            case 3 -> 6;
+            case 4 -> throw new RuntimeException("Fake exception");//10;
+            default -> 0;
+        };
+    }
+
+    private void revertStickersCreation(List<StickerDTO> stickersToRevert) {
+        stickersToRevert.forEach(stickerToRevert -> {
+            try {
+                log.info("Reverting sticker {}", stickerToRevert.getId());
+               // stickerClient.delete(stickerToRevert.getId());
+            } catch(Exception e) {
+                log.error("Error reverting sticker creation for sticker {}: {}", stickerToRevert.getId(), e.getMessage());
+            }
+        });
+    }
 }

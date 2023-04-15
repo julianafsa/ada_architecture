@@ -33,7 +33,7 @@ public class AlbumServiceImplTest {
 		this.repository = mock(AlbumRepository.class);
 		this.mapper = new AlbumMapperImpl();
 		this.stickerService = mock(StickerService.class);
-		this.service = new AlbumServiceImpl(repository, mapper, stickerService);
+		//this.service = new AlbumServiceImpl(repository, mapper, stickerService);
 	}
 	
 	@Test
