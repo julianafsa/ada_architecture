@@ -1,12 +1,5 @@
 package br.com.ada.albuns.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import br.com.ada.albuns.client.StickerClient;
 import br.com.ada.albuns.client.StickerTemplateClient;
 import br.com.ada.albuns.client.dto.StickerCreationDTO;
@@ -17,6 +10,12 @@ import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -110,7 +109,7 @@ public class StickerServiceImpl implements StickerService {
 			case 1 -> 1;
 			case 2 -> 3;
 			case 3 -> 6;
-			case 4 -> throw new RuntimeException("Fake exception");//10;
+			case 4 -> 10;// throw new RuntimeException("Fake exception");
 			default -> 0;
 		};
 	}
