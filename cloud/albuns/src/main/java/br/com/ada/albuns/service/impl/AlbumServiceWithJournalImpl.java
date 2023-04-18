@@ -1,23 +1,21 @@
 package br.com.ada.albuns.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-import br.com.ada.albuns.model.entity.Album;
-import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 import br.com.ada.albuns.model.dto.AlbumDTO;
+import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.entity.AlbumJournal;
 import br.com.ada.albuns.model.entity.AlbumTemplate;
 import br.com.ada.albuns.repository.AlbumJournalRepository;
 import br.com.ada.albuns.repository.AlbumTemplateRepository;
 import br.com.ada.albuns.service.AlbumService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 // Using the Design Pattern: Decorator Pattern
 // The AlbumServiceWithJournal is an implementation that creates the album and logs the
@@ -82,6 +80,11 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
     @Override
     public AlbumDTO findDefaultAlbum(String albumTemplateId) {
         return albumService.findDefaultAlbum(albumTemplateId);
+    }
+
+    @Override
+    public Optional<String> findUserIdByAlbumId(String albumId) {
+        return repository.findUserIdByAlbumId(albumId);
     }
 
     @Override

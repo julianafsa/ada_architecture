@@ -10,24 +10,28 @@ import br.com.ada.stickers.repository.StickerJournalRepository;
 import br.com.ada.stickers.service.StickerJournalService;
 import br.com.ada.stickers.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class StickerJournalServiceImpl implements StickerJournalService {
 
     private final StickerJournalRepository repository;
     private final StickerJournalMapper mapper;
     private final StickerService stickerService;
     private final StickerMapper stickerMapper;
-
+    //private final Redis jedis;
     public StickerJournalServiceImpl(final StickerJournalRepository repository, final StickerJournalMapper mapper, final StickerService stickerService, final StickerMapper stickerMapper) {
+        //final Redis jedis) {
         this.repository = repository;
         this.mapper = mapper;
         this.stickerService = stickerService;
         this.stickerMapper = stickerMapper;
+        //this.jedis = jedis;
     }
     
     @Override
@@ -53,6 +57,7 @@ public class StickerJournalServiceImpl implements StickerJournalService {
         entity.setId(null);
         entity.setSticker(stickerEntity);
         entity = repository.save(entity);
+//        this.jedis.save(entity.getSourceAlbumId(), entity.getPrice());
         return mapper.parseDTO(entity);
     }
 

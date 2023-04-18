@@ -5,13 +5,11 @@ import br.com.ada.stickers.model.dto.*;
 import br.com.ada.stickers.model.entity.Sticker;
 import br.com.ada.stickers.model.entity.StickerToSell;
 import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.service.StickerJournalService;
-import br.com.ada.stickers.service.StickerService;
-import br.com.ada.stickers.service.StickerServiceWithJournal;
-import br.com.ada.stickers.service.StickerToSellService;
+import br.com.ada.stickers.service.*;
 import br.com.ada.stickers.strategy.StickerPackStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import br.com.ada.stickers.service.Redis;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,15 +32,22 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
     private final StickerMapper stickerMapper;
     private final StickerToSellService stickerToSellService;
     private final StickerPackStrategy stickerPackStrategy;
+    private final AlbumService albumService;
+    private final Redis jedis;
     public StickerServiceWithJournalImpl(final StickerService stickerService,
                                          final StickerJournalService stickerJournalService,
                                          final StickerMapper stickerMapper,
-                                         final StickerToSellService stickerToSellService, StickerPackStrategy stickerPackStrategy) {
+                                         final StickerToSellService stickerToSellService,
+                                         final StickerPackStrategy stickerPackStrategy,
+                                         final AlbumService albumService,
+                                         final Redis jedis) {
         this.stickerService = stickerService;
         this.stickerJournalService = stickerJournalService;
         this.stickerMapper = stickerMapper;
         this.stickerToSellService = stickerToSellService;
         this.stickerPackStrategy = stickerPackStrategy;
+        this.albumService = albumService;
+        this.jedis = jedis;
     }
     
     @Override
@@ -96,6 +101,13 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
                 .stickerTemplateId(sticker.getStickerTemplate().getId())
                 .build();
         sticker = stickerService.edit(stickerId, stickerUpdateDTO);
+
+//        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(destinationAlbumId);
+//        if (userIdOp.isPresent()) {
+            //final String userId = userIdOp.get();
+            //this.jedis.save(userId, stickerToSell.getPrice());
+//        }
+        this.jedis.save(destinationAlbumId, stickerToSell.getPrice());
 
         // It makes the sticker unavailable for sale.
         this.stickerToSellService.deleteByStickerId(stickerId);

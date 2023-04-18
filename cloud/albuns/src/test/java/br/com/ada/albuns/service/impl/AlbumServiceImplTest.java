@@ -22,8 +22,8 @@ import static org.mockito.Mockito.when;
 public class AlbumServiceImplTest {
 	private AlbumRepository repository;
 	private AlbumMapper mapper;
-	private AlbumServiceImpl service;
 	private AlbumProducer producer;
+	private AlbumServiceImpl service;
 
 	@BeforeEach
 	public void setUp() {

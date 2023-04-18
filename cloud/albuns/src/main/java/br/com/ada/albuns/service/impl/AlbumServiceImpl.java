@@ -6,6 +6,7 @@ import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.service.AlbumService;
+import br.com.ada.albuns.service.StickerService;
 import br.com.ada.albuns.service.producer.AlbumProducer;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class AlbumServiceImpl implements AlbumService {
+public class  AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository repository;
     private final AlbumMapper mapper;
@@ -80,4 +81,10 @@ public class AlbumServiceImpl implements AlbumService {
     public Optional<Album> findByAlbumId(String id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Optional<String> findUserIdByAlbumId(String albumId) {
+        return repository.findUserIdByAlbumId(albumId);
+    }
+
 }
