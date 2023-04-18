@@ -1,39 +1,36 @@
 package br.com.ada.albuns.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.model.mapper.AlbumMapperImpl;
 import br.com.ada.albuns.repository.AlbumRepository;
-import br.com.ada.albuns.service.StickerService;
+import br.com.ada.albuns.service.producer.AlbumProducer;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AlbumServiceImplTest {
 	private AlbumRepository repository;
 	private AlbumMapper mapper;
-	private StickerService stickerService;
+	private AlbumProducer producer;
 	private AlbumServiceImpl service;
 
 	@BeforeEach
 	public void setUp() {
 		this.repository = mock(AlbumRepository.class);
 		this.mapper = new AlbumMapperImpl();
-		this.stickerService = mock(StickerService.class);
-		this.service = new AlbumServiceImpl(repository, mapper, stickerService);
+		this.producer = mock(AlbumProducer.class);
+		this.service = new AlbumServiceImpl(repository, mapper, producer);
 	}
 	
 	@Test
