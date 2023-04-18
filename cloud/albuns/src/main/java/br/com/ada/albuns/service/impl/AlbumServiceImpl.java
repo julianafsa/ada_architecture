@@ -1,19 +1,18 @@
 package br.com.ada.albuns.service.impl;
 
-import java.util.*;
-
-import br.com.ada.albuns.model.dto.CreateStickerMessage;
-import br.com.ada.albuns.service.producer.AlbumProducer;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
 import br.com.ada.albuns.model.dto.AlbumDTO;
+import br.com.ada.albuns.model.dto.CreateStickerMessage;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.service.AlbumService;
-import br.com.ada.albuns.service.StickerService;
+import br.com.ada.albuns.service.producer.AlbumProducer;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -21,14 +20,11 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository repository;
     private final AlbumMapper mapper;
-    private final StickerService stickerService;
     private final AlbumProducer producer;
 
-    public AlbumServiceImpl(AlbumRepository repository, AlbumMapper mapper,
-                            StickerService stickerService, AlbumProducer producer) {
+    public AlbumServiceImpl(AlbumRepository repository, AlbumMapper mapper, AlbumProducer producer) {
         this.repository = repository;
         this.mapper = mapper;
-        this.stickerService = stickerService;
         this.producer = producer;
     }
 

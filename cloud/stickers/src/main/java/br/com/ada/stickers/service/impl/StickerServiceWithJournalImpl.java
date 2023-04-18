@@ -54,6 +54,7 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
 
         // Get list of stickers from album template
         final List<Sticker> stickersFromAlbumId = stickerService.findByAlbumId(albumId);
+        //final List<Sticker> stickersFromDestnationAlbumId = stickerService.findByAlbumId(destinationAlbumId);
 
         // It generates a pack of stickers to be sold
         soldStickers = stickerPackStrategy.createStickerPack(stickersFromAlbumId, size);

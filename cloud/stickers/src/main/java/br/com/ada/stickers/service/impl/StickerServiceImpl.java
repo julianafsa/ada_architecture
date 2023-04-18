@@ -142,15 +142,12 @@ public class StickerServiceImpl implements StickerService {
 
     private List<Sticker> createStickers(StickerTemplateDTO stickerTemplateDTO, CreateStickerMessage createStickerMessage) {
         List<Sticker> stickersToCreate = new ArrayList<>();
-
         try {
             StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
                     .stickerTemplateId(stickerTemplateDTO.getId())
                     .albumId(createStickerMessage.getAlbumId())
                     .build();
-
             int quantity = this.calculateQuantityByRarity(stickerTemplateDTO);
-
             for (int i = 0; i < quantity; i++) {
 
                 log.info("Creating sticker {} for {}", i + 1, stickerTemplateDTO.getDescription());
@@ -167,7 +164,7 @@ public class StickerServiceImpl implements StickerService {
             case 1 -> 1;
             case 2 -> 3;
             case 3 -> 6;
-            case 4 -> throw new RuntimeException("Fake exception");//10;
+            case 4 -> 10; //throw new RuntimeException("Fake exception");
             default -> 0;
         };
     }
