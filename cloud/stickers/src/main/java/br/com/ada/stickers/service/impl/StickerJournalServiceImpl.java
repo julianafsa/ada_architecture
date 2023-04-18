@@ -7,7 +7,6 @@ import br.com.ada.stickers.model.entity.StickerJournal;
 import br.com.ada.stickers.model.mapper.StickerJournalMapper;
 import br.com.ada.stickers.model.mapper.StickerMapper;
 import br.com.ada.stickers.repository.StickerJournalRepository;
-import br.com.ada.stickers.service.Redis;
 import br.com.ada.stickers.service.StickerJournalService;
 import br.com.ada.stickers.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,14 +24,14 @@ public class StickerJournalServiceImpl implements StickerJournalService {
     private final StickerJournalMapper mapper;
     private final StickerService stickerService;
     private final StickerMapper stickerMapper;
-    private final Redis jedis;
-    public StickerJournalServiceImpl(final StickerJournalRepository repository, final StickerJournalMapper mapper, final StickerService stickerService, final StickerMapper stickerMapper,
-        final Redis jedis) {
+    //private final Redis jedis;
+    public StickerJournalServiceImpl(final StickerJournalRepository repository, final StickerJournalMapper mapper, final StickerService stickerService, final StickerMapper stickerMapper) {
+        //final Redis jedis) {
         this.repository = repository;
         this.mapper = mapper;
         this.stickerService = stickerService;
         this.stickerMapper = stickerMapper;
-        this.jedis = jedis;
+        //this.jedis = jedis;
     }
     
     @Override
@@ -58,7 +57,7 @@ public class StickerJournalServiceImpl implements StickerJournalService {
         entity.setId(null);
         entity.setSticker(stickerEntity);
         entity = repository.save(entity);
-        this.jedis.save(entity.getSourceAlbumId(), entity.getPrice());
+//        this.jedis.save(entity.getSourceAlbumId(), entity.getPrice());
         return mapper.parseDTO(entity);
     }
 

@@ -1,8 +1,9 @@
 package br.com.ada.albuns.service;
 
-import java.util.List;
-
 import br.com.ada.albuns.model.dto.AlbumDTO;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface AlbumService {
 
@@ -10,4 +11,5 @@ public interface AlbumService {
   AlbumDTO findById(String id);
   AlbumDTO create(AlbumDTO entity);
   AlbumDTO findDefaultAlbum(String albumTemplateId);
+  Optional<String> findUserIdByAlbumId(String albumId);
 }

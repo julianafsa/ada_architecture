@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class  AlbumServiceImpl implements AlbumService {
@@ -52,5 +53,10 @@ public class  AlbumServiceImpl implements AlbumService {
   public AlbumDTO findDefaultAlbum(String albumTemplateId) {
     Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
     return mapper.parseDTO(defaultAlbum);
+  }
+
+  @Override
+  public Optional<String> findUserIdByAlbumId(String albumId) {
+    return repository.findUserIdByAlbumId(albumId);
   }
 }

@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/album_db/albunsdb.mv.db
+/src/main/resources/stickers_db/stickersdb.mv.db
