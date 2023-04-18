@@ -1,10 +1,10 @@
 package br.com.ada.albuns.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import br.com.ada.albuns.model.dto.CreateStickerMessage;
 import br.com.ada.albuns.service.producer.AlbumProducer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import br.com.ada.albuns.model.dto.AlbumDTO;
@@ -16,6 +16,7 @@ import br.com.ada.albuns.service.StickerService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+@Slf4j
 public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository repository;
@@ -47,31 +48,18 @@ public class AlbumServiceImpl implements AlbumService {
         Album album = mapper.parseEntity(entity);
         album.setId(null);
 
-        boolean shouldRevertAlbumCreation = true;
-        album = repository.save(album);
+        try{
+            album = repository.save(album);
+            CreateStickerMessage message = CreateStickerMessage.builder()
+                    .albumId(album.getId())
+                    .albumTemplateId(album.getAlbumTemplateId())
+                    .build();
 
-        try {
-//            if (!stickerService.createStickersForAlbum(entity.getAlbumTemplateId())) {
-//                shouldRevertAlbumCreation = true;
-//            }
+            producer.send(message);
 
-            Map<String, Object> map = new HashMap<>();
-
-            map.put("albumId", album.getId());
-            map.put("albumTemplateId", album.getAlbumTemplateId());
-            producer.send(map);
-            shouldRevertAlbumCreation = true;
-
-
-        } catch (Exception e) {
-            shouldRevertAlbumCreation = true;
+        }catch (RuntimeException e){
+            throw new RuntimeException("Error creating album template...");
         }
-
-//        if (shouldRevertAlbumCreation) {
-//            repository.delete(album);
-//            throw new RuntimeException("Error creating album");
-//        }
-
         return mapper.parseDTO(album);
     }
 
@@ -79,5 +67,21 @@ public class AlbumServiceImpl implements AlbumService {
     public AlbumDTO findDefaultAlbum(String albumTemplateId) {
         Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
         return mapper.parseDTO(defaultAlbum);
+    }
+
+    @Override
+    public void delete(String albumId) {
+        Optional<Album> album = repository.findById(albumId);
+        if(album.isPresent()){
+            log.info("Deleting album id: " + album.get().getId());
+            repository.delete(album.get());
+        }else{
+            throw new RuntimeException("Error to find album");
+        }
+    }
+
+    @Override
+    public Optional<Album> findByAlbumId(String id) {
+        return repository.findById(id);
     }
 }

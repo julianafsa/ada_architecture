@@ -11,6 +11,18 @@ spring:
     hibernate:
       ddl-auto: update
   kafka:
+    producer:
+      bootstrap-servers: causal-fish-14951-us1-kafka.upstash.io:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: group_id
+      properties:
+        sasl:
+          mechanism: SCRAM-SHA-256
+          jaas:
+            config: org.apache.kafka.common.security.scram.ScramLoginModule required username="Y2F1c2FsLWZpc2gtMTQ5NTEkaoCgNZ35C2SPvCntyrS7B2Vx4YChdbiktRg8jrs" password="b2eb16db21d04a7599bbee313d530f5b";
+        security:
+          protocol: SASL_SSL
     consumer:
       bootstrap-servers: causal-fish-14951-us1-kafka.upstash.io:9092
       key-serializer: org.apache.kafka.common.serialization.StringDeserializer

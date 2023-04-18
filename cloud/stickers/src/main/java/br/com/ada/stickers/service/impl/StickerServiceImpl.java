@@ -8,8 +8,10 @@ import br.com.ada.stickers.model.mapper.StickerTemplateMapper;
 import br.com.ada.stickers.repository.StickerRepository;
 import br.com.ada.stickers.service.StickerService;
 import br.com.ada.stickers.service.StickerTemplateService;
+import br.com.ada.stickers.service.producer.StickerErrorProducer;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class StickerServiceImpl implements StickerService {
     private final StickerMapper mapper;
     private final StickerTemplateService stickerTemplateService;
     private final StickerTemplateMapper stickerTemplateMapper;
+
+    @Autowired
+    private StickerErrorProducer stickerErrorProducer;
 
     public StickerServiceImpl(final StickerRepository repository,
                               final StickerMapper mapper,
@@ -61,6 +66,18 @@ public class StickerServiceImpl implements StickerService {
         entity = repository.save(entity);
         //em.refresh(entity);
         return mapper.parseDTO(entity);
+    }
+
+    @Override
+    //@Transactional
+    public Sticker createAll(final StickerCreationDTO creationDTO) {
+        Sticker entity = mapper.parseEntity(creationDTO);
+        StickerTemplate stickerTemplateEntity = stickerTemplateMapper.parseEntity(
+                stickerTemplateService.findById(creationDTO.getStickerTemplateId()));
+        entity.setId(null);
+        entity.setStickerTemplate(stickerTemplateEntity);
+        //em.refresh(entity);
+        return entity;
     }
 
     @Override
@@ -102,35 +119,20 @@ public class StickerServiceImpl implements StickerService {
 
     @Override
     public boolean createStickersForAlbum(CreateStickerMessage createStickerMessage) {
-        List<StickerDTO> stickersCreated = new ArrayList<>();
-        boolean shouldRevertStickersCreation = false;
-
         try {
             List<StickerTemplateDTO> stickerTemplates = stickerTemplateService.findAll(Optional.ofNullable(createStickerMessage.getAlbumTemplateId()));
-//            if (!stickerTemplatesResponse.getStatusCode().equals(HttpStatus.OK)) {
-//                log.error("Error retrieving sticker templates: {}", stickerTemplatesResponse.getStatusCode());
-//                throw new EntityNotFoundException("No sticker template found for this album template");
-//            }
-
-            //Album defaultAlbum = albumRepository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException("Default album not found"));
-
-            if (stickerTemplates != null) {
-                for (StickerTemplateDTO stickerTemplate : stickerTemplates) {
-                    List<StickerDTO> stickersCreatedInThisStep =this.createStickers(stickerTemplate, createStickerMessage);
-                    if (stickersCreatedInThisStep != null) {
-                        stickersCreated.addAll(stickersCreatedInThisStep);
-                    } else {
-                        shouldRevertStickersCreation = true;
-                        break;
-                    }
-                }
+            List<Sticker> stickersToCreateList = new ArrayList<>();
+            if(!stickerTemplates.isEmpty()){
+                stickerTemplates.stream().forEach(s ->
+                        stickersToCreateList.addAll(this.createStickers(s, createStickerMessage))
+                );
+                //throw new RuntimeException("teste");
+                repository.saveAll(stickersToCreateList);
             }
-        } catch (Exception e) {
-            shouldRevertStickersCreation = true;
-        }
 
-        if (shouldRevertStickersCreation) {
-            //this.revertStickersCreation(stickersCreated);
+        } catch (Exception e) {
+            log.error("Sending message error to Kafka");
+            stickerErrorProducer.send(createStickerMessage.getAlbumId());
             return false;
         }
 
@@ -138,9 +140,8 @@ public class StickerServiceImpl implements StickerService {
     }
 
 
-    private List<StickerDTO> createStickers(StickerTemplateDTO stickerTemplateDTO, CreateStickerMessage createStickerMessage) {
-        List<StickerDTO> stickersCreated = new ArrayList<>();
-        boolean shouldRevertStickersCreation = false;
+    private List<Sticker> createStickers(StickerTemplateDTO stickerTemplateDTO, CreateStickerMessage createStickerMessage) {
+        List<Sticker> stickersToCreate = new ArrayList<>();
 
         try {
             StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
@@ -153,19 +154,12 @@ public class StickerServiceImpl implements StickerService {
             for (int i = 0; i < quantity; i++) {
 
                 log.info("Creating sticker {} for {}", i + 1, stickerTemplateDTO.getDescription());
-                StickerDTO response = this.create(stickerCreationDTO);
-
+                stickersToCreate.add(this.createAll(stickerCreationDTO));
             }
         } catch (Exception e) {
-            shouldRevertStickersCreation = true;
+            throw new RuntimeException("Error calcualting sticker quantities");
         }
-
-        if (shouldRevertStickersCreation) {
-            this.revertStickersCreation(stickersCreated);
-            return null;
-        }
-
-        return stickersCreated;
+        return stickersToCreate;
     }
 
     private int calculateQuantityByRarity(StickerTemplateDTO stickerTemplateDTO) {

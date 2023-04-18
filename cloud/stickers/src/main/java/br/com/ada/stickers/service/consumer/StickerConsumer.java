@@ -22,14 +22,14 @@ public class StickerConsumer {
     private StickerService stickerService;
 
     @KafkaListener(topics = "TOPIC_CREATE_STICKERS", groupId = "group_id" )
-    public void consume(ConsumerRecord<String, String> payload){
+    public void consume(ConsumerRecord<String, String> message){
         log.info("Tópico: {}", topicName);
-        log.info("key: {}", payload.key());
-        log.info("Headers: {}", payload.headers());
-        log.info("Partion: {}", payload.partition());
-        log.info("Order: {}", payload.value());
+        log.info("key: {}", message.key());
+        log.info("Headers: {}", message.headers());
+        log.info("Partion: {}", message.partition());
+        log.info("Order: {}", message.value());
 
-        stickerService.createStickersForAlbum(convertToModel(payload));
+        stickerService.createStickersForAlbum(convertToModel(message));
 
     }
 

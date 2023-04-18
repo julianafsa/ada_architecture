@@ -13,6 +13,7 @@ public interface StickerService {
     List<StickerDTO> findAll();
     StickerDTO findById(String id);
     StickerDTO create(StickerCreationDTO creationDTO);
+    Sticker createAll(StickerCreationDTO creationDTO);
     Sticker edit(String id, StickerUpdateDTO updateDTO);
     void delete(String id);
     List<Sticker> findByAlbumId(String albumId);
