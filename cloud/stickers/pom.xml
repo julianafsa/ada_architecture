@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.ada</groupId>
-    <artifactId>stickers</artifactId>
+    <artifactId>figurinhas</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>stickers</name>
-    <description>stickers</description>
+    <name>figurinhas</name>
+    <description>figurinhas</description>
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -127,7 +127,7 @@
                 </executions>
                 <configuration>
                     <excludes> 
-                        <exclude>br/com/ada/stickers/model/**/**/*</exclude>
+                        <exclude>br/com/ada/figurinhas/model/**/**/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>        

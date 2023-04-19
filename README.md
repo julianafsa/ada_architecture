@@ -2,13 +2,13 @@
 Projeto Final do Módulo Arquitetura de Software e Ágil I - Jornada do Conhecimento Backend Java - F1rst Tecnologia e Inovação e Ada.
 
 ## Projetos
-Esse repositório contém projetos (módulos) independentes divididos em três microsserviços: albuns, eureka-server e stickers.
+Esse repositório contém projetos (módulos) independentes divididos em três microsserviços: albuns, eureka-server e figurinhas.
 
 - O microsserviço de "albuns" é responsável pela criação do template de álbuns de figurinhas, pela criação de álbuns da banca e álbuns de usuários e pelo log das vendas de álbuns.
 - O microsserviço de "eureka-server" é responsável pela descoberta de serviços.
-- O microsserviço de "stickers" é responsável pela criação do template de figurinhas, pela criação de figurinhas e pelo log de venda de figurinhas entre os usuários e compra de um pacote de figurinhas da banca.
+- O microsserviço de "figurinhas" é responsável pela criação do template de figurinhas, pela criação de figurinhas e pelo log de venda de figurinhas entre os usuários e compra de um pacote de figurinhas da banca.
 - O microsserviço de "users" é responsável pelo cadastro de usuários. Esse microsserviço encontra-se no seguinte repositório: https://github.com/AlineCruzDEV/users
-- Feign foi utilizado para prover a comunicação entre os microsserviços de albuns e stickers.
+- Feign foi utilizado para prover a comunicação entre os microsserviços de albuns e figurinhas.
 - Usamos os padrões de projeto Decorator e Strategy (indicados no projeto).
 - Aplicamos o princípio de Responsabilidade Única do SOLID.
 
