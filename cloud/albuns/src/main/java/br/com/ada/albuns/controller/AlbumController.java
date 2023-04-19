@@ -71,7 +71,7 @@ public class AlbumController {
     }
 
     /* Retrieve UserId By AlbumId */
-    @GetMapping("/{albumId}")
+    @GetMapping("/user/{albumId}")
     public ResponseEntity<String> findUserIdByAlbumId(@PathVariable("albumId") String albumId) {
         try {
             Optional<String> optional = service.findUserIdByAlbumId(albumId);

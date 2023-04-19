@@ -102,12 +102,11 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
                 .build();
         sticker = stickerService.edit(stickerId, stickerUpdateDTO);
 
-//        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(destinationAlbumId);
-//        if (userIdOp.isPresent()) {
-            //final String userId = userIdOp.get();
-            //this.jedis.save(userId, stickerToSell.getPrice());
-//        }
-        this.jedis.save(destinationAlbumId, stickerToSell.getPrice());
+        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(destinationAlbumId);
+        if (userIdOp.isPresent()) {
+            final String userId = userIdOp.get();
+            this.jedis.save(userId, stickerToSell.getPrice());
+        }
 
         // It makes the sticker unavailable for sale.
         this.stickerToSellService.deleteByStickerId(stickerId);
