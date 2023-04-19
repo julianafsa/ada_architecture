@@ -94,7 +94,7 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
         }
 
         // Update sticker album.
-        final String sourceAlbum = sticker.getAlbumId();
+        final String sourceAlbumId = sticker.getAlbumId();
         sticker.setAlbumId(destinationAlbumId);
         final StickerUpdateDTO stickerUpdateDTO = StickerUpdateDTO.builder()
                 .albumId(sticker.getAlbumId())
@@ -102,17 +102,14 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
                 .build();
         sticker = stickerService.edit(stickerId, stickerUpdateDTO);
 
-        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(destinationAlbumId);
-        if (userIdOp.isPresent()) {
-            final String userId = userIdOp.get();
-            this.jedis.save(userId, stickerToSell.getPrice());
-        }
+        // Update balance on Redis.
+        this.updateBalanceUser(sourceAlbumId, stickerToSell.getPrice());
 
         // It makes the sticker unavailable for sale.
         this.stickerToSellService.deleteByStickerId(stickerId);
 
         // Add the sale to the transaction history (sticker journal).
-        this.addStickerJournal(sourceAlbum, destinationAlbumId, sticker, stickerToSell.getPrice());
+        this.addStickerJournal(sourceAlbumId, destinationAlbumId, sticker, stickerToSell.getPrice());
         return sticker;
     }
 
@@ -125,6 +122,16 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
                 .price(price)
                 .build();
         return stickerJournalService.create(stickerJournalCreationDTO);
+    }
+
+    private boolean updateBalanceUser(String sourceAlbumId, BigDecimal price) {
+        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(sourceAlbumId);
+        if (userIdOp.isPresent()) {
+            final String userId = userIdOp.get();
+            log.info("[REDIS] Trying adding {} to user with id {}...", price, userId);
+            this.jedis.save(userId, price);
+        }
+        return true;
     }
 
 }
