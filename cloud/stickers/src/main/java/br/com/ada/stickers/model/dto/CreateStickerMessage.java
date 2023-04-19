@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class CreateStickerMessage {
     private String albumId;
     private String albumTemplateId;
+    private String defaultAlbumId;
 }
 

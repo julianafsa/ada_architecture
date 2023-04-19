@@ -6,7 +6,6 @@ import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
 import br.com.ada.albuns.service.AlbumService;
-import br.com.ada.albuns.service.StickerService;
 import br.com.ada.albuns.service.producer.AlbumProducer;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -47,14 +46,17 @@ public class  AlbumServiceImpl implements AlbumService {
 
         try{
             album = repository.save(album);
+            final String albumTemplateId = album.getAlbumTemplateId();
+            final Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
             CreateStickerMessage message = CreateStickerMessage.builder()
                     .albumId(album.getId())
-                    .albumTemplateId(album.getAlbumTemplateId())
+                    .albumTemplateId(albumTemplateId)
+                    .defaultAlbumId(defaultAlbum.getId())
                     .build();
 
             producer.send(message);
 
-        }catch (RuntimeException e){
+        } catch (RuntimeException e){
             throw new RuntimeException("Error creating album template...");
         }
         return mapper.parseDTO(album);

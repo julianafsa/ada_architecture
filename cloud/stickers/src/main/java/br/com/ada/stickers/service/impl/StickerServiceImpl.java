@@ -122,7 +122,7 @@ public class StickerServiceImpl implements StickerService {
         try {
             List<StickerTemplateDTO> stickerTemplates = stickerTemplateService.findAll(Optional.ofNullable(createStickerMessage.getAlbumTemplateId()));
             List<Sticker> stickersToCreateList = new ArrayList<>();
-            if(!stickerTemplates.isEmpty()){
+            if (!stickerTemplates.isEmpty()){
                 stickerTemplates.stream().forEach(s ->
                         stickersToCreateList.addAll(this.createStickers(s, createStickerMessage))
                 );
@@ -145,7 +145,7 @@ public class StickerServiceImpl implements StickerService {
         try {
             StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
                     .stickerTemplateId(stickerTemplateDTO.getId())
-                    .albumId(createStickerMessage.getAlbumId())
+                    .albumId(createStickerMessage.getDefaultAlbumId())
                     .build();
             int quantity = this.calculateQuantityByRarity(stickerTemplateDTO);
             for (int i = 0; i < quantity; i++) {
