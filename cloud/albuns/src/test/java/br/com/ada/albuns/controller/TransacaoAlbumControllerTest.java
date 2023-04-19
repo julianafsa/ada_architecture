@@ -8,32 +8,32 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import br.com.ada.albuns.model.dto.TransacaoAlbumDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.ada.albuns.model.dto.AlbumJournalDTO;
-import br.com.ada.albuns.service.AlbumJournalService;
+import br.com.ada.albuns.service.TransacaoAlbumService;
 
-public class AlbumJournalControllerTest {
-	private AlbumJournalController controller;
-	private AlbumJournalService service;
+public class TransacaoAlbumControllerTest {
+	private TransacaoAlbumController controller;
+	private TransacaoAlbumService service;
 	
 	@BeforeEach
 	public void setUp() {
-		this.service = mock(AlbumJournalService.class);
-		this.controller = new AlbumJournalController(this.service);
+		this.service = mock(TransacaoAlbumService.class);
+		this.controller = new TransacaoAlbumController(this.service);
 	}
 
 	@Test
 	public void testFindAll() {
 		// Arrange
-		List<AlbumJournalDTO> albumJournals = List.of(new AlbumJournalDTO());
+		List<TransacaoAlbumDTO> albumJournals = List.of(new TransacaoAlbumDTO());
 		when(service.findAll()).thenReturn(albumJournals);
 		
 		// Act
-		ResponseEntity<List<AlbumJournalDTO>> response = controller.findAll();
+		ResponseEntity<List<TransacaoAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();
@@ -47,7 +47,7 @@ public class AlbumJournalControllerTest {
 		when(service.findAll()).thenReturn(List.of());
 		
 		// Act
-		ResponseEntity<List<AlbumJournalDTO>> response = controller.findAll();
+		ResponseEntity<List<TransacaoAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();
@@ -61,7 +61,7 @@ public class AlbumJournalControllerTest {
 		when(service.findAll()).thenThrow(new RuntimeException());
 		
 		// Act
-		ResponseEntity<List<AlbumJournalDTO>> response = controller.findAll();
+		ResponseEntity<List<TransacaoAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();

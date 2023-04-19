@@ -1,40 +1,35 @@
 package br.com.ada.albuns.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import br.com.ada.albuns.model.dto.AlbumDTO;
+import br.com.ada.albuns.model.entity.PrototipoDeAlbum;
+import br.com.ada.albuns.model.entity.TransacaoAlbum;
+import br.com.ada.albuns.repository.PrototipoDeAlbumRepository;
+import br.com.ada.albuns.repository.TransacaoAlbumRepository;
+import br.com.ada.albuns.service.AlbumService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import br.com.ada.albuns.model.dto.AlbumDTO;
-import br.com.ada.albuns.model.entity.AlbumJournal;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
-import br.com.ada.albuns.repository.AlbumJournalRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
-import br.com.ada.albuns.service.AlbumService;
-
-public class AlbumServiceWithJournalImplTest {
+public class AlbumServiceWithTransacaoImplTest {
 	private AlbumService albumService;
-	private AlbumJournalRepository albumJournalRepository;
-	private AlbumTemplateRepository albumTemplateRepository;
-	private AlbumServiceWithJournalImpl albumServiceWithJournal;
+	private TransacaoAlbumRepository transacaoAlbumRepository;
+	private PrototipoDeAlbumRepository prototipoDeAlbumRepository;
+	private AlbumServiceWithTransacaoImpl albumServiceWithJournal;
 
 	@BeforeEach
 	public void setUp() {
 		this.albumService = mock(AlbumService.class);
-		this.albumJournalRepository = mock(AlbumJournalRepository.class);
-		this.albumTemplateRepository = mock(AlbumTemplateRepository.class);
-		this.albumServiceWithJournal = new AlbumServiceWithJournalImpl(albumService, albumJournalRepository, albumTemplateRepository);
+		this.transacaoAlbumRepository = mock(TransacaoAlbumRepository.class);
+		this.prototipoDeAlbumRepository = mock(PrototipoDeAlbumRepository.class);
+		this.albumServiceWithJournal = new AlbumServiceWithTransacaoImpl(albumService, transacaoAlbumRepository, prototipoDeAlbumRepository);
 	}
 	
 	@Test
@@ -81,29 +76,29 @@ public class AlbumServiceWithJournalImplTest {
 				.albumTemplateId(albumTemplateId)
 				.userId(userId)
 				.build();
-		AlbumTemplate albumTemplate = AlbumTemplate.builder()
+		PrototipoDeAlbum prototipoDeAlbum = PrototipoDeAlbum.builder()
 				.id(albumTemplateId)
 				.name(albumTemplateName)
 				.price(albumPrice)
 				.build();
-		ArgumentCaptor<AlbumJournal> albumJournalCaptor = ArgumentCaptor.forClass(AlbumJournal.class);
+		ArgumentCaptor<TransacaoAlbum> albumJournalCaptor = ArgumentCaptor.forClass(TransacaoAlbum.class);
 
 		when(albumService.create(albumDTO)).thenReturn(savedAlbumDTO);
-		when(albumTemplateRepository.findById(albumTemplateId)).thenReturn(Optional.of(albumTemplate));
+		when(prototipoDeAlbumRepository.findById(albumTemplateId)).thenReturn(Optional.of(prototipoDeAlbum));
 		
 		// Act
 		AlbumDTO actualAlbumDTO = albumServiceWithJournal.create(albumDTO);
 		
 		// Assert
-		verify(albumJournalRepository).save(albumJournalCaptor.capture());
-		AlbumJournal albumJournal = albumJournalCaptor.getValue();
-		assertNull(albumJournal.getId());
-		assertEquals(albumId, albumJournal.getAlbumId());
-		assertEquals(albumTemplateId, albumJournal.getAlbumTemplateId());
-		assertEquals(albumTemplateName, albumJournal.getAlbumTemplateName());
-		assertNotNull(albumJournal.getDateTime());
-		assertEquals(albumPrice, albumJournal.getPrice());
-		assertEquals(userId, albumJournal.getUserId());
+		verify(transacaoAlbumRepository).save(albumJournalCaptor.capture());
+		TransacaoAlbum transacaoAlbum = albumJournalCaptor.getValue();
+		assertNull(transacaoAlbum.getId());
+		assertEquals(albumId, transacaoAlbum.getAlbumId());
+		assertEquals(albumTemplateId, transacaoAlbum.getAlbumTemplateId());
+		assertEquals(albumTemplateName, transacaoAlbum.getAlbumTemplateName());
+		assertNotNull(transacaoAlbum.getDateTime());
+		assertEquals(albumPrice, transacaoAlbum.getPrice());
+		assertEquals(userId, transacaoAlbum.getUserId());
 		
 		assertEquals(albumId, actualAlbumDTO.getId());
 		assertEquals(albumTemplateId, actualAlbumDTO.getAlbumTemplateId());

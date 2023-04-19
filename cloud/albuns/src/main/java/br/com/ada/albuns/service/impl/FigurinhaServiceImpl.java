@@ -1,13 +1,13 @@
 package br.com.ada.albuns.service.impl;
 
-import br.com.ada.albuns.client.StickerClient;
-import br.com.ada.albuns.client.StickerTemplateClient;
-import br.com.ada.albuns.client.dto.StickerCreationDTO;
-import br.com.ada.albuns.client.dto.StickerDTO;
-import br.com.ada.albuns.client.dto.StickerTemplateDTO;
+import br.com.ada.albuns.client.FigurinhaClient;
+import br.com.ada.albuns.client.PrototipoDeFigurinhaClient;
+import br.com.ada.albuns.client.dto.FigurinhaCreationDTO;
+import br.com.ada.albuns.client.dto.FigurinhaDTO;
+import br.com.ada.albuns.client.dto.PrototipoDeFigurinhaDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.repository.AlbumRepository;
-import br.com.ada.albuns.service.StickerService;
+import br.com.ada.albuns.service.FigurinhaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,34 +19,34 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class StickerServiceImpl implements StickerService {
+public class FigurinhaServiceImpl implements FigurinhaService {
 	private final AlbumRepository albumRepository;
-	private final StickerTemplateClient stickerTemplateClient;
-	private final StickerClient stickerClient;
+	private final PrototipoDeFigurinhaClient prototipoDeFigurinhaClient;
+	private final FigurinhaClient figurinhaClient;
 	
-	public StickerServiceImpl(AlbumRepository albumRepository, StickerTemplateClient stickerTemplateClient, StickerClient stickerClient) {
+	public FigurinhaServiceImpl(AlbumRepository albumRepository, PrototipoDeFigurinhaClient prototipoDeFigurinhaClient, FigurinhaClient figurinhaClient) {
 		this.albumRepository = albumRepository;
-		this.stickerTemplateClient = stickerTemplateClient;
-		this.stickerClient = stickerClient;
+		this.prototipoDeFigurinhaClient = prototipoDeFigurinhaClient;
+		this.figurinhaClient = figurinhaClient;
 	}
 
 	@Override
 	public boolean createStickersForAlbum(String albumTemplateId) {
-		List<StickerDTO> stickersCreated = new ArrayList<>();
+		List<FigurinhaDTO> stickersCreated = new ArrayList<>();
 		boolean shouldRevertStickersCreation = false;
 
 		try {
-			ResponseEntity<List<StickerTemplateDTO>> stickerTemplatesResponse = stickerTemplateClient.findAll(albumTemplateId);
+			ResponseEntity<List<PrototipoDeFigurinhaDTO>> stickerTemplatesResponse = prototipoDeFigurinhaClient.findAll(albumTemplateId);
 		    if (!stickerTemplatesResponse.getStatusCode().equals(HttpStatus.OK)) {
 		    	log.error("Error retrieving sticker templates: {}", stickerTemplatesResponse.getStatusCode());
 		    	throw new EntityNotFoundException("No sticker template found for this album template");
 		    }
 	
 		    Album defaultAlbum = albumRepository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException("Default album not found"));
-		    List<StickerTemplateDTO> stickerTemplates = stickerTemplatesResponse.getBody();
+		    List<PrototipoDeFigurinhaDTO> stickerTemplates = stickerTemplatesResponse.getBody();
 		    if (stickerTemplates != null) {
-		    	for (StickerTemplateDTO stickerTemplate : stickerTemplates) {
-			    	List<StickerDTO> stickersCreatedInThisStep = this.createStickers(stickerTemplate, defaultAlbum);
+		    	for (PrototipoDeFigurinhaDTO stickerTemplate : stickerTemplates) {
+			    	List<FigurinhaDTO> stickersCreatedInThisStep = this.createStickers(stickerTemplate, defaultAlbum);
 			    	if (stickersCreatedInThisStep != null) {
 			    		stickersCreated.addAll(stickersCreatedInThisStep);
 			    	} else {
@@ -67,22 +67,22 @@ public class StickerServiceImpl implements StickerService {
     	return true;
 	}
 	
-	private List<StickerDTO> createStickers(StickerTemplateDTO stickerTemplateDTO, Album album) {
-		List<StickerDTO> stickersCreated = new ArrayList<>();
+	private List<FigurinhaDTO> createStickers(PrototipoDeFigurinhaDTO prototipoDeFigurinhaDTO, Album album) {
+		List<FigurinhaDTO> stickersCreated = new ArrayList<>();
 		boolean shouldRevertStickersCreation = false;
 		
 		try {
-	    	StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
-	    			.stickerTemplateId(stickerTemplateDTO.getId())
+	    	FigurinhaCreationDTO figurinhaCreationDTO = FigurinhaCreationDTO.builder()
+	    			.stickerTemplateId(prototipoDeFigurinhaDTO.getId())
 	    			.albumId(album.getId())
 	    			.build();
 	    	
-	    	int quantity = this.calculateQuantityByRarity(stickerTemplateDTO);
+	    	int quantity = this.calculateQuantityByRarity(prototipoDeFigurinhaDTO);
 	    	
 	    	for (int i = 0; i < quantity; i++) {
 	    		
-		    	log.info("Creating sticker {} for {}", i + 1, stickerTemplateDTO.getDescription());
-		    	ResponseEntity<StickerDTO> response = stickerClient.create(stickerCreationDTO);
+		    	log.info("Creating sticker {} for {}", i + 1, prototipoDeFigurinhaDTO.getDescription());
+		    	ResponseEntity<FigurinhaDTO> response = figurinhaClient.create(figurinhaCreationDTO);
 		    	if (response.getStatusCode().is2xxSuccessful()) {
 		    		stickersCreated.add(response.getBody());
 		    		log.info("Success: {}", response.getStatusCode());
@@ -104,8 +104,8 @@ public class StickerServiceImpl implements StickerService {
     	return stickersCreated;
 	}
 	
-	private int calculateQuantityByRarity(StickerTemplateDTO stickerTemplateDTO) {
-		return switch(stickerTemplateDTO.getRarity()) {
+	private int calculateQuantityByRarity(PrototipoDeFigurinhaDTO prototipoDeFigurinhaDTO) {
+		return switch(prototipoDeFigurinhaDTO.getRarity()) {
 			case 1 -> 1;
 			case 2 -> 3;
 			case 3 -> 6;
@@ -114,11 +114,11 @@ public class StickerServiceImpl implements StickerService {
 		};
 	}
 	
-	private void revertStickersCreation(List<StickerDTO> stickersToRevert) {
+	private void revertStickersCreation(List<FigurinhaDTO> stickersToRevert) {
 		stickersToRevert.forEach(stickerToRevert -> {
 			try {
 				log.info("Reverting sticker {}", stickerToRevert.getId());
-				stickerClient.delete(stickerToRevert.getId());
+				figurinhaClient.delete(stickerToRevert.getId());
 			} catch(Exception e) {
 				log.error("Error reverting sticker creation for sticker {}: {}", stickerToRevert.getId(), e.getMessage());
 			}

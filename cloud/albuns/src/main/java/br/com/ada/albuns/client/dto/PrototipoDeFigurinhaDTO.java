@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StickerTemplateDTO {
+public class PrototipoDeFigurinhaDTO {
 
     private String id;
 

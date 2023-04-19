@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateStickerMessage {
+public class CreateFigurinhaMessage {
     private String albumId;
     private String albumTemplateId;
     private String defaultAlbumId;

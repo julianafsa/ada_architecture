@@ -1,5 +1,5 @@
 package br.com.ada.albuns.service;
 
-public interface StickerService {
+public interface FigurinhaService {
 	boolean createStickersForAlbum(String albumTemplateId);
 }

@@ -10,51 +10,51 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.ada.albuns.model.dto.PrototipoDeAlbumDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
-import br.com.ada.albuns.service.AlbumTemplateService;
+import br.com.ada.albuns.service.PrototipoDeAlbumService;
 import jakarta.persistence.EntityNotFoundException;
 
-public class AlbumTemplateControllerTest {
-	private AlbumTemplateController controller;
-	private AlbumTemplateService service;
+public class PrototipoDeAlbumControllerTest {
+	private PrototipoDeAlbumController controller;
+	private PrototipoDeAlbumService service;
 	
 	@BeforeEach
 	public void setUp() {
-		this.service = mock(AlbumTemplateService.class);
-		this.controller = new AlbumTemplateController(this.service);
+		this.service = mock(PrototipoDeAlbumService.class);
+		this.controller = new PrototipoDeAlbumController(this.service);
 	}
 
 	@Test
 	public void testCreate() {
 		// Arrange
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		when(service.create(albumTemplateDTO)).thenReturn(albumTemplateDTO);
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.create(prototipoDeAlbumDTO)).thenReturn(prototipoDeAlbumDTO);
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.create(albumTemplateDTO);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.create(prototipoDeAlbumDTO);
 		
 		// Assert
-		verify(service).create(albumTemplateDTO);
+		verify(service).create(prototipoDeAlbumDTO);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		assertEquals(albumTemplateDTO, response.getBody());
+		assertEquals(prototipoDeAlbumDTO, response.getBody());
 	}
 
 	@Test
 	public void testCreateException() {
 		// Arrange
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		when(service.create(albumTemplateDTO)).thenThrow(new RuntimeException());
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.create(prototipoDeAlbumDTO)).thenThrow(new RuntimeException());
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.create(albumTemplateDTO);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.create(prototipoDeAlbumDTO);
 		
 		// Assert
-		verify(service).create(albumTemplateDTO);
+		verify(service).create(prototipoDeAlbumDTO);
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 
@@ -62,11 +62,11 @@ public class AlbumTemplateControllerTest {
 	@Test
 	public void testFindAll() {
 		// Arrange
-		List<AlbumTemplateDTO> albumTemplatesDTO = List.of(new AlbumTemplateDTO());
+		List<PrototipoDeAlbumDTO> albumTemplatesDTO = List.of(new PrototipoDeAlbumDTO());
 		when(service.findAll()).thenReturn(albumTemplatesDTO);
 		
 		// Act
-		ResponseEntity<List<AlbumTemplateDTO>> response = controller.findAll();
+		ResponseEntity<List<PrototipoDeAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();
@@ -80,7 +80,7 @@ public class AlbumTemplateControllerTest {
 		when(service.findAll()).thenReturn(List.of());
 		
 		// Act
-		ResponseEntity<List<AlbumTemplateDTO>> response = controller.findAll();
+		ResponseEntity<List<PrototipoDeAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();
@@ -94,7 +94,7 @@ public class AlbumTemplateControllerTest {
 		when(service.findAll()).thenThrow(new RuntimeException());
 		
 		// Act
-		ResponseEntity<List<AlbumTemplateDTO>> response = controller.findAll();
+		ResponseEntity<List<PrototipoDeAlbumDTO>> response = controller.findAll();
 		
 		// Assert
 		verify(service).findAll();
@@ -105,16 +105,16 @@ public class AlbumTemplateControllerTest {
 	public void testFindById() {
 		// Arrange
 		String id = UUID.randomUUID().toString();
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		when(service.findById(id)).thenReturn(albumTemplateDTO);
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.findById(id)).thenReturn(prototipoDeAlbumDTO);
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.findById(id);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.findById(id);
 		
 		// Assert
 		verify(service).findById(id);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(albumTemplateDTO, response.getBody());
+		assertEquals(prototipoDeAlbumDTO, response.getBody());
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class AlbumTemplateControllerTest {
 		when(service.findById(id)).thenThrow(new EntityNotFoundException());
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.findById(id);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.findById(id);
 		
 		// Assert
 		verify(service).findById(id);
@@ -138,7 +138,7 @@ public class AlbumTemplateControllerTest {
 		when(service.findById(id)).thenThrow(new RuntimeException());
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.findById(id);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.findById(id);
 		
 		// Assert
 		verify(service).findById(id);
@@ -149,31 +149,31 @@ public class AlbumTemplateControllerTest {
 	public void testEdit() {
 		// Arrange
 		String id = UUID.randomUUID().toString();
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		AlbumTemplateDTO editedAlbumTemplateDTO = new AlbumTemplateDTO();
-		when(service.edit(id, albumTemplateDTO)).thenReturn(editedAlbumTemplateDTO);
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		PrototipoDeAlbumDTO editedPrototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.edit(id, prototipoDeAlbumDTO)).thenReturn(editedPrototipoDeAlbumDTO);
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.edit(id, albumTemplateDTO);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.edit(id, prototipoDeAlbumDTO);
 		
 		// Assert
-		verify(service).edit(id, albumTemplateDTO);
+		verify(service).edit(id, prototipoDeAlbumDTO);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(editedAlbumTemplateDTO, response.getBody());
+		assertEquals(editedPrototipoDeAlbumDTO, response.getBody());
 	}
 
 	@Test
 	public void testEditNotFound() {
 		// Arrange
 		String id = UUID.randomUUID().toString();
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		when(service.edit(id, albumTemplateDTO)).thenThrow(new EntityNotFoundException());
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.edit(id, prototipoDeAlbumDTO)).thenThrow(new EntityNotFoundException());
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.edit(id, albumTemplateDTO);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.edit(id, prototipoDeAlbumDTO);
 		
 		// Assert
-		verify(service).edit(id, albumTemplateDTO);
+		verify(service).edit(id, prototipoDeAlbumDTO);
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 
@@ -181,14 +181,14 @@ public class AlbumTemplateControllerTest {
 	public void testEditException() {
 		// Arrange
 		String id = UUID.randomUUID().toString();
-		AlbumTemplateDTO albumTemplateDTO = new AlbumTemplateDTO();
-		when(service.edit(id, albumTemplateDTO)).thenThrow(new RuntimeException());
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = new PrototipoDeAlbumDTO();
+		when(service.edit(id, prototipoDeAlbumDTO)).thenThrow(new RuntimeException());
 		
 		// Act
-		ResponseEntity<AlbumTemplateDTO> response = controller.edit(id, albumTemplateDTO);
+		ResponseEntity<PrototipoDeAlbumDTO> response = controller.edit(id, prototipoDeAlbumDTO);
 		
 		// Assert
-		verify(service).edit(id, albumTemplateDTO);
+		verify(service).edit(id, prototipoDeAlbumDTO);
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 	}
 	

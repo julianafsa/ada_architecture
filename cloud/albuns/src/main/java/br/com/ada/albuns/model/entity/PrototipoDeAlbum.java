@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AlbumTemplate {
+public class PrototipoDeAlbum {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

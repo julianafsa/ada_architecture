@@ -1,13 +1,16 @@
 package br.com.ada.albuns.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import br.com.ada.albuns.model.dto.PrototipoDeAlbumDTO;
+import br.com.ada.albuns.model.entity.Album;
+import br.com.ada.albuns.model.entity.PrototipoDeAlbum;
+import br.com.ada.albuns.model.mapper.PrototipoDeAlbumMapper;
+import br.com.ada.albuns.model.mapper.PrototipoDeAlbumMapperImpl;
+import br.com.ada.albuns.repository.AlbumRepository;
+import br.com.ada.albuns.repository.PrototipoDeAlbumRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,31 +18,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
-import br.com.ada.albuns.model.entity.Album;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
-import br.com.ada.albuns.model.mapper.AlbumTemplateMapper;
-import br.com.ada.albuns.model.mapper.AlbumTemplateMapperImpl;
-import br.com.ada.albuns.repository.AlbumRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
-import jakarta.persistence.EntityNotFoundException;
-
-public class AlbumTemplateServiceImplTest {
-	private AlbumTemplateRepository repository;
-	private AlbumTemplateMapper mapper;
+public class PrototipoDeAlbumServiceImplTest {
+	private PrototipoDeAlbumRepository repository;
+	private PrototipoDeAlbumMapper mapper;
 	private AlbumRepository albumRepository;
-	private AlbumTemplateServiceImpl service;
+	private PrototipoDeAlbumServiceImpl service;
 
 	@BeforeEach
 	public void setUp() {
-		this.repository = mock(AlbumTemplateRepository.class);
-		this.mapper = new AlbumTemplateMapperImpl();
+		this.repository = mock(PrototipoDeAlbumRepository.class);
+		this.mapper = new PrototipoDeAlbumMapperImpl();
 		this.albumRepository = mock(AlbumRepository.class);
-		this.service = new AlbumTemplateServiceImpl(repository, mapper, albumRepository);
+		this.service = new PrototipoDeAlbumServiceImpl(repository, mapper, albumRepository);
 	}
 	
 	@Test
@@ -52,7 +46,7 @@ public class AlbumTemplateServiceImplTest {
 		String name = "Name";
 		Long numStickers = 10L;
 		BigDecimal price = new BigDecimal("10.99");
-		AlbumTemplate albumTemplate = AlbumTemplate.builder()
+		PrototipoDeAlbum prototipoDeAlbum = PrototipoDeAlbum.builder()
 				.id(id)
 				.cover(cover)
 				.expirationDate(expirationDate)
@@ -61,14 +55,14 @@ public class AlbumTemplateServiceImplTest {
 				.numStickers(numStickers)
 				.price(price)
 				.build();
-		when(repository.findAll()).thenReturn(List.of(albumTemplate));
+		when(repository.findAll()).thenReturn(List.of(prototipoDeAlbum));
 		
 		// Act
-		List<AlbumTemplateDTO> actualAlbumTemplates = service.findAll();
+		List<PrototipoDeAlbumDTO> actualAlbumTemplates = service.findAll();
 		
 		// Assert
 		assertEquals(1, actualAlbumTemplates.size());
-		AlbumTemplateDTO actualAlbumTemplate = actualAlbumTemplates.get(0);
+		PrototipoDeAlbumDTO actualAlbumTemplate = actualAlbumTemplates.get(0);
 		assertEquals(id, actualAlbumTemplate.getId());
 		assertEquals(cover, actualAlbumTemplate.getCover());
 		assertEquals(expirationDate, actualAlbumTemplate.getExpirationDate());
@@ -88,7 +82,7 @@ public class AlbumTemplateServiceImplTest {
 		String name = "Name";
 		Long numStickers = 10L;
 		BigDecimal price = new BigDecimal("10.99");
-		AlbumTemplate albumTemplate = AlbumTemplate.builder()
+		PrototipoDeAlbum prototipoDeAlbum = PrototipoDeAlbum.builder()
 				.id(id)
 				.cover(cover)
 				.expirationDate(expirationDate)
@@ -97,10 +91,10 @@ public class AlbumTemplateServiceImplTest {
 				.numStickers(numStickers)
 				.price(price)
 				.build();
-		when(repository.findById(id)).thenReturn(Optional.of(albumTemplate));
+		when(repository.findById(id)).thenReturn(Optional.of(prototipoDeAlbum));
 		
 		// Act
-		AlbumTemplateDTO actualAlbumTemplate = service.findById(id);
+		PrototipoDeAlbumDTO actualAlbumTemplate = service.findById(id);
 		
 		// Assert
 		assertEquals(id, actualAlbumTemplate.getId());
@@ -132,7 +126,7 @@ public class AlbumTemplateServiceImplTest {
 		String name = "Name";
 		Long numStickers = 10L;
 		BigDecimal price = new BigDecimal("10.99");
-		AlbumTemplateDTO albumTemplateDTO = AlbumTemplateDTO.builder()
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = br.com.ada.albuns.model.dto.PrototipoDeAlbumDTO.builder()
 				.cover(cover)
 				.expirationDate(expirationDate)
 				.launchDate(launchDate)
@@ -140,7 +134,7 @@ public class AlbumTemplateServiceImplTest {
 				.numStickers(numStickers)
 				.price(price)
 				.build();
-		AlbumTemplate savedAlbumTemplate = AlbumTemplate.builder()
+		PrototipoDeAlbum savedPrototipoDeAlbum = PrototipoDeAlbum.builder()
 				.id(id)
 				.cover(cover)
 				.expirationDate(expirationDate)
@@ -150,19 +144,19 @@ public class AlbumTemplateServiceImplTest {
 				.price(price)
 				.build();
 
-		when(repository.save(any())).thenReturn(savedAlbumTemplate);
+		when(repository.save(any())).thenReturn(savedPrototipoDeAlbum);
 		
 		// Act
-		AlbumTemplateDTO actualAlbumTemplateDTO = service.create(albumTemplateDTO);
+		PrototipoDeAlbumDTO actualPrototipoDeAlbumDTO = service.create(prototipoDeAlbumDTO);
 		
 		// Assert
-		assertEquals(id, actualAlbumTemplateDTO.getId());
-		assertEquals(cover, actualAlbumTemplateDTO.getCover());
-		assertEquals(expirationDate, actualAlbumTemplateDTO.getExpirationDate());
-		assertEquals(launchDate, actualAlbumTemplateDTO.getLaunchDate());
-		assertEquals(name, actualAlbumTemplateDTO.getName());
-		assertEquals(numStickers, actualAlbumTemplateDTO.getNumStickers());
-		assertEquals(price, actualAlbumTemplateDTO.getPrice());
+		assertEquals(id, actualPrototipoDeAlbumDTO.getId());
+		assertEquals(cover, actualPrototipoDeAlbumDTO.getCover());
+		assertEquals(expirationDate, actualPrototipoDeAlbumDTO.getExpirationDate());
+		assertEquals(launchDate, actualPrototipoDeAlbumDTO.getLaunchDate());
+		assertEquals(name, actualPrototipoDeAlbumDTO.getName());
+		assertEquals(numStickers, actualPrototipoDeAlbumDTO.getNumStickers());
+		assertEquals(price, actualPrototipoDeAlbumDTO.getPrice());
 		
 		ArgumentCaptor<Album> albumCaptor = ArgumentCaptor.forClass(Album.class);
 		verify(this.albumRepository).save(albumCaptor.capture());
@@ -181,7 +175,7 @@ public class AlbumTemplateServiceImplTest {
 		String name = "Name";
 		Long numStickers = 10L;
 		BigDecimal price = new BigDecimal("10.99");
-		AlbumTemplateDTO albumTemplateDTO = AlbumTemplateDTO.builder()
+		PrototipoDeAlbumDTO prototipoDeAlbumDTO = br.com.ada.albuns.model.dto.PrototipoDeAlbumDTO.builder()
 				.cover(cover)
 				.expirationDate(expirationDate)
 				.launchDate(launchDate)
@@ -189,7 +183,7 @@ public class AlbumTemplateServiceImplTest {
 				.numStickers(numStickers)
 				.price(price)
 				.build();
-		AlbumTemplate savedAlbumTemplate = AlbumTemplate.builder()
+		PrototipoDeAlbum savedPrototipoDeAlbum = PrototipoDeAlbum.builder()
 				.id(id)
 				.cover(cover)
 				.expirationDate(expirationDate)
@@ -200,19 +194,19 @@ public class AlbumTemplateServiceImplTest {
 				.build();
 
 		when(repository.existsById(id)).thenReturn(true);
-		when(repository.save(any())).thenReturn(savedAlbumTemplate);
+		when(repository.save(any())).thenReturn(savedPrototipoDeAlbum);
 		
 		// Act
-		AlbumTemplateDTO actualAlbumTemplateDTO = service.edit(id, albumTemplateDTO);
+		PrototipoDeAlbumDTO actualPrototipoDeAlbumDTO = service.edit(id, prototipoDeAlbumDTO);
 		
 		// Assert
-		assertEquals(id, actualAlbumTemplateDTO.getId());
-		assertEquals(cover, actualAlbumTemplateDTO.getCover());
-		assertEquals(expirationDate, actualAlbumTemplateDTO.getExpirationDate());
-		assertEquals(launchDate, actualAlbumTemplateDTO.getLaunchDate());
-		assertEquals(name, actualAlbumTemplateDTO.getName());
-		assertEquals(numStickers, actualAlbumTemplateDTO.getNumStickers());
-		assertEquals(price, actualAlbumTemplateDTO.getPrice());
+		assertEquals(id, actualPrototipoDeAlbumDTO.getId());
+		assertEquals(cover, actualPrototipoDeAlbumDTO.getCover());
+		assertEquals(expirationDate, actualPrototipoDeAlbumDTO.getExpirationDate());
+		assertEquals(launchDate, actualPrototipoDeAlbumDTO.getLaunchDate());
+		assertEquals(name, actualPrototipoDeAlbumDTO.getName());
+		assertEquals(numStickers, actualPrototipoDeAlbumDTO.getNumStickers());
+		assertEquals(price, actualPrototipoDeAlbumDTO.getPrice());
 	}
 
 	@Test
@@ -222,7 +216,7 @@ public class AlbumTemplateServiceImplTest {
 		when(repository.existsById(id)).thenReturn(false);
 		
 		// Act
-		assertThrows(EntityNotFoundException.class, () -> service.edit(id, new AlbumTemplateDTO()));
+		assertThrows(EntityNotFoundException.class, () -> service.edit(id, new PrototipoDeAlbumDTO()));
 		
 		// Assert
 		verify(this.repository, never()).save(any());

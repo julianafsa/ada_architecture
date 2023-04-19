@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StickerCreationDTO {
+public class FigurinhaCreationDTO {
     @NotNull(message = "StickerTemplate field is missing or blank.")
     private String stickerTemplateId;
 

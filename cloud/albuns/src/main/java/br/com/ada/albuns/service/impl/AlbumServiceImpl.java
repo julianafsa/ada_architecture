@@ -1,7 +1,7 @@
 package br.com.ada.albuns.service.impl;
 
 import br.com.ada.albuns.model.dto.AlbumDTO;
-import br.com.ada.albuns.model.dto.CreateStickerMessage;
+import br.com.ada.albuns.model.dto.CreateFigurinhaMessage;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
@@ -48,7 +48,7 @@ public class  AlbumServiceImpl implements AlbumService {
             album = repository.save(album);
             final String albumTemplateId = album.getAlbumTemplateId();
             final Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
-            CreateStickerMessage message = CreateStickerMessage.builder()
+            CreateFigurinhaMessage message = CreateFigurinhaMessage.builder()
                     .albumId(album.getId())
                     .albumTemplateId(albumTemplateId)
                     .defaultAlbumId(defaultAlbum.getId())

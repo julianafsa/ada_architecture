@@ -2,10 +2,10 @@ package br.com.ada.albuns.service.impl;
 
 import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.entity.Album;
-import br.com.ada.albuns.model.entity.AlbumJournal;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
-import br.com.ada.albuns.repository.AlbumJournalRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
+import br.com.ada.albuns.model.entity.PrototipoDeAlbum;
+import br.com.ada.albuns.model.entity.TransacaoAlbum;
+import br.com.ada.albuns.repository.TransacaoAlbumRepository;
+import br.com.ada.albuns.repository.PrototipoDeAlbumRepository;
 import br.com.ada.albuns.service.AlbumService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -27,16 +27,16 @@ import java.util.Optional;
 @Qualifier("AlbumServiceWithJournal")
 @Service
 @Slf4j
-public class AlbumServiceWithJournalImpl implements AlbumService {
+public class AlbumServiceWithTransacaoImpl implements AlbumService {
 
     private final AlbumService albumService;
-    private final AlbumJournalRepository repository;
-    private final AlbumTemplateRepository albumTemplateRepository;
+    private final TransacaoAlbumRepository repository;
+    private final PrototipoDeAlbumRepository prototipoDeAlbumRepository;
 
-    public AlbumServiceWithJournalImpl(AlbumService albumService, AlbumJournalRepository repository, AlbumTemplateRepository albumTemplateRepository) {
+    public AlbumServiceWithTransacaoImpl(AlbumService albumService, TransacaoAlbumRepository repository, PrototipoDeAlbumRepository prototipoDeAlbumRepository) {
         this.albumService = albumService;
         this.repository = repository;
-        this.albumTemplateRepository = albumTemplateRepository;
+        this.prototipoDeAlbumRepository = prototipoDeAlbumRepository;
     }
 
     @Override
@@ -60,18 +60,18 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
         AlbumDTO newAlbum = albumService.create(entity);
 
         // And then add the behavior to log the transaction to the album journal
-        AlbumTemplate albumTemplate = albumTemplateRepository.findById(newAlbum.getAlbumTemplateId()).orElseThrow(() -> new EntityNotFoundException());
+        PrototipoDeAlbum prototipoDeAlbum = prototipoDeAlbumRepository.findById(newAlbum.getAlbumTemplateId()).orElseThrow(() -> new EntityNotFoundException());
 
-        AlbumJournal albumJournal = AlbumJournal.builder()
+        TransacaoAlbum transacaoAlbum = TransacaoAlbum.builder()
                 .userId(newAlbum.getUserId())
                 .albumId(newAlbum.getId())
-                .albumTemplateId(albumTemplate.getId())
-                .albumTemplateName(albumTemplate.getName())
-                .price(albumTemplate.getPrice())
+                .albumTemplateId(prototipoDeAlbum.getId())
+                .albumTemplateName(prototipoDeAlbum.getName())
+                .price(prototipoDeAlbum.getPrice())
                 .dateTime(LocalDateTime.now())
                 .build();
 
-        repository.save(albumJournal);
+        repository.save(transacaoAlbum);
 
         // Returns the result of the base implementation
         return newAlbum;
@@ -90,7 +90,7 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
     @Override
     @Transactional
     public void delete(String albumId) {
-        Optional<AlbumJournal> albumJournal = repository.findByAlbumId(albumId);
+        Optional<TransacaoAlbum> albumJournal = repository.findByAlbumId(albumId);
         Optional<Album> album = albumService.findByAlbumId(albumId);
         if(album.isPresent() && albumJournal.isPresent() ) {
 
