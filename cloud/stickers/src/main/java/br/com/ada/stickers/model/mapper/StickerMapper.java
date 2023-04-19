@@ -13,8 +13,10 @@ import java.util.List;
 public interface StickerMapper {
     StickerDTO parseDTO(Sticker entity);
     Sticker parseEntity(StickerDTO dto);
+    @Mapping(target = "stickerTemplate.id", source = "stickerTemplateId")
     Sticker parseEntity(StickerCreationDTO creationDTO);
     @Mapping(target = "stickerTemplate.id", source = "stickerTemplateId")
     Sticker parseEntity(StickerUpdateDTO updateDTO);
     List<StickerDTO> parseListDTO(List<Sticker> entities);
+    List<Sticker> parseListEntity(List<StickerCreationDTO> creationDTOList);
 }

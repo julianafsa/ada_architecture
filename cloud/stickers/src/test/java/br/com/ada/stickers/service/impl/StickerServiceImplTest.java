@@ -9,6 +9,7 @@ import br.com.ada.stickers.model.mapper.StickerTemplateMapperImpl;
 import br.com.ada.stickers.repository.StickerRepository;
 import br.com.ada.stickers.service.StickerService;
 import br.com.ada.stickers.service.StickerTemplateService;
+import br.com.ada.stickers.service.producer.StickerErrorProducer;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ class StickerServiceImplTest {
     private StickerService service;
     private StickerTemplateService stickerTemplateService;
     private StickerTemplateMapper stickerTemplateMapper;
+    private StickerErrorProducer stickerErrorProducer;
 
     @BeforeEach
     public void init() {
@@ -37,8 +39,9 @@ class StickerServiceImplTest {
         this.mapper = new StickerMapperImpl();
         this.stickerTemplateService = mock(StickerTemplateService.class);
         this.stickerTemplateMapper = new StickerTemplateMapperImpl();
+        this.stickerErrorProducer = mock(StickerErrorProducer.class);
         this.service = new StickerServiceImpl(
-                repository, mapper, stickerTemplateService, stickerTemplateMapper);
+                repository, mapper, stickerTemplateService, stickerTemplateMapper, stickerErrorProducer);
     }
 
     @Test
@@ -171,12 +174,11 @@ class StickerServiceImplTest {
     }
 
     private StickerDTO buildStickerDTO(String id) {
-        final StickerDTO stickerDTO = StickerDTO.builder()
+        return StickerDTO.builder()
                 .id(id)
                 .stickerTemplate(buildStickerTemplateDTO())
                 .albumId("1")
                 .build();
-        return stickerDTO;
     }
 
     private StickerTemplateDTO buildStickerTemplateDTO() {
@@ -193,19 +195,17 @@ class StickerServiceImplTest {
     }
 
     private StickerCreationDTO buildStickerCreationDTO(String id) {
-        final StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
+        return StickerCreationDTO.builder()
                 .stickerTemplateId("1")
                 .albumId("1")
                 .build();
-        return stickerCreationDTO;
     }
 
     private StickerUpdateDTO buildStickerToSellDTO(String id) {
-        final StickerUpdateDTO stickerUpdateDTO = StickerUpdateDTO.builder()
+        return StickerUpdateDTO.builder()
                 .stickerTemplateId("1")
                 .albumId("1")
                 .build();
-        return stickerUpdateDTO;
     }
 
 }
