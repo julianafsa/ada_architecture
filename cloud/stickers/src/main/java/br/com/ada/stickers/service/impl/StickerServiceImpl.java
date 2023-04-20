@@ -51,7 +51,8 @@ public class StickerServiceImpl implements StickerService {
             final Sticker entity = optional.get();
             return mapper.parseDTO(entity);
         }
-        throw new EntityNotFoundException();
+        final String errorMessage = "Sticker with id " + id + " does not exist.";
+        throw new EntityNotFoundException(errorMessage);
     }
 
     @Override

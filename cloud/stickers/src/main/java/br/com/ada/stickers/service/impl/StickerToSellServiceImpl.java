@@ -1,5 +1,6 @@
 package br.com.ada.stickers.service.impl;
 
+import br.com.ada.stickers.model.dto.StickerDTO;
 import br.com.ada.stickers.model.dto.StickerToSellCreationDTO;
 import br.com.ada.stickers.model.dto.StickerToSellDTO;
 import br.com.ada.stickers.model.dto.StickerToSellUpdateDTO;
@@ -11,12 +12,14 @@ import br.com.ada.stickers.repository.StickerToSellRepository;
 import br.com.ada.stickers.service.StickerService;
 import br.com.ada.stickers.service.StickerToSellService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class StickerToSellServiceImpl implements StickerToSellService {
 
     private final StickerToSellRepository repository;
@@ -50,9 +53,10 @@ public class StickerToSellServiceImpl implements StickerToSellService {
 
     @Override
     public StickerToSellDTO create(final StickerToSellCreationDTO creationDTO) {
+        final String stickerId = creationDTO.getSticker().getId();
+        final StickerDTO stickerDTO = stickerService.findById(stickerId);
+        Sticker stickerEntity = stickerMapper.parseEntity(stickerDTO);
         StickerToSell entity = mapper.parseEntity(creationDTO);
-        Sticker stickerEntity = stickerMapper.parseEntity(
-                stickerService.findById(creationDTO.getSticker().getId()));
         entity.setId(null);
         entity.setSticker(stickerEntity);
         entity = repository.save(entity);
