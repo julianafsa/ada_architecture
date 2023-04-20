@@ -125,13 +125,22 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
     }
 
     private boolean updateBalanceUser(String sourceAlbumId, BigDecimal price) {
-        final Optional<String> userIdOp = albumService.findUserIdByAlbumId(sourceAlbumId);
-        if (userIdOp.isPresent()) {
-            final String userId = userIdOp.get();
-            log.info("[REDIS] Trying adding {} to user with id {}...", price, userId);
-            this.jedis.save(userId, price);
+        try {
+            Optional<String> userIdOp = albumService.findUserIdByAlbumId(sourceAlbumId);
+            if (userIdOp.isPresent()) {
+                final String userId = userIdOp.get();
+                try {
+                    this.jedis.updateBalance(userId, price);
+                } catch (Exception e) {
+                    log.error("[REDIS] Fail to add {} to balance of user with id {}...", price, userId);
+                    return Boolean.FALSE;
+                }
+                log.info("[REDIS] Adding {} to user with id {}...", price, userId);
+            }
+        } catch (Exception exception) {
+            log.error("[FEIGN] Fail to get userId from album id = {}", sourceAlbumId);
         }
-        return true;
+        return Boolean.TRUE;
     }
 
 }

@@ -16,7 +16,7 @@ public class RedisImpl implements Redis {
     }
 
     @Override
-    public void save(String key, BigDecimal value) {
+    public void updateBalance(String key, BigDecimal value) {
         String oldValue = this.get(key);
         if (oldValue != null) {
             BigDecimal oldValueAsString = new BigDecimal(oldValue);
