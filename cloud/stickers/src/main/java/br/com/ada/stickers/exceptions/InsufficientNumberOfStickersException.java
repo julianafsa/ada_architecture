@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Insufficient number of stickers to assemble the pack.")
-public class InsufficientNumberOfStickers extends RuntimeException {
-    public InsufficientNumberOfStickers() {
+public class InsufficientNumberOfStickersException extends RuntimeException {
+    public InsufficientNumberOfStickersException() {
         super("Insufficient number of stickers to assemble the pack");
     }
 }

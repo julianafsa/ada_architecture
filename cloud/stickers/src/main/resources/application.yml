@@ -62,3 +62,9 @@ info:
     encoding: @project.build.sourceEncoding@
     java:
       version: @java.version@
+
+# redis
+redis:
+  host: usw1-fresh-fish-33216.upstash.io
+  port: 33216
+  password: c0426cdda92844148acaf5d6b50ffe77

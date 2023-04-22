@@ -1,6 +1,7 @@
 package br.com.ada.stickers.controller;
 
 import br.com.ada.stickers.model.dto.*;
+import br.com.ada.stickers.model.entity.Sticker;
 import br.com.ada.stickers.model.mapper.StickerMapper;
 import br.com.ada.stickers.service.StickerService;
 import br.com.ada.stickers.service.StickerServiceWithJournal;
@@ -51,6 +52,15 @@ public class StickerController {
             log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @GetMapping("/album/{albumId}")
+    public ResponseEntity<List<StickerDTO>> findAllByAlbumId(@PathVariable("albumId") String albumId) {
+        final List<Sticker> response = service.findByAlbumId(albumId);
+        if (response.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(mapper.parseListDTO(response));
+        }
+        return ResponseEntity.ok(mapper.parseListDTO(response));
     }
 
     @PostMapping
