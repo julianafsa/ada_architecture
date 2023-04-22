@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaPrototipo;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Slf4j
 public class FigurinhaErrorProducer {
 
-    private final KafkaPrototipo<String, String> kafkaPrototipo;
+    private final KafkaTemplate<String, String> kafkaTemplate;
     private static final String CREATE_STEAKER = "ALBUM_CREATE_ERROR";
 
     public void send(String message){
@@ -24,7 +24,7 @@ public class FigurinhaErrorProducer {
         String value = message;
         String topicName = "TOPIC_ALBUM_CREATE_ERROR";
 
-        kafkaPrototipo.send(topicName, CREATE_STEAKER,value);
+        kafkaTemplate.send(topicName, CREATE_STEAKER,value);
 
     }
 }

@@ -7,10 +7,10 @@ import static org.mockito.Mockito.verify;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestPrototipo;
+import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.springframework.kafka.core.KafkaPrototipo;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import au.com.dius.pact.provider.MessageAndMetadata;
 import au.com.dius.pact.provider.PactVerifyProvider;
@@ -27,19 +27,19 @@ import br.com.ada.albuns.model.dto.CreateFigurinhaMessage;
 @PactFolder("../../pacts")
 public class AlbumProducerPactTests {
 	private AlbumProducer producer;
-	private KafkaPrototipo<String, String> kafkaPrototipo;
+	private KafkaTemplate<String, String> kafkaTemplate;
 
 	@BeforeEach
 	public void before(PactVerificationContext context) {
 		context.setTarget(new MessageTestTarget());
 		
-		kafkaPrototipo = (KafkaPrototipo<String, String>)mock(KafkaPrototipo.class);
-		producer = new AlbumProducer(kafkaPrototipo);
+		kafkaTemplate = (KafkaTemplate<String, String>)mock(KafkaTemplate.class);
+		producer = new AlbumProducer(kafkaTemplate);
 	}
 	
-	@TestPrototipo
+	@TestTemplate
 	@ExtendWith(PactVerificationInvocationContextProvider.class)
-	public void pactVerificationTestPrototipo(PactVerificationContext context) {
+	public void pactVerificationTestTemplate(PactVerificationContext context) {
 		context.verifyInteraction();
 	}
 	
@@ -51,7 +51,7 @@ public class AlbumProducerPactTests {
 		
 		producer.send(createFigurinhaMessage);
 		
-		verify(kafkaPrototipo).send(any(), any(), stringCaptor.capture());
+		verify(kafkaTemplate).send(any(), any(), stringCaptor.capture());
 		
 		return new MessageAndMetadata(stringCaptor.getValue().getBytes(), metadata);
 	}
