@@ -9,20 +9,36 @@ import redis.clients.jedis.Jedis;
 public class RedisServiceImpl implements RedisService {
 
     private final RedisProperties redisProperties;
-    private final Jedis jedis;
+    private Jedis jedis;
     public RedisServiceImpl(final RedisProperties redisProperties) {
         this.redisProperties = redisProperties;
-        jedis = new Jedis(redisProperties.getHost(), Integer.parseInt(redisProperties.getPort()));
-        jedis.auth(redisProperties.getPassword());
+        this.connect();
     }
 
     @Override
     public void save(String key, String value) {
-        jedis.set(key, value);
+        try {
+            jedis.set(key, value);
+        } catch (Exception e) {
+            this.connect();
+            jedis.set(key, value);
+        }
     }
 
     @Override
     public String get(String key) {
-        return jedis.get(key);
+        String value;
+        try {
+            value = jedis.get(key);
+        } catch (Exception e) {
+            this.connect();
+            value = jedis.get(key);
+        }
+        return value;
+    }
+
+    private void connect() {
+        jedis = new Jedis(redisProperties.getHost(), Integer.parseInt(redisProperties.getPort()));
+        jedis.auth(redisProperties.getPassword());
     }
 }
