@@ -1,6 +1,6 @@
 package br.com.ada.stickers.strategy.impl;
 
-import br.com.ada.stickers.exceptions.InsufficientNumberOfStickers;
+import br.com.ada.stickers.exceptions.InsufficientNumberOfStickersException;
 import br.com.ada.stickers.model.entity.Sticker;
 import br.com.ada.stickers.strategy.StickerPackStrategy;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class RandomStickerPackStrategyImpl implements StickerPackStrategy {
         }
         if (stickers.size() < size) {
             log.error("Não há figurinhas suficientes para serem vendidas em um pacote.");
-            throw new InsufficientNumberOfStickers();
+            throw new InsufficientNumberOfStickersException();
         }
         final Set<Integer> generatedPositions = new LinkedHashSet<>();
         final Random generator = new Random();

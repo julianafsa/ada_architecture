@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Sticker not available for sale.")
-public class StickerNotAvailableForSale extends RuntimeException {
-    public StickerNotAvailableForSale() {
+public class StickerNotAvailableForSaleException extends RuntimeException {
+    public StickerNotAvailableForSaleException() {
         super("Sticker not available for sale");
     }
 }

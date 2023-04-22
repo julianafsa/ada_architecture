@@ -1,15 +1,15 @@
 package br.com.ada.stickers.service.impl;
 
-import br.com.ada.stickers.exceptions.StickerNotAvailableForSale;
+import br.com.ada.stickers.exceptions.StickerNotAvailableForSaleException;
 import br.com.ada.stickers.model.dto.*;
 import br.com.ada.stickers.model.entity.Sticker;
 import br.com.ada.stickers.model.entity.StickerToSell;
 import br.com.ada.stickers.model.mapper.StickerMapper;
 import br.com.ada.stickers.service.*;
+import br.com.ada.stickers.service.producer.BalanceService;
 import br.com.ada.stickers.strategy.StickerPackStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import br.com.ada.stickers.service.Redis;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,21 +33,21 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
     private final StickerToSellService stickerToSellService;
     private final StickerPackStrategy stickerPackStrategy;
     private final AlbumService albumService;
-    private final Redis jedis;
+    private final BalanceService balanceService;
     public StickerServiceWithJournalImpl(final StickerService stickerService,
                                          final StickerJournalService stickerJournalService,
                                          final StickerMapper stickerMapper,
                                          final StickerToSellService stickerToSellService,
                                          final StickerPackStrategy stickerPackStrategy,
                                          final AlbumService albumService,
-                                         final Redis jedis) {
+                                         final BalanceService balanceService) {
         this.stickerService = stickerService;
         this.stickerJournalService = stickerJournalService;
         this.stickerMapper = stickerMapper;
         this.stickerToSellService = stickerToSellService;
         this.stickerPackStrategy = stickerPackStrategy;
         this.albumService = albumService;
-        this.jedis = jedis;
+        this.balanceService = balanceService;
     }
     
     @Override
@@ -57,7 +57,7 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
         final String albumId = stickerBuyPackDTO.getAlbumId();
         final String destinationAlbumId = stickerBuyPackDTO.getDestinationAlbumId();
 
-        // Get list of stickers from album template
+        // Get list of stickers from album
         final List<Sticker> stickersFromAlbumId = stickerService.findByAlbumId(albumId);
         //final List<Sticker> stickersFromDestnationAlbumId = stickerService.findByAlbumId(destinationAlbumId);
 
@@ -90,20 +90,23 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
             // Sticker is not available for sale.
             String errorMsg = "Sticker " + stickerId + " not available for sale";
             log.error(errorMsg);
-            throw new StickerNotAvailableForSale();
+            throw new StickerNotAvailableForSaleException();
+        }
+
+        // Update balance on Redis.
+        final String sourceAlbumId = sticker.getAlbumId();
+        Boolean result = this.updateBalanceUser(sourceAlbumId, stickerToSell.getPrice());
+        if (!result) {
+            throw new RuntimeException("Fail to increment balance to user");
         }
 
         // Update sticker album.
-        final String sourceAlbumId = sticker.getAlbumId();
         sticker.setAlbumId(destinationAlbumId);
         final StickerUpdateDTO stickerUpdateDTO = StickerUpdateDTO.builder()
                 .albumId(sticker.getAlbumId())
                 .stickerTemplateId(sticker.getStickerTemplate().getId())
                 .build();
         sticker = stickerService.edit(stickerId, stickerUpdateDTO);
-
-        // Update balance on Redis.
-        this.updateBalanceUser(sourceAlbumId, stickerToSell.getPrice());
 
         // It makes the sticker unavailable for sale.
         this.stickerToSellService.deleteByStickerId(stickerId);
@@ -124,13 +127,13 @@ public class StickerServiceWithJournalImpl implements StickerServiceWithJournal 
         return stickerJournalService.create(stickerJournalCreationDTO);
     }
 
-    private boolean updateBalanceUser(String sourceAlbumId, BigDecimal price) {
+    private Boolean updateBalanceUser(String sourceAlbumId, BigDecimal price) {
         try {
             Optional<String> userIdOp = albumService.findUserIdByAlbumId(sourceAlbumId);
             if (userIdOp.isPresent()) {
                 final String userId = userIdOp.get();
                 try {
-                    this.jedis.updateBalance(userId, price);
+                    this.balanceService.incrementBalance(userId, price);
                 } catch (Exception e) {
                     log.error("[REDIS] Fail to add {} to balance of user with id {}...", price, userId);
                     return Boolean.FALSE;

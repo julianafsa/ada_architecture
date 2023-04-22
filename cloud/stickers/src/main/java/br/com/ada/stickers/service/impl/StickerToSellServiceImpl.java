@@ -1,5 +1,6 @@
 package br.com.ada.stickers.service.impl;
 
+import br.com.ada.stickers.exceptions.StickerAlreadyAvailableForSaleException;
 import br.com.ada.stickers.model.dto.StickerDTO;
 import br.com.ada.stickers.model.dto.StickerToSellCreationDTO;
 import br.com.ada.stickers.model.dto.StickerToSellDTO;
@@ -56,6 +57,11 @@ public class StickerToSellServiceImpl implements StickerToSellService {
         final String stickerId = creationDTO.getSticker().getId();
         final StickerDTO stickerDTO = stickerService.findById(stickerId);
         Sticker stickerEntity = stickerMapper.parseEntity(stickerDTO);
+        final Optional<StickerToSell> stickerAlreadyForSale = repository.findByStickerId(stickerId);
+        if (stickerAlreadyForSale.isPresent()) {
+            final String errorMessage = "Sticker " + stickerId + " is already for sale.";
+            throw new StickerAlreadyAvailableForSaleException(errorMessage);
+        }
         StickerToSell entity = mapper.parseEntity(creationDTO);
         entity.setId(null);
         entity.setSticker(stickerEntity);
