@@ -2,9 +2,11 @@ package br.com.ada.stickers.service.impl;
 
 import br.com.ada.stickers.config.RedisProperties;
 import br.com.ada.stickers.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+@Slf4j
 @Service
 public class RedisServiceImpl implements RedisService {
 
@@ -20,6 +22,8 @@ public class RedisServiceImpl implements RedisService {
         try {
             jedis.set(key, value);
         } catch (Exception e) {
+            final String errorMessage = "[REDIS] Error: " + e.getMessage() + ". Trying to reconnect...";
+            log.error(errorMessage);
             this.connect();
             jedis.set(key, value);
         }
@@ -31,6 +35,8 @@ public class RedisServiceImpl implements RedisService {
         try {
             value = jedis.get(key);
         } catch (Exception e) {
+            final String errorMessage = "[REDIS] Error: " + e.getMessage() + ". Trying to reconnect...";
+            log.error(errorMessage);
             this.connect();
             value = jedis.get(key);
         }
