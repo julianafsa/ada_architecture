@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerDTO {
+public class FigurinhaDTO {
     private String id;
 
-    private StickerTemplateDTO stickerTemplate;
+    private FigurinhaPrototipoDTO figurinhaPrototipo;
 
     private String albumId;
 }

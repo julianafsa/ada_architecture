@@ -4,8 +4,8 @@ package br.com.ada.albuns.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.ada.albuns.model.entity.AlbumTemplate;
+import br.com.ada.albuns.model.entity.AlbumPrototipo;
 
-public interface AlbumTemplateRepository extends JpaRepository<AlbumTemplate, String>{
+public interface AlbumPrototipoRepository extends JpaRepository<AlbumPrototipo, String>{
 
 }

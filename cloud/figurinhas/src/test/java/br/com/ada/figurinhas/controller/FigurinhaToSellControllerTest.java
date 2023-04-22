@@ -1,9 +1,9 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.*;
-import br.com.ada.stickers.model.entity.StickerToSell;
-import br.com.ada.stickers.model.mapper.StickerToSellMapper;
-import br.com.ada.stickers.service.StickerToSellService;
+import br.com.ada.figurinhas.model.dto.*;
+import br.com.ada.figurinhas.model.entity.FigurinhaToSell;
+import br.com.ada.figurinhas.model.mapper.FigurinhaToSellMapper;
+import br.com.ada.figurinhas.service.FigurinhaToSellService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,24 +19,24 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-class StickerToSellControllerTest {
+class FigurinhaToSellControllerTest {
 
     @Mock
-    private  StickerToSellMapper mapper;
+    private  FigurinhaToSellMapper mapper;
 
     @Mock
-    private StickerToSellService service;
+    private FigurinhaToSellService service;
 
     @InjectMocks
-    private StickerToSellController stickerToSellController;
+    private FigurinhaToSellController figurinhaToSellController;
 
     @Test
     void findAll() {
-        List<StickerToSellDTO> stickerJournalDTOList = new ArrayList<>();
-        stickerJournalDTOList.add(new StickerToSellDTO());
-        Mockito.when(service.findAll()).thenReturn(stickerJournalDTOList);
+        List<FigurinhaToSellDTO> figurinhaJournalDTOList = new ArrayList<>();
+        figurinhaJournalDTOList.add(new FigurinhaToSellDTO());
+        Mockito.when(service.findAll()).thenReturn(figurinhaJournalDTOList);
 
-        ResponseEntity<List<StickerToSellDTO>> response = stickerToSellController.findAll();
+        ResponseEntity<List<FigurinhaToSellDTO>> response = figurinhaToSellController.findAll();
 
         Mockito.verify(service).findAll();
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -44,11 +44,11 @@ class StickerToSellControllerTest {
 
     @Test
     void findById() {
-        StickerToSellDTO stickerToSellDTO = new StickerToSellDTO();
+        FigurinhaToSellDTO figurinhaToSellDTO = new FigurinhaToSellDTO();
 
-        Mockito.when(service.findById(any())).thenReturn(new StickerToSell());
+        Mockito.when(service.findById(any())).thenReturn(new FigurinhaToSell());
 
-        ResponseEntity<StickerToSellDTO> response = stickerToSellController.findById("dummy");
+        ResponseEntity<FigurinhaToSellDTO> response = figurinhaToSellController.findById("dummy");
 
         Mockito.verify(service).findById("dummy");
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -56,21 +56,21 @@ class StickerToSellControllerTest {
 
     @Test
     void create() {
-        Mockito.when(service.create(any())).thenReturn(new StickerToSellDTO());
-        ResponseEntity<StickerToSellDTO> response = stickerToSellController.create(new StickerToSellCreationDTO());
+        Mockito.when(service.create(any())).thenReturn(new FigurinhaToSellDTO());
+        ResponseEntity<FigurinhaToSellDTO> response = figurinhaToSellController.create(new FigurinhaToSellCreationDTO());
 
-        Mockito.verify(service).create(new StickerToSellCreationDTO());
+        Mockito.verify(service).create(new FigurinhaToSellCreationDTO());
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
     void edit() {
-        StickerToSellUpdateDTO stickerToSellUpdateDTO = new StickerToSellUpdateDTO();
+        FigurinhaToSellUpdateDTO figurinhaToSellUpdateDTO = new FigurinhaToSellUpdateDTO();
 
-        Mockito.when(service.edit(any(), any())).thenReturn(new StickerToSellDTO());
-        ResponseEntity<StickerToSellDTO> response = stickerToSellController.edit("dummy", new StickerToSellUpdateDTO());
+        Mockito.when(service.edit(any(), any())).thenReturn(new FigurinhaToSellDTO());
+        ResponseEntity<FigurinhaToSellDTO> response = figurinhaToSellController.edit("dummy", new FigurinhaToSellUpdateDTO());
 
-        Mockito.verify(service).edit("dummy", stickerToSellUpdateDTO);
+        Mockito.verify(service).edit("dummy", figurinhaToSellUpdateDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
@@ -78,7 +78,7 @@ class StickerToSellControllerTest {
     @Test
     void delete() {
 
-        ResponseEntity<Object> response = stickerToSellController.delete("dummy");
+        ResponseEntity<Object> response = figurinhaToSellController.delete("dummy");
 
         Mockito.verify(service).delete("dummy");
         assertEquals(HttpStatus.OK, response.getStatusCode());

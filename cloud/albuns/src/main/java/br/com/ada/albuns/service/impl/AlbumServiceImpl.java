@@ -1,7 +1,7 @@
 package br.com.ada.albuns.service.impl;
 
 import br.com.ada.albuns.model.dto.AlbumDTO;
-import br.com.ada.albuns.model.dto.CreateStickerMessage;
+import br.com.ada.albuns.model.dto.CreateFigurinhaMessage;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.mapper.AlbumMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
@@ -46,26 +46,26 @@ public class  AlbumServiceImpl implements AlbumService {
 
         try{
             album = repository.save(album);
-            final String albumTemplateId = album.getAlbumTemplateId();
-            final Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
-            CreateStickerMessage message = CreateStickerMessage.builder()
+            final String albumPrototipoId = album.getAlbumPrototipoId();
+            final Album padraoAlbum = repository.findByUsuarioIdAndAlbumPrototipoId(null, albumPrototipoId).orElseThrow(() -> new EntityNotFoundException());
+            CreateFigurinhaMessage message = CreateFigurinhaMessage.builder()
                     .albumId(album.getId())
-                    .albumTemplateId(albumTemplateId)
-                    .defaultAlbumId(defaultAlbum.getId())
+                    .albumPrototipoId(albumPrototipoId)
+                    .padraoAlbumId(padraoAlbum.getId())
                     .build();
 
             producer.send(message);
 
         } catch (RuntimeException e){
-            throw new RuntimeException("Error creating album template...");
+            throw new RuntimeException("Error creating album prototipo...");
         }
         return mapper.parseDTO(album);
     }
 
     @Override
-    public AlbumDTO findDefaultAlbum(String albumTemplateId) {
-        Album defaultAlbum = repository.findByUserIdAndAlbumTemplateId(null, albumTemplateId).orElseThrow(() -> new EntityNotFoundException());
-        return mapper.parseDTO(defaultAlbum);
+    public AlbumDTO findPadraoAlbum(String albumPrototipoId) {
+        Album padraoAlbum = repository.findByUsuarioIdAndAlbumPrototipoId(null, albumPrototipoId).orElseThrow(() -> new EntityNotFoundException());
+        return mapper.parseDTO(padraoAlbum);
     }
 
     @Override
@@ -85,8 +85,8 @@ public class  AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public Optional<String> findUserIdByAlbumId(String albumId) {
-        return repository.findUserIdByAlbumId(albumId);
+    public Optional<String> findUsuarioIdByAlbumId(String albumId) {
+        return repository.findUsuarioIdByAlbumId(albumId);
     }
 
 }

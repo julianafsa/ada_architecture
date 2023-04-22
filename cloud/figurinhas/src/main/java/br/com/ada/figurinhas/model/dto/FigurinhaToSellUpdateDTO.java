@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerToSellUpdateDTO {
-//    @NotNull(message = "Sticker field is missing or blank.")
-//    private Sticker sticker;
+public class FigurinhaToSellUpdateDTO {
+//    @NotNull(message = "Figurinha field is missing or blank.")
+//    private Figurinha figurinha;
 
     @NotNull(message = "Price field is missing or blank.")
     private BigDecimal price;

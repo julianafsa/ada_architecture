@@ -1,22 +1,22 @@
-package br.com.ada.stickers.model.mapper;
+package br.com.ada.figurinhas.model.mapper;
 
-import br.com.ada.stickers.model.dto.StickerCreationDTO;
-import br.com.ada.stickers.model.dto.StickerDTO;
-import br.com.ada.stickers.model.dto.StickerUpdateDTO;
-import br.com.ada.stickers.model.entity.Sticker;
+import br.com.ada.figurinhas.model.dto.FigurinhaCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaUpdateDTO;
+import br.com.ada.figurinhas.model.entity.Figurinha;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface StickerMapper {
-    StickerDTO parseDTO(Sticker entity);
-    Sticker parseEntity(StickerDTO dto);
-    @Mapping(target = "stickerTemplate.id", source = "stickerTemplateId")
-    Sticker parseEntity(StickerCreationDTO creationDTO);
-    @Mapping(target = "stickerTemplate.id", source = "stickerTemplateId")
-    Sticker parseEntity(StickerUpdateDTO updateDTO);
-    List<StickerDTO> parseListDTO(List<Sticker> entities);
-    List<Sticker> parseListEntity(List<StickerCreationDTO> creationDTOList);
+public interface FigurinhaMapper {
+    FigurinhaDTO parseDTO(Figurinha entity);
+    Figurinha parseEntity(FigurinhaDTO dto);
+    @Mapping(target = "figurinhaPrototipo.id", source = "figurinhaPrototipoId")
+    Figurinha parseEntity(FigurinhaCreationDTO creationDTO);
+    @Mapping(target = "figurinhaPrototipo.id", source = "figurinhaPrototipoId")
+    Figurinha parseEntity(FigurinhaUpdateDTO updateDTO);
+    List<FigurinhaDTO> parseListDTO(List<Figurinha> entities);
+    List<Figurinha> parseListEntity(List<FigurinhaCreationDTO> creationDTOList);
 }

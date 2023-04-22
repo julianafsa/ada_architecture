@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerToSellDTO {
+public class FigurinhaToSellDTO {
     private String id;
 
-    private StickerDTO sticker;
+    private FigurinhaDTO figurinha;
 
     private BigDecimal price;
 }

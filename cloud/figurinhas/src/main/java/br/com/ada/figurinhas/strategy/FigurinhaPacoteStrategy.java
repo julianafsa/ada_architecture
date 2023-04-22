@@ -1,9 +1,9 @@
-package br.com.ada.stickers.strategy;
+package br.com.ada.figurinhas.strategy;
 
-import br.com.ada.stickers.model.entity.Sticker;
+import br.com.ada.figurinhas.model.entity.Figurinha;
 
 import java.util.List;
 
-public interface StickerPackStrategy {
-    List<Sticker> createStickerPack(List<Sticker> stickers, Integer size);
+public interface FigurinhaPacoteStrategy {
+    List<Figurinha> createFigurinhaPacote(List<Figurinha> figurinhas, Integer size);
 }

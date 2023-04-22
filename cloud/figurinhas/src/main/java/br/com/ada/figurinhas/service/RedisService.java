@@ -1,4 +1,4 @@
-package br.com.ada.stickers.service;
+package br.com.ada.figurinhas.service;
 
 public interface RedisService {
     void save(String key, String value);

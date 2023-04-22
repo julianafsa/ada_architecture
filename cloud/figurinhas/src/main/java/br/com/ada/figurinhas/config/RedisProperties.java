@@ -1,4 +1,4 @@
-package br.com.ada.stickers.config;
+package br.com.ada.figurinhas.config;
 
 public interface RedisProperties {
     String getHost();

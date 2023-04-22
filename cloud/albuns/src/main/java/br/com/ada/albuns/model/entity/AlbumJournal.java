@@ -27,17 +27,17 @@ public class AlbumJournal {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "userId", nullable = false)
-  private String userId;
+  @Column(name = "usuarioId", nullable = false)
+  private String usuarioId;
 
   @Column(name = "albumId", nullable = false)
   private String albumId;
   
-  @Column(name = "albumTemplateId", nullable = false)
-  private String albumTemplateId;
+  @Column(name = "albumPrototipoId", nullable = false)
+  private String albumPrototipoId;
   
-  @Column(name = "albumTemplateName", nullable = false)
-  private String albumTemplateName;
+  @Column(name = "albumPrototipoName", nullable = false)
+  private String albumPrototipoName;
   
   @Column(name = "dateTime", nullable = false)
   private LocalDateTime dateTime;

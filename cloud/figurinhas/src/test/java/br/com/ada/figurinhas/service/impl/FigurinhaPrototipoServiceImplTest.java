@@ -1,4 +1,4 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -10,22 +10,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.ada.stickers.model.dto.StickerTemplateDTO;
-import br.com.ada.stickers.model.entity.StickerTemplate;
-import br.com.ada.stickers.model.mapper.StickerTemplateMapper;
-import br.com.ada.stickers.repository.StickerTemplateRepository;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoDTO;
+import br.com.ada.figurinhas.model.entity.FigurinhaPrototipo;
+import br.com.ada.figurinhas.model.mapper.FigurinhaPrototipoMapper;
+import br.com.ada.figurinhas.repository.FigurinhaPrototipoRepository;
 
 @SpringBootTest
-public class StickerTemplateServiceImplTest {
+public class FigurinhaPrototipoServiceImplTest {
 
   @Mock
-  private StickerTemplateRepository repository;
+  private FigurinhaPrototipoRepository repository;
 
   @Mock
-  private StickerTemplateMapper mapper;
+  private FigurinhaPrototipoMapper mapper;
 
   @InjectMocks
-  private StickerTemplateServiceImpl service;
+  private FigurinhaPrototipoServiceImpl service;
 
   @Test
   public void findAll(){
@@ -39,14 +39,14 @@ public class StickerTemplateServiceImplTest {
   @Test
   public void findById(){
 
-    Optional<StickerTemplate> template = Optional.of(new StickerTemplate());
-    template.get().setId("1");
+    Optional<FigurinhaPrototipo> prototipo = Optional.of(new FigurinhaPrototipo());
+    prototipo.get().setId("1");
 
-    var response = new StickerTemplateDTO();
+    var response = new FigurinhaPrototipoDTO();
     response.setId("1");
 
-    when(repository.findById("1")).thenReturn(template);
-    when(mapper.parseDTO(template.get())).thenReturn(response);
+    when(repository.findById("1")).thenReturn(prototipo);
+    when(mapper.parseDTO(prototipo.get())).thenReturn(response);
 
     var actual = service.findById("1");
 

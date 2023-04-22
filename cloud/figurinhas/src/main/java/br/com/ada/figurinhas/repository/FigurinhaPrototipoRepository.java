@@ -1,11 +1,11 @@
-package br.com.ada.stickers.repository;
+package br.com.ada.figurinhas.repository;
 
-import br.com.ada.stickers.model.entity.StickerTemplate;
+import br.com.ada.figurinhas.model.entity.FigurinhaPrototipo;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StickerTemplateRepository extends JpaRepository<StickerTemplate, String> {
-	List<StickerTemplate> findByAlbumTemplateId(String albumTemplateId);
+public interface FigurinhaPrototipoRepository extends JpaRepository<FigurinhaPrototipo, String> {
+	List<FigurinhaPrototipo> findByAlbumPrototipoId(String albumPrototipoId);
 }

@@ -1,7 +1,7 @@
-package br.com.ada.stickers.repository;
+package br.com.ada.figurinhas.repository;
 
-import br.com.ada.stickers.model.entity.StickerJournal;
+import br.com.ada.figurinhas.model.entity.FigurinhaJournal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StickerJournalRepository extends JpaRepository<StickerJournal, String> {
+public interface FigurinhaJournalRepository extends JpaRepository<FigurinhaJournal, String> {
 }

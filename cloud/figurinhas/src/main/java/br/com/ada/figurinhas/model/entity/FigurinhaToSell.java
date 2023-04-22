@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.entity;
+package br.com.ada.figurinhas.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,18 +9,18 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "sticker-to-sell")
+@Table(name = "figurinha-to-sell")
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerToSell {
+public class FigurinhaToSell {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private String id;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "stickerIdFk", referencedColumnName = "id", nullable = false)
-    private Sticker sticker;
+    @JoinColumn(name = "figurinhaIdFk", referencedColumnName = "id", nullable = false)
+    private Figurinha figurinha;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;

@@ -1,21 +1,21 @@
-package br.com.ada.stickers.service;
+package br.com.ada.figurinhas.service;
 
-import br.com.ada.stickers.model.dto.CreateStickerMessage;
-import br.com.ada.stickers.model.dto.StickerCreationDTO;
-import br.com.ada.stickers.model.dto.StickerDTO;
-import br.com.ada.stickers.model.dto.StickerUpdateDTO;
-import br.com.ada.stickers.model.entity.Sticker;
+import br.com.ada.figurinhas.model.dto.CreateFigurinhaMessage;
+import br.com.ada.figurinhas.model.dto.FigurinhaCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaUpdateDTO;
+import br.com.ada.figurinhas.model.entity.Figurinha;
 
 import java.util.List;
 
-public interface StickerService {
+public interface FigurinhaService {
 
-    List<StickerDTO> findAll();
-    StickerDTO findById(String id);
-    StickerDTO create(StickerCreationDTO creationDTO);
-    Sticker edit(String id, StickerUpdateDTO updateDTO);
+    List<FigurinhaDTO> findAll();
+    FigurinhaDTO findById(String id);
+    FigurinhaDTO create(FigurinhaCreationDTO creationDTO);
+    Figurinha edit(String id, FigurinhaUpdateDTO updateDTO);
     void delete(String id);
-    List<Sticker> findByAlbumId(String albumId);
-    List<Sticker> editAll(List<Sticker> entities);
-    boolean createStickersForAlbum(CreateStickerMessage createStickerMessage);
+    List<Figurinha> findByAlbumId(String albumId);
+    List<Figurinha> editAll(List<Figurinha> entities);
+    boolean createFigurinhasForAlbum(CreateFigurinhaMessage createFigurinhaMessage);
 }

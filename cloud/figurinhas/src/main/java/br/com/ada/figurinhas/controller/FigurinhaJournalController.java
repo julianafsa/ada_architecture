@@ -1,8 +1,8 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.StickerJournalCreationDTO;
-import br.com.ada.stickers.model.dto.StickerJournalDTO;
-import br.com.ada.stickers.service.StickerJournalService;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalDTO;
+import br.com.ada.figurinhas.service.FigurinhaJournalService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +16,17 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/sticker/journal")
-public class StickerJournalController {
+@RequestMapping(value = "/figurinha/journal")
+public class FigurinhaJournalController {
 
-    protected final StickerJournalService service;
-    public StickerJournalController(final StickerJournalService service) {
+    protected final FigurinhaJournalService service;
+    public FigurinhaJournalController(final FigurinhaJournalService service) {
         this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<StickerJournalDTO>> findAll() {
-        final List<StickerJournalDTO> response = service.findAll();
+    public ResponseEntity<List<FigurinhaJournalDTO>> findAll() {
+        final List<FigurinhaJournalDTO> response = service.findAll();
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
         }
@@ -34,7 +34,7 @@ public class StickerJournalController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StickerJournalDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<FigurinhaJournalDTO> findById(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(service.findById(id));
         } catch (EntityNotFoundException ex) {
@@ -46,7 +46,7 @@ public class StickerJournalController {
     }
 
     @PostMapping
-    public ResponseEntity<StickerJournalDTO> create(@RequestBody @Valid StickerJournalCreationDTO creationDTO) {
+    public ResponseEntity<FigurinhaJournalDTO> create(@RequestBody @Valid FigurinhaJournalCreationDTO creationDTO) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)

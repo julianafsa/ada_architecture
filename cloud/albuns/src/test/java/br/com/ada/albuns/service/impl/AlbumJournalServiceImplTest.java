@@ -33,18 +33,18 @@ public class AlbumJournalServiceImplTest {
 	public void testFindAll() {
 		// Arrange
 		Long id = 1L;
-		String albumTemplateId = "AlbumTemplateId";
-		String albumTemplateName = "AlbumTemplateName";
+		String albumPrototipoId = "AlbumPrototipoId";
+		String albumPrototipoName = "AlbumPrototipoName";
 		String albumId = "AlbumId";
-		String userId = "UserId";
+		String usuarioId = "UsuarioId";
 		LocalDateTime dateTime = LocalDateTime.now();
 		BigDecimal price = new BigDecimal("1.23");
 		AlbumJournal album = AlbumJournal.builder()
 				.id(id)
-				.albumTemplateId(albumTemplateId)
-				.albumTemplateName(albumTemplateName)
+				.albumPrototipoId(albumPrototipoId)
+				.albumPrototipoName(albumPrototipoName)
 				.albumId(albumId)
-				.userId(userId)
+				.usuarioId(usuarioId)
 				.dateTime(dateTime)
 				.price(price)
 				.build();
@@ -56,10 +56,10 @@ public class AlbumJournalServiceImplTest {
 		// Assert
 		assertEquals(1, actualAlbumJournalsDTO.size());
 		assertEquals(id, actualAlbumJournalsDTO.get(0).getId());
-		assertEquals(albumTemplateId, actualAlbumJournalsDTO.get(0).getAlbumTemplateId());
-		assertEquals(albumTemplateName, actualAlbumJournalsDTO.get(0).getAlbumTemplateName());
+		assertEquals(albumPrototipoId, actualAlbumJournalsDTO.get(0).getAlbumPrototipoId());
+		assertEquals(albumPrototipoName, actualAlbumJournalsDTO.get(0).getAlbumPrototipoName());
 		assertEquals(albumId, actualAlbumJournalsDTO.get(0).getAlbumId());
-		assertEquals(userId, actualAlbumJournalsDTO.get(0).getUserId());
+		assertEquals(usuarioId, actualAlbumJournalsDTO.get(0).getUsuarioId());
 		assertEquals(dateTime, actualAlbumJournalsDTO.get(0).getDateTime());
 		assertEquals(price, actualAlbumJournalsDTO.get(0).getPrice());
 	}

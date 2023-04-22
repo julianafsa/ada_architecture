@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import java.math.BigDecimal;
 
@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StickerTemplateCreationDTO {
-    @NotBlank(message = "albumTemplateUuid field is missing or blank.")
-    private String albumTemplateId;
+public class FigurinhaPrototipoCreationDTO {
+    @NotBlank(message = "albumPrototipoUuid field is missing or blank.")
+    private String albumPrototipoId;
 
     @NotNull(message = "Number field is missing or blank.")
     private Integer number;
@@ -26,10 +26,10 @@ public class StickerTemplateCreationDTO {
 
     @NotNull(message = "Rarirty field is missing or blank.")
     //@Pattern(regexp="[1-4]")
-    private Integer rarity;
+    private Integer raridade;
 
     @NotNull(message = "Price field is missing or blank.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer=10, fraction=2)
-    private BigDecimal stickerPrice;
+    private BigDecimal figurinhaPrice;
 }

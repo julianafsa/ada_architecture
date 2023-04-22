@@ -1,10 +1,10 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.*;
-import br.com.ada.stickers.model.entity.Sticker;
-import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.service.StickerService;
-import br.com.ada.stickers.service.StickerServiceWithJournal;
+import br.com.ada.figurinhas.model.dto.*;
+import br.com.ada.figurinhas.model.entity.Figurinha;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
+import br.com.ada.figurinhas.service.FigurinhaService;
+import br.com.ada.figurinhas.service.FigurinhaServiceWithJournal;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,26 +23,26 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-class StickerControllerTest {
+class FigurinhaControllerTest {
     @Mock
-    private  StickerService service;
+    private  FigurinhaService service;
 
     @Mock
-    private StickerServiceWithJournal stickerServiceWithJournal;
+    private FigurinhaServiceWithJournal figurinhaServiceWithJournal;
 
     @Mock
-    private StickerMapper mapper;
+    private FigurinhaMapper mapper;
 
     @InjectMocks
-    private StickerController stickerController;
+    private FigurinhaController figurinhaController;
 
     @Test
     public void findAllTestSuccess(){
-        List<StickerDTO> stickerDTOList = new ArrayList<>();
-        stickerDTOList.add(new StickerDTO());
-        Mockito.when(service.findAll()).thenReturn(stickerDTOList);
+        List<FigurinhaDTO> figurinhaDTOList = new ArrayList<>();
+        figurinhaDTOList.add(new FigurinhaDTO());
+        Mockito.when(service.findAll()).thenReturn(figurinhaDTOList);
 
-        ResponseEntity<List<StickerDTO>> response = stickerController.findAll();
+        ResponseEntity<List<FigurinhaDTO>> response = figurinhaController.findAll();
 
         Mockito.verify(service).findAll();
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -51,10 +51,10 @@ class StickerControllerTest {
 
     @Test
     public void findAllTestErrorNoContent(){
-        List<StickerDTO> stickerDTOList = new ArrayList<>();
-        Mockito.when(service.findAll()).thenReturn(stickerDTOList);
+        List<FigurinhaDTO> figurinhaDTOList = new ArrayList<>();
+        Mockito.when(service.findAll()).thenReturn(figurinhaDTOList);
 
-        ResponseEntity<List<StickerDTO>> response = stickerController.findAll();
+        ResponseEntity<List<FigurinhaDTO>> response = figurinhaController.findAll();
 
         Mockito.verify(service).findAll();
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
@@ -63,11 +63,11 @@ class StickerControllerTest {
 
     @Test
     public void findByIdSuccess(){
-        StickerDTO stickerDTO = new StickerDTO();
+        FigurinhaDTO figurinhaDTO = new FigurinhaDTO();
 
-        Mockito.when(service.findById(any())).thenReturn(stickerDTO);
+        Mockito.when(service.findById(any())).thenReturn(figurinhaDTO);
 
-        ResponseEntity<StickerDTO> response = stickerController.findById("dummy");
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.findById("dummy");
 
         Mockito.verify(service).findById("dummy");
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -78,7 +78,7 @@ class StickerControllerTest {
     public void findByIdThrowEntityNotFoundException(){
         Mockito.when(service.findById(any())).thenThrow(EntityNotFoundException.class);
 
-        ResponseEntity<StickerDTO> response = stickerController.findById("dummy");
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.findById("dummy");
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
@@ -87,43 +87,43 @@ class StickerControllerTest {
     public void findByIdThrowException(){
         Mockito.when(service.findById(any())).thenThrow(RuntimeException.class);
 
-        ResponseEntity<StickerDTO> response = stickerController.findById("dummy");
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.findById("dummy");
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
     public void createTestSuccess(){
-        StickerCreationDTO stickerCreationDTO = new StickerCreationDTO();
+        FigurinhaCreationDTO figurinhaCreationDTO = new FigurinhaCreationDTO();
 
-        Mockito.when(service.create(any())).thenReturn(new StickerDTO());
-        ResponseEntity<StickerDTO> response = stickerController.create(stickerCreationDTO);
+        Mockito.when(service.create(any())).thenReturn(new FigurinhaDTO());
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.create(figurinhaCreationDTO);
 
-        Mockito.verify(service).create(stickerCreationDTO);
+        Mockito.verify(service).create(figurinhaCreationDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
     }
 
     @Test
     public void createTestThrowException(){
-        StickerCreationDTO stickerCreationDTO = new StickerCreationDTO();
+        FigurinhaCreationDTO figurinhaCreationDTO = new FigurinhaCreationDTO();
 
         Mockito.when(service.create(any())).thenThrow(RuntimeException.class);
-        ResponseEntity<StickerDTO> response = stickerController.create(stickerCreationDTO);
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.create(figurinhaCreationDTO);
 
-        Mockito.verify(service).create(stickerCreationDTO);
+        Mockito.verify(service).create(figurinhaCreationDTO);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 
     }
 
     @Test
     public void updateTestSuccess(){
-        StickerUpdateDTO stickerUpdateDTO = new StickerUpdateDTO();
+        FigurinhaUpdateDTO figurinhaUpdateDTO = new FigurinhaUpdateDTO();
 
-        Mockito.when(service.edit(any(), any())).thenReturn(new Sticker());
-        ResponseEntity<StickerDTO> response = stickerController.edit("dummy", stickerUpdateDTO);
+        Mockito.when(service.edit(any(), any())).thenReturn(new Figurinha());
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.edit("dummy", figurinhaUpdateDTO);
 
-        Mockito.verify(service).edit("dummy", stickerUpdateDTO);
+        Mockito.verify(service).edit("dummy", figurinhaUpdateDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
@@ -131,33 +131,33 @@ class StickerControllerTest {
 
     @Test
     public void updateTestThrowException(){
-        StickerUpdateDTO stickerUpdateDTO = new StickerUpdateDTO();
+        FigurinhaUpdateDTO figurinhaUpdateDTO = new FigurinhaUpdateDTO();
 
         Mockito.when(service.edit(any(), any())).thenThrow(NullPointerException.class);
-        ResponseEntity<StickerDTO> response = stickerController.edit("dummy", stickerUpdateDTO);
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.edit("dummy", figurinhaUpdateDTO);
 
-        Mockito.verify(service).edit("dummy", stickerUpdateDTO);
+        Mockito.verify(service).edit("dummy", figurinhaUpdateDTO);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 
     }
 
     @Test
     public void updateTestThrowEntityNotFoundException(){
-        StickerUpdateDTO stickerUpdateDTO = new StickerUpdateDTO();
+        FigurinhaUpdateDTO figurinhaUpdateDTO = new FigurinhaUpdateDTO();
 
         Mockito.when(service.edit(any(), any())).thenThrow(EntityNotFoundException.class);
-        ResponseEntity<StickerDTO> response = stickerController.edit("dummy", stickerUpdateDTO);
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.edit("dummy", figurinhaUpdateDTO);
 
-        Mockito.verify(service).edit("dummy", stickerUpdateDTO);
+        Mockito.verify(service).edit("dummy", figurinhaUpdateDTO);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 
     }
 
     @Test
     public void deleteTestSuccess(){
-        StickerUpdateDTO stickerUpdateDTO = new StickerUpdateDTO();
+        FigurinhaUpdateDTO figurinhaUpdateDTO = new FigurinhaUpdateDTO();
 
-        ResponseEntity<Object> response = stickerController.delete("dummy");
+        ResponseEntity<Object> response = figurinhaController.delete("dummy");
 
         Mockito.verify(service).delete("dummy");
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -169,7 +169,7 @@ class StickerControllerTest {
 
         Mockito.doThrow(EntityNotFoundException.class).when(service).delete("dummy");
 
-        ResponseEntity<Object> response = stickerController.delete("dummy");
+        ResponseEntity<Object> response = figurinhaController.delete("dummy");
 
         Mockito.verify(service).delete("dummy");
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -181,7 +181,7 @@ class StickerControllerTest {
 
         Mockito.doThrow(RuntimeException.class).when(service).delete("dummy");
 
-        ResponseEntity<Object> response = stickerController.delete("dummy");
+        ResponseEntity<Object> response = figurinhaController.delete("dummy");
 
         Mockito.verify(service).delete("dummy");
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -189,42 +189,42 @@ class StickerControllerTest {
     }
 
     @Test
-    public void buyStickerPackSuccess(){
+    public void buyFigurinhaPacoteSuccess(){
 
-        Mockito.when(stickerServiceWithJournal.buyStickerPack(any())).thenReturn(Collections.singletonList(new Sticker()));
-        ResponseEntity<List<StickerDTO>> response = stickerController.buyStickerPack(new StickerBuyPackDTO());
+        Mockito.when(figurinhaServiceWithJournal.buyFigurinhaPacote(any())).thenReturn(Collections.singletonList(new Figurinha()));
+        ResponseEntity<List<FigurinhaDTO>> response = figurinhaController.buyFigurinhaPacote(new FigurinhaBuyPacoteDTO());
 
-        Mockito.verify(stickerServiceWithJournal).buyStickerPack(new StickerBuyPackDTO());
+        Mockito.verify(figurinhaServiceWithJournal).buyFigurinhaPacote(new FigurinhaBuyPacoteDTO());
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
-    public void buyStickerPackThrowException(){
+    public void buyFigurinhaPacoteThrowException(){
 
-        Mockito.when(stickerServiceWithJournal.buyStickerPack(any())).thenThrow(RuntimeException.class);
-        ResponseEntity<List<StickerDTO>> response = stickerController.buyStickerPack(new StickerBuyPackDTO());
+        Mockito.when(figurinhaServiceWithJournal.buyFigurinhaPacote(any())).thenThrow(RuntimeException.class);
+        ResponseEntity<List<FigurinhaDTO>> response = figurinhaController.buyFigurinhaPacote(new FigurinhaBuyPacoteDTO());
 
-        Mockito.verify(stickerServiceWithJournal).buyStickerPack(new StickerBuyPackDTO());
+        Mockito.verify(figurinhaServiceWithJournal).buyFigurinhaPacote(new FigurinhaBuyPacoteDTO());
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
-    public void buyStickerFromAlbumSuccess(){
+    public void buyFigurinhaFromAlbumSuccess(){
 
-        Mockito.when(stickerServiceWithJournal.buyStickerFromAlbum(any())).thenReturn(new Sticker());
-        ResponseEntity<StickerDTO> response = stickerController.buyStickerFromAlbum(new StickerBuyFromAlbumDTO());
+        Mockito.when(figurinhaServiceWithJournal.buyFigurinhaFromAlbum(any())).thenReturn(new Figurinha());
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.buyFigurinhaFromAlbum(new FigurinhaBuyFromAlbumDTO());
 
-        Mockito.verify(stickerServiceWithJournal).buyStickerFromAlbum(new StickerBuyFromAlbumDTO());
+        Mockito.verify(figurinhaServiceWithJournal).buyFigurinhaFromAlbum(new FigurinhaBuyFromAlbumDTO());
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
-    public void buyStickerFromAlbumThrowException (){
+    public void buyFigurinhaFromAlbumThrowException (){
 
-        Mockito.when(stickerServiceWithJournal.buyStickerFromAlbum(any())).thenThrow(RuntimeException.class);
-        ResponseEntity<StickerDTO> response = stickerController.buyStickerFromAlbum(new StickerBuyFromAlbumDTO());
+        Mockito.when(figurinhaServiceWithJournal.buyFigurinhaFromAlbum(any())).thenThrow(RuntimeException.class);
+        ResponseEntity<FigurinhaDTO> response = figurinhaController.buyFigurinhaFromAlbum(new FigurinhaBuyFromAlbumDTO());
 
-        Mockito.verify(stickerServiceWithJournal).buyStickerFromAlbum(new StickerBuyFromAlbumDTO());
+        Mockito.verify(figurinhaServiceWithJournal).buyFigurinhaFromAlbum(new FigurinhaBuyFromAlbumDTO());
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 

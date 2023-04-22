@@ -1,11 +1,11 @@
-package br.com.ada.stickers.service;
+package br.com.ada.figurinhas.service;
 
-import br.com.ada.stickers.model.dto.StickerJournalCreationDTO;
-import br.com.ada.stickers.model.dto.StickerJournalDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalDTO;
 
 import java.util.List;
-public interface StickerJournalService {
-    List<StickerJournalDTO> findAll();
-    StickerJournalDTO findById(String id);
-    StickerJournalDTO create(StickerJournalCreationDTO creationDTO);
+public interface FigurinhaJournalService {
+    List<FigurinhaJournalDTO> findAll();
+    FigurinhaJournalDTO findById(String id);
+    FigurinhaJournalDTO create(FigurinhaJournalCreationDTO creationDTO);
 }

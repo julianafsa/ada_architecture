@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.entity;
+package br.com.ada.figurinhas.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@Table(name = "sticker_journal")
+@Table(name = "figurinha_journal")
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerJournal {
+public class FigurinhaJournal {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
@@ -28,9 +28,9 @@ public class StickerJournal {
     @Column(name = "destinationAlbumId", nullable = false)
     private String destinationAlbumId;
 
-    @JoinColumn(name = "stickerIdFk", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "figurinhaIdFk", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Sticker sticker;
+    private Figurinha figurinha;
 
     @Column(name = "date", nullable = false, updatable = false)
     @CreationTimestamp

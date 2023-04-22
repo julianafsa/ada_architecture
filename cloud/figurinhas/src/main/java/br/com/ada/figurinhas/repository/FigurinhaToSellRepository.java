@@ -1,11 +1,11 @@
-package br.com.ada.stickers.repository;
+package br.com.ada.figurinhas.repository;
 
-import br.com.ada.stickers.model.entity.StickerToSell;
+import br.com.ada.figurinhas.model.entity.FigurinhaToSell;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface StickerToSellRepository extends JpaRepository<StickerToSell, String> {
-    Optional<StickerToSell> findByStickerId(String stickerId);
-    void deleteByStickerId(String stickerId);
+public interface FigurinhaToSellRepository extends JpaRepository<FigurinhaToSell, String> {
+    Optional<FigurinhaToSell> findByFigurinhaId(String figurinhaId);
+    void deleteByFigurinhaId(String figurinhaId);
 }

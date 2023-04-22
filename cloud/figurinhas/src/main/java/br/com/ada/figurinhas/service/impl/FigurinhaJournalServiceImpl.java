@@ -1,14 +1,14 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.model.dto.StickerJournalCreationDTO;
-import br.com.ada.stickers.model.dto.StickerJournalDTO;
-import br.com.ada.stickers.model.entity.Sticker;
-import br.com.ada.stickers.model.entity.StickerJournal;
-import br.com.ada.stickers.model.mapper.StickerJournalMapper;
-import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.repository.StickerJournalRepository;
-import br.com.ada.stickers.service.StickerJournalService;
-import br.com.ada.stickers.service.StickerService;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalDTO;
+import br.com.ada.figurinhas.model.entity.Figurinha;
+import br.com.ada.figurinhas.model.entity.FigurinhaJournal;
+import br.com.ada.figurinhas.model.mapper.FigurinhaJournalMapper;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
+import br.com.ada.figurinhas.repository.FigurinhaJournalRepository;
+import br.com.ada.figurinhas.service.FigurinhaJournalService;
+import br.com.ada.figurinhas.service.FigurinhaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,44 +18,44 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class StickerJournalServiceImpl implements StickerJournalService {
+public class FigurinhaJournalServiceImpl implements FigurinhaJournalService {
 
-    private final StickerJournalRepository repository;
-    private final StickerJournalMapper mapper;
-    private final StickerService stickerService;
-    private final StickerMapper stickerMapper;
+    private final FigurinhaJournalRepository repository;
+    private final FigurinhaJournalMapper mapper;
+    private final FigurinhaService figurinhaService;
+    private final FigurinhaMapper figurinhaMapper;
     //private final Redis jedis;
-    public StickerJournalServiceImpl(final StickerJournalRepository repository, final StickerJournalMapper mapper, final StickerService stickerService, final StickerMapper stickerMapper) {
+    public FigurinhaJournalServiceImpl(final FigurinhaJournalRepository repository, final FigurinhaJournalMapper mapper, final FigurinhaService figurinhaService, final FigurinhaMapper figurinhaMapper) {
         //final Redis jedis) {
         this.repository = repository;
         this.mapper = mapper;
-        this.stickerService = stickerService;
-        this.stickerMapper = stickerMapper;
+        this.figurinhaService = figurinhaService;
+        this.figurinhaMapper = figurinhaMapper;
         //this.jedis = jedis;
     }
     
     @Override
-    public List<StickerJournalDTO> findAll() {
+    public List<FigurinhaJournalDTO> findAll() {
         return mapper.parseListDTO(repository.findAll());
     }
 
     @Override
-    public StickerJournalDTO findById(final String id) {
-        Optional<StickerJournal> optional = repository.findById(id);
+    public FigurinhaJournalDTO findById(final String id) {
+        Optional<FigurinhaJournal> optional = repository.findById(id);
         if (optional.isPresent()) {
-            final StickerJournal entity = optional.get();
+            final FigurinhaJournal entity = optional.get();
             return mapper.parseDTO(entity);
         }
         throw new EntityNotFoundException();
     }
 
     @Override
-    public StickerJournalDTO create(final StickerJournalCreationDTO creationDTO) {
-        StickerJournal entity = mapper.parseEntity(creationDTO);
-        Sticker stickerEntity = stickerMapper.parseEntity(
-                stickerService.findById(creationDTO.getSticker().getId()));
+    public FigurinhaJournalDTO create(final FigurinhaJournalCreationDTO creationDTO) {
+        FigurinhaJournal entity = mapper.parseEntity(creationDTO);
+        Figurinha figurinhaEntity = figurinhaMapper.parseEntity(
+                figurinhaService.findById(creationDTO.getFigurinha().getId()));
         entity.setId(null);
-        entity.setSticker(stickerEntity);
+        entity.setFigurinha(figurinhaEntity);
         entity = repository.save(entity);
 //        this.jedis.save(entity.getSourceAlbumId(), entity.getPrice());
         return mapper.parseDTO(entity);

@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerCreationDTO {
-    @NotNull(message = "StickerTemplate field is missing or blank.")
-    private String stickerTemplateId;
+public class FigurinhaCreationDTO {
+    @NotNull(message = "FigurinhaPrototipo field is missing or blank.")
+    private String figurinhaPrototipoId;
 
     @NotBlank(message = "AlbumId field is missing or blank.")
     private String albumId;

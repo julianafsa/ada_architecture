@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerJournalDTO {
+public class FigurinhaJournalDTO {
     private String id;
 
     private String sourceAlbumId;
 
     private String destinationAlbumId;
 
-    private StickerDTO sticker;
+    private FigurinhaDTO figurinha;
 
     private LocalDateTime date;
 

@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StickerBuyPackDTO {
+public class FigurinhaBuyPacoteDTO {
     @NotBlank(message = "AlbumId field is missing or blank.")
     private String albumId;
 

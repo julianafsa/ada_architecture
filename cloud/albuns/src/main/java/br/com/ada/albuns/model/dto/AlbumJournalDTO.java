@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class AlbumJournalDTO {
 
   private Long id;
-  private String userId;
+  private String usuarioId;
   private String albumId;
-  private String albumTemplateId;
-  private String albumTemplateName;
+  private String albumPrototipoId;
+  private String albumPrototipoName;
   private LocalDateTime dateTime;
   private BigDecimal price;
 }

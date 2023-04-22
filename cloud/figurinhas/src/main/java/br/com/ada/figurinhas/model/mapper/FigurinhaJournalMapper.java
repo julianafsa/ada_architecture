@@ -1,16 +1,16 @@
-package br.com.ada.stickers.model.mapper;
+package br.com.ada.figurinhas.model.mapper;
 
-import br.com.ada.stickers.model.dto.StickerJournalCreationDTO;
-import br.com.ada.stickers.model.dto.StickerJournalDTO;
-import br.com.ada.stickers.model.entity.StickerJournal;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalDTO;
+import br.com.ada.figurinhas.model.entity.FigurinhaJournal;
 import org.mapstruct.Mapper;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface StickerJournalMapper {
-    StickerJournalDTO parseDTO(StickerJournal entity);
-    StickerJournal parseEntity(StickerJournalDTO dto);
-    StickerJournal parseEntity(StickerJournalCreationDTO creationDTO);
-    List<StickerJournalDTO> parseListDTO(List<StickerJournal> entities);
+public interface FigurinhaJournalMapper {
+    FigurinhaJournalDTO parseDTO(FigurinhaJournal entity);
+    FigurinhaJournal parseEntity(FigurinhaJournalDTO dto);
+    FigurinhaJournal parseEntity(FigurinhaJournalCreationDTO creationDTO);
+    List<FigurinhaJournalDTO> parseListDTO(List<FigurinhaJournal> entities);
 }

@@ -1,6 +1,6 @@
-package br.com.ada.stickers.config.impl;
+package br.com.ada.figurinhas.config.impl;
 
-import br.com.ada.stickers.config.RedisProperties;
+import br.com.ada.figurinhas.config.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

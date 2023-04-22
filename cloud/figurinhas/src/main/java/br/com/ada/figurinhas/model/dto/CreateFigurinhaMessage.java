@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.dto;
+package br.com.ada.figurinhas.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateStickerMessage {
+public class CreateFigurinhaMessage {
     private String albumId;
-    private String albumTemplateId;
-    private String defaultAlbumId;
+    private String albumPrototipoId;
+    private String padraoAlbumId;
 }
 

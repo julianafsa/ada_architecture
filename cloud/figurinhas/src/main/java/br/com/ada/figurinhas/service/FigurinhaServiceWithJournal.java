@@ -1,12 +1,12 @@
-package br.com.ada.stickers.service;
+package br.com.ada.figurinhas.service;
 
-import br.com.ada.stickers.model.dto.StickerBuyFromAlbumDTO;
-import br.com.ada.stickers.model.dto.StickerBuyPackDTO;
-import br.com.ada.stickers.model.entity.Sticker;
+import br.com.ada.figurinhas.model.dto.FigurinhaBuyFromAlbumDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaBuyPacoteDTO;
+import br.com.ada.figurinhas.model.entity.Figurinha;
 
 import java.util.List;
 
-public interface StickerServiceWithJournal {
-    List<Sticker> buyStickerPack(StickerBuyPackDTO stickerBuyPackDTO);
-    Sticker buyStickerFromAlbum(StickerBuyFromAlbumDTO stickerBuyFromAlbumDTO);
+public interface FigurinhaServiceWithJournal {
+    List<Figurinha> buyFigurinhaPacote(FigurinhaBuyPacoteDTO figurinhaBuyPacoteDTO);
+    Figurinha buyFigurinhaFromAlbum(FigurinhaBuyFromAlbumDTO figurinhaBuyFromAlbumDTO);
 }

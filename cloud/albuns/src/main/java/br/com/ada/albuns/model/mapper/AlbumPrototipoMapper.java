@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
+import br.com.ada.albuns.model.dto.AlbumPrototipoDTO;
+import br.com.ada.albuns.model.entity.AlbumPrototipo;
 
 @Mapper(componentModel = "spring")
-public interface AlbumTemplateMapper {
+public interface AlbumPrototipoMapper {
 
-  AlbumTemplateDTO parseDTO(AlbumTemplate albumTemplate);
+  AlbumPrototipoDTO parseDTO(AlbumPrototipo albumPrototipo);
 
-  AlbumTemplate parseEntity(AlbumTemplateDTO albumTemplateDTO);
+  AlbumPrototipo parseEntity(AlbumPrototipoDTO albumPrototipoDTO);
 
-  List<AlbumTemplateDTO> parseListDTO(List<AlbumTemplate> albumTemplate);
+  List<AlbumPrototipoDTO> parseListDTO(List<AlbumPrototipo> albumPrototipo);
   
 }

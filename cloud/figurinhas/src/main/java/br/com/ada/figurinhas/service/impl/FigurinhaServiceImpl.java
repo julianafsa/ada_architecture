@@ -1,14 +1,14 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.model.dto.*;
-import br.com.ada.stickers.model.entity.Sticker;
-import br.com.ada.stickers.model.entity.StickerTemplate;
-import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.model.mapper.StickerTemplateMapper;
-import br.com.ada.stickers.repository.StickerRepository;
-import br.com.ada.stickers.service.StickerService;
-import br.com.ada.stickers.service.StickerTemplateService;
-import br.com.ada.stickers.service.producer.StickerErrorProducer;
+import br.com.ada.figurinhas.model.dto.*;
+import br.com.ada.figurinhas.model.entity.Figurinha;
+import br.com.ada.figurinhas.model.entity.FigurinhaPrototipo;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
+import br.com.ada.figurinhas.model.mapper.FigurinhaPrototipoMapper;
+import br.com.ada.figurinhas.repository.FigurinhaRepository;
+import br.com.ada.figurinhas.service.FigurinhaService;
+import br.com.ada.figurinhas.service.FigurinhaPrototipoService;
+import br.com.ada.figurinhas.service.producer.FigurinhaErrorProducer;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,60 +19,60 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class StickerServiceImpl implements StickerService {
+public class FigurinhaServiceImpl implements FigurinhaService {
 
-    private final StickerRepository repository;
-    private final StickerMapper mapper;
-    private final StickerTemplateService stickerTemplateService;
-    private final StickerTemplateMapper stickerTemplateMapper;
-    private final StickerErrorProducer stickerErrorProducer;
+    private final FigurinhaRepository repository;
+    private final FigurinhaMapper mapper;
+    private final FigurinhaPrototipoService figurinhaPrototipoService;
+    private final FigurinhaPrototipoMapper figurinhaPrototipoMapper;
+    private final FigurinhaErrorProducer figurinhaErrorProducer;
 
-    public StickerServiceImpl(final StickerRepository repository,
-                              final StickerMapper mapper,
-                              final StickerTemplateService stickerTemplateService,
-                              final StickerTemplateMapper stickerTemplateMapper,
-                              final StickerErrorProducer stickerErrorProducer) {
+    public FigurinhaServiceImpl(final FigurinhaRepository repository,
+                              final FigurinhaMapper mapper,
+                              final FigurinhaPrototipoService figurinhaPrototipoService,
+                              final FigurinhaPrototipoMapper figurinhaPrototipoMapper,
+                              final FigurinhaErrorProducer figurinhaErrorProducer) {
         this.repository = repository;
         this.mapper = mapper;
-        this.stickerTemplateService = stickerTemplateService;
-        this.stickerTemplateMapper = stickerTemplateMapper;
-        this.stickerErrorProducer = stickerErrorProducer;
+        this.figurinhaPrototipoService = figurinhaPrototipoService;
+        this.figurinhaPrototipoMapper = figurinhaPrototipoMapper;
+        this.figurinhaErrorProducer = figurinhaErrorProducer;
     }
     
     @Override
-    public List<StickerDTO> findAll() {
+    public List<FigurinhaDTO> findAll() {
         return mapper.parseListDTO(repository.findAll());
     }
 
     @Override
-    public StickerDTO findById(final String id) {
-        Optional<Sticker> optional = repository.findById(id);
+    public FigurinhaDTO findById(final String id) {
+        Optional<Figurinha> optional = repository.findById(id);
         if (optional.isPresent()) {
-            final Sticker entity = optional.get();
+            final Figurinha entity = optional.get();
             return mapper.parseDTO(entity);
         }
-        final String errorMessage = "Sticker with id " + id + " does not exist.";
+        final String errorMessage = "Figurinha with id " + id + " does not exist.";
         throw new EntityNotFoundException(errorMessage);
     }
 
     @Override
     //@Transactional
-    public StickerDTO create(final StickerCreationDTO creationDTO) {
-        Sticker entity = mapper.parseEntity(creationDTO);
-        StickerTemplate stickerTemplateEntity = stickerTemplateMapper.parseEntity(
-                stickerTemplateService.findById(creationDTO.getStickerTemplateId()));
+    public FigurinhaDTO create(final FigurinhaCreationDTO creationDTO) {
+        Figurinha entity = mapper.parseEntity(creationDTO);
+        FigurinhaPrototipo figurinhaPrototipoEntity = figurinhaPrototipoMapper.parseEntity(
+                figurinhaPrototipoService.findById(creationDTO.getFigurinhaPrototipoId()));
         entity.setId(null);
-        entity.setStickerTemplate(stickerTemplateEntity);
+        entity.setFigurinhaPrototipo(figurinhaPrototipoEntity);
         entity = repository.save(entity);
         //em.refresh(entity);
         return mapper.parseDTO(entity);
     }
 
     @Override
-    public Sticker edit(final String id, final StickerUpdateDTO updateDTO) {
-        final Optional<Sticker> optional = repository.findById(id);
+    public Figurinha edit(final String id, final FigurinhaUpdateDTO updateDTO) {
+        final Optional<Figurinha> optional = repository.findById(id);
         if (optional.isPresent()) {
-            Sticker entity = optional.get();
+            Figurinha entity = optional.get();
             entity.setId(id);
             entity = repository.save(entity);
             return entity;
@@ -81,9 +81,9 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
-    public List<Sticker> editAll(final List<Sticker> entities) {
-        for (Sticker stickerToUpdate : entities) {
-            if (!repository.existsById(stickerToUpdate.getId())) {
+    public List<Figurinha> editAll(final List<Figurinha> entities) {
+        for (Figurinha figurinhaToUpdate : entities) {
+            if (!repository.existsById(figurinhaToUpdate.getId())) {
                 throw new EntityNotFoundException();
             }
         }
@@ -100,53 +100,53 @@ public class StickerServiceImpl implements StickerService {
     }
 
     @Override
-    public List<Sticker> findByAlbumId(String albumId) {
+    public List<Figurinha> findByAlbumId(String albumId) {
         return repository.findByAlbumId(albumId);
     }
 
 
     @Override
-    public boolean createStickersForAlbum(CreateStickerMessage createStickerMessage) {
+    public boolean createFigurinhasForAlbum(CreateFigurinhaMessage createFigurinhaMessage) {
         try {
-            List<StickerTemplateDTO> stickerTemplates = stickerTemplateService.findAll(Optional.ofNullable(createStickerMessage.getAlbumTemplateId()));
-            List<Sticker> stickersToCreateList = new ArrayList<>();
-            if (!stickerTemplates.isEmpty()) {
-                stickerTemplates.forEach(s ->
-                        stickersToCreateList.addAll(this.createStickers(s, createStickerMessage))
+            List<FigurinhaPrototipoDTO> figurinhaPrototipos = figurinhaPrototipoService.findAll(Optional.ofNullable(createFigurinhaMessage.getAlbumPrototipoId()));
+            List<Figurinha> figurinhasToCreateList = new ArrayList<>();
+            if (!figurinhaPrototipos.isEmpty()) {
+                figurinhaPrototipos.forEach(s ->
+                        figurinhasToCreateList.addAll(this.createFigurinhas(s, createFigurinhaMessage))
                 );
-                // throw new RuntimeException("Error creating stickers");
-                repository.saveAll(stickersToCreateList);
+                // throw new RuntimeException("Error creating figurinhas");
+                repository.saveAll(figurinhasToCreateList);
             }
         } catch (Exception e) {
-            log.error("Error creating stickers...");
+            log.error("Error creating figurinhas...");
             log.error("Sending message error to Kafka...");
-            stickerErrorProducer.send(createStickerMessage.getAlbumId());
+            figurinhaErrorProducer.send(createFigurinhaMessage.getAlbumId());
             return false;
         }
         return true;
     }
 
-    private List<Sticker> createStickers(StickerTemplateDTO stickerTemplateDTO, CreateStickerMessage createStickerMessage) {
-        List<Sticker> stickersToCreate = new ArrayList<>();
+    private List<Figurinha> createFigurinhas(FigurinhaPrototipoDTO figurinhaPrototipoDTO, CreateFigurinhaMessage createFigurinhaMessage) {
+        List<Figurinha> figurinhasToCreate = new ArrayList<>();
         try {
-            StickerCreationDTO stickerCreationDTO = StickerCreationDTO.builder()
-                    .stickerTemplateId(stickerTemplateDTO.getId())
-                    .albumId(createStickerMessage.getDefaultAlbumId())
+            FigurinhaCreationDTO figurinhaCreationDTO = FigurinhaCreationDTO.builder()
+                    .figurinhaPrototipoId(figurinhaPrototipoDTO.getId())
+                    .albumId(createFigurinhaMessage.getPadraoAlbumId())
                     .build();
-            int quantity = this.calculateQuantityByRarity(stickerTemplateDTO);
+            int quantity = this.calculateQuantityByRaridade(figurinhaPrototipoDTO);
             for (int i = 0; i < quantity; i++) {
-                log.info("Creating sticker {} for {}", i + 1, stickerTemplateDTO.getDescription());
-                //stickersToCreate.add(this.createAll(stickerCreationDTO));
-                stickersToCreate.add(mapper.parseEntity(stickerCreationDTO));
+                log.info("Creating figurinha {} for {}", i + 1, figurinhaPrototipoDTO.getDescription());
+                //figurinhasToCreate.add(this.createAll(figurinhaCreationDTO));
+                figurinhasToCreate.add(mapper.parseEntity(figurinhaCreationDTO));
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error calcualting sticker quantities");
+            throw new RuntimeException("Error calcualting figurinha quantities");
         }
-        return stickersToCreate;
+        return figurinhasToCreate;
     }
 
-    private int calculateQuantityByRarity(StickerTemplateDTO stickerTemplateDTO) {
-        return switch(stickerTemplateDTO.getRarity()) {
+    private int calculateQuantityByRaridade(FigurinhaPrototipoDTO figurinhaPrototipoDTO) {
+        return switch(figurinhaPrototipoDTO.getRaridade()) {
             case 1 -> 1;
             case 2 -> 3;
             case 3 -> 6;

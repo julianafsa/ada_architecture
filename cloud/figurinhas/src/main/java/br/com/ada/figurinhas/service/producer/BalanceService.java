@@ -1,10 +1,10 @@
-package br.com.ada.stickers.service.producer;
+package br.com.ada.figurinhas.service.producer;
 
 import java.math.BigDecimal;
 
 public interface BalanceService {
 
-    void incrementBalance(String userId, BigDecimal value);
-    void decrementBalance(String userId, BigDecimal value);
-    BigDecimal getBalance(String userId);
+    void incrementBalance(String usuarioId, BigDecimal value);
+    void decrementBalance(String usuarioId, BigDecimal value);
+    BigDecimal getBalance(String usuarioId);
 }

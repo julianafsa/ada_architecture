@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class StickerDTO {
+public class FigurinhaDTO {
     private String id;
 
-    private StickerTemplateDTO stickerTemplate;
+    private FigurinhaPrototipoDTO figurinhaPrototipo;
 
     private String albumId;
 }

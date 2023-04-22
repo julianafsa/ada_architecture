@@ -1,7 +1,7 @@
 ### Objetivo
 Projeto Final do Módulo Arquitetura de Software e Ágil I - Jornada do Conhecimento Backend Java - F1rst Tecnologia e Inovação e Ada.
 
-### #stickers
+### #figurinhas
 Esse projeto contém o microsserviço responsável por criar figurinhas. 
 
 ### Equipe

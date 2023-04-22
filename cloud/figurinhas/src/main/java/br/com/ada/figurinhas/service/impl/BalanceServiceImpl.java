@@ -1,7 +1,7 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.service.RedisService;
-import br.com.ada.stickers.service.producer.BalanceService;
+import br.com.ada.figurinhas.service.RedisService;
+import br.com.ada.figurinhas.service.producer.BalanceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +17,29 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public void incrementBalance(String userId, BigDecimal value) {
+    public void incrementBalance(String usuarioId, BigDecimal value) {
         BigDecimal balance = null;
-        final String oldValueAsString = redisService.get(userId);
+        final String oldValueAsString = redisService.get(usuarioId);
         if (Objects.nonNull(oldValueAsString)) {
             balance = value.add(new BigDecimal(oldValueAsString));
         } else {
             balance = value;
         }
-        log.info("[BalanceService.incrementBalance] UserId = {}, Balance = {}", userId, balance);
-        redisService.save(userId, balance.toString());
+        log.info("[BalanceService.incrementBalance] UsuarioId = {}, Balance = {}", usuarioId, balance);
+        redisService.save(usuarioId, balance.toString());
     }
 
     @Override
-    public void decrementBalance(String userId, BigDecimal value) {
+    public void decrementBalance(String usuarioId, BigDecimal value) {
         BigDecimal balance = null;
-        final String oldValueAsString = redisService.get(userId);
+        final String oldValueAsString = redisService.get(usuarioId);
         if (Objects.nonNull(oldValueAsString)) {
             balance = value.subtract(new BigDecimal(oldValueAsString));
         } else {
             balance = value;
         }
-        log.info("[BalanceService.decrementBalance] UserId = {}, Balance = {}", userId, balance);
-        redisService.save(userId, balance.toString());
+        log.info("[BalanceService.decrementBalance] UsuarioId = {}, Balance = {}", usuarioId, balance);
+        redisService.save(usuarioId, balance.toString());
     }
 
     @Override

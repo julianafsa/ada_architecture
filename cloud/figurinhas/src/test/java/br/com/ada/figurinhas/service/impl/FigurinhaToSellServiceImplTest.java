@@ -1,13 +1,13 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.model.dto.*;
-import br.com.ada.stickers.model.entity.StickerToSell;
-import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.model.mapper.StickerMapperImpl;
-import br.com.ada.stickers.model.mapper.StickerToSellMapper;
-import br.com.ada.stickers.model.mapper.StickerToSellMapperImpl;
-import br.com.ada.stickers.repository.StickerToSellRepository;
-import br.com.ada.stickers.service.StickerService;
+import br.com.ada.figurinhas.model.dto.*;
+import br.com.ada.figurinhas.model.entity.FigurinhaToSell;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapperImpl;
+import br.com.ada.figurinhas.model.mapper.FigurinhaToSellMapper;
+import br.com.ada.figurinhas.model.mapper.FigurinhaToSellMapperImpl;
+import br.com.ada.figurinhas.repository.FigurinhaToSellRepository;
+import br.com.ada.figurinhas.service.FigurinhaService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,47 +23,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class StickerToSellServiceImplTest {
+class FigurinhaToSellServiceImplTest {
 
-    private StickerToSellRepository repository;
-    private StickerToSellMapper mapper;
-    private StickerToSellServiceImpl service;
-    private StickerService stickerService;
-    private StickerMapper stickerMapper;
+    private FigurinhaToSellRepository repository;
+    private FigurinhaToSellMapper mapper;
+    private FigurinhaToSellServiceImpl service;
+    private FigurinhaService figurinhaService;
+    private FigurinhaMapper figurinhaMapper;
 
     @BeforeEach
     public void init() {
-        this.repository = mock(StickerToSellRepository.class);
-        this.mapper = new StickerToSellMapperImpl();
-        this.stickerService = mock(StickerService.class);
-        this.stickerMapper = new StickerMapperImpl();
-        this.service = new StickerToSellServiceImpl(
-                repository, mapper, stickerService, stickerMapper);
+        this.repository = mock(FigurinhaToSellRepository.class);
+        this.mapper = new FigurinhaToSellMapperImpl();
+        this.figurinhaService = mock(FigurinhaService.class);
+        this.figurinhaMapper = new FigurinhaMapperImpl();
+        this.service = new FigurinhaToSellServiceImpl(
+                repository, mapper, figurinhaService, figurinhaMapper);
     }
 
     @Test
     void testFindAll() {
         final String id = UUID.randomUUID().toString();
-        final StickerToSellDTO stickerToSellDTO = buildStickerToSellDTO(id);
+        final FigurinhaToSellDTO figurinhaToSellDTO = buildFigurinhaToSellDTO(id);
         Mockito.when(repository.findAll()).
-                thenReturn((List.of(mapper.parseEntity(stickerToSellDTO))));
-        final List<StickerToSellDTO> response = service.findAll();
+                thenReturn((List.of(mapper.parseEntity(figurinhaToSellDTO))));
+        final List<FigurinhaToSellDTO> response = service.findAll();
         assertEquals(1, response.size());
         assertEquals(id, response.get(0).getId());
-        assertEquals("1", response.get(0).getSticker().getAlbumId());
-        assertEquals(1, response.get(0).getSticker().getStickerTemplate().getNumber());
+        assertEquals("1", response.get(0).getFigurinha().getAlbumId());
+        assertEquals(1, response.get(0).getFigurinha().getFigurinhaPrototipo().getNumber());
     }
 
     @Test
     void testeFindById() {
         final String id = UUID.randomUUID().toString();
-        final StickerToSell stickerToSell = mapper.parseEntity(buildStickerToSellDTO(id));
+        final FigurinhaToSell figurinhaToSell = mapper.parseEntity(buildFigurinhaToSellDTO(id));
         Mockito.when(repository.findById(id)).
-                thenReturn((Optional.of(stickerToSell)));
-        final StickerToSell response = service.findById(id);
+                thenReturn((Optional.of(figurinhaToSell)));
+        final FigurinhaToSell response = service.findById(id);
         assertEquals(id, response.getId());
-        assertEquals("1", response.getSticker().getAlbumId());
-        assertEquals(1, response.getSticker().getStickerTemplate().getNumber());
+        assertEquals("1", response.getFigurinha().getAlbumId());
+        assertEquals(1, response.getFigurinha().getFigurinhaPrototipo().getNumber());
     }
 
     @Test
@@ -77,29 +77,29 @@ class StickerToSellServiceImplTest {
     @Test
     void testCreate() {
         final String id = UUID.randomUUID().toString();
-        final StickerToSellCreationDTO stickerCreationDTO = buildStickerToSellCreationDTO();
-        final StickerToSellDTO stickerToSellDTO = buildStickerToSellDTO(id);
+        final FigurinhaToSellCreationDTO figurinhaCreationDTO = buildFigurinhaToSellCreationDTO();
+        final FigurinhaToSellDTO figurinhaToSellDTO = buildFigurinhaToSellDTO(id);
         Mockito.when(repository.save(any()))
-                .thenReturn(mapper.parseEntity(stickerToSellDTO));
-        final StickerToSellDTO response = service.create(stickerCreationDTO);
+                .thenReturn(mapper.parseEntity(figurinhaToSellDTO));
+        final FigurinhaToSellDTO response = service.create(figurinhaCreationDTO);
         assertEquals(id, response.getId());
-        assertEquals("1", response.getSticker().getAlbumId());
-        assertEquals(1, response.getSticker().getStickerTemplate().getNumber());
+        assertEquals("1", response.getFigurinha().getAlbumId());
+        assertEquals(1, response.getFigurinha().getFigurinhaPrototipo().getNumber());
     }
 
     @Test
     void testEdit() {
         final String id = UUID.randomUUID().toString();
-        final StickerToSellDTO stickerToSellDTO = buildStickerToSellDTO(id);
-        final StickerToSell stickerToSell = mapper.parseEntity(stickerToSellDTO);
+        final FigurinhaToSellDTO figurinhaToSellDTO = buildFigurinhaToSellDTO(id);
+        final FigurinhaToSell figurinhaToSell = mapper.parseEntity(figurinhaToSellDTO);
         Mockito.when(repository.findById(id))
-                .thenReturn(Optional.of(stickerToSell));
-        Mockito.when(repository.save(stickerToSell))
-                .thenReturn(stickerToSell);
-        final StickerToSellDTO response = service.edit(id, buildStickerToSellUpdateDTO());
+                .thenReturn(Optional.of(figurinhaToSell));
+        Mockito.when(repository.save(figurinhaToSell))
+                .thenReturn(figurinhaToSell);
+        final FigurinhaToSellDTO response = service.edit(id, buildFigurinhaToSellUpdateDTO());
         assertEquals(id, response.getId());
-        assertEquals("1", response.getSticker().getAlbumId());
-        assertEquals(1, response.getSticker().getStickerTemplate().getNumber());
+        assertEquals("1", response.getFigurinha().getAlbumId());
+        assertEquals(1, response.getFigurinha().getFigurinhaPrototipo().getNumber());
     }
 
     @Test
@@ -108,7 +108,7 @@ class StickerToSellServiceImplTest {
         Mockito.when(repository.findById(id))
                 .thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class, () ->
-                service.edit(id, buildStickerToSellUpdateDTO()));
+                service.edit(id, buildFigurinhaToSellUpdateDTO()));
     }
 
     @Test
@@ -129,78 +129,78 @@ class StickerToSellServiceImplTest {
     }
 
     @Test
-    void deleteByStickerId() {
-        final String stickerId = UUID.randomUUID().toString();
-        Mockito.when(repository.findByStickerId(stickerId))
-                .thenReturn(Optional.of(mapper.parseEntity(buildStickerToSellDTO(stickerId))));
-        service.deleteByStickerId(stickerId);
-        verify(repository, times(1)).deleteById(stickerId);
+    void deleteByFigurinhaId() {
+        final String figurinhaId = UUID.randomUUID().toString();
+        Mockito.when(repository.findByFigurinhaId(figurinhaId))
+                .thenReturn(Optional.of(mapper.parseEntity(buildFigurinhaToSellDTO(figurinhaId))));
+        service.deleteByFigurinhaId(figurinhaId);
+        verify(repository, times(1)).deleteById(figurinhaId);
     }
 
     @Test
-    void deleteByStickerIdNotFound() {
-        final String stickerId = UUID.randomUUID().toString();
-        Mockito.when(repository.findByStickerId(stickerId))
+    void deleteByFigurinhaIdNotFound() {
+        final String figurinhaId = UUID.randomUUID().toString();
+        Mockito.when(repository.findByFigurinhaId(figurinhaId))
                 .thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> service.deleteByStickerId(stickerId));
+        assertThrows(EntityNotFoundException.class, () -> service.deleteByFigurinhaId(figurinhaId));
     }
 
     @Test
-    void findByStickerId() {
-        final String stickerId = UUID.randomUUID().toString();
-        Mockito.when(repository.findByStickerId(stickerId)).
-                thenReturn(Optional.of(mapper.parseEntity(buildStickerToSellDTO(stickerId))));
-        final Optional<StickerToSell> response = service.findByStickerId(stickerId);
-        assertEquals(stickerId, response.get().getId());
-        assertEquals("1", response.get().getSticker().getAlbumId());
-        assertEquals(1, response.get().getSticker().getStickerTemplate().getNumber());
+    void findByFigurinhaId() {
+        final String figurinhaId = UUID.randomUUID().toString();
+        Mockito.when(repository.findByFigurinhaId(figurinhaId)).
+                thenReturn(Optional.of(mapper.parseEntity(buildFigurinhaToSellDTO(figurinhaId))));
+        final Optional<FigurinhaToSell> response = service.findByFigurinhaId(figurinhaId);
+        assertEquals(figurinhaId, response.get().getId());
+        assertEquals("1", response.get().getFigurinha().getAlbumId());
+        assertEquals(1, response.get().getFigurinha().getFigurinhaPrototipo().getNumber());
     }
 
-    private StickerToSellDTO buildStickerToSellDTO(String id) {
-        final StickerToSellDTO stickerToSellDTO = StickerToSellDTO.builder()
+    private FigurinhaToSellDTO buildFigurinhaToSellDTO(String id) {
+        final FigurinhaToSellDTO figurinhaToSellDTO = FigurinhaToSellDTO.builder()
                 .id(id)
-                .sticker(buildStickerDTO())
+                .figurinha(buildFigurinhaDTO())
                 .price(new BigDecimal(1))
                 .build();
-        return stickerToSellDTO;
+        return figurinhaToSellDTO;
     }
 
-    private StickerDTO buildStickerDTO() {
-        final StickerDTO stickerDTO = StickerDTO.builder()
+    private FigurinhaDTO buildFigurinhaDTO() {
+        final FigurinhaDTO figurinhaDTO = FigurinhaDTO.builder()
                 .id(UUID.randomUUID().toString())
-                .stickerTemplate(buildStickerTemplateDTO())
+                .figurinhaPrototipo(buildFigurinhaPrototipoDTO())
                 .albumId("1")
                 .build();
-        return stickerDTO;
+        return figurinhaDTO;
     }
 
-    private StickerTemplateDTO buildStickerTemplateDTO() {
-        final StickerTemplateDTO stickerTemplateDTO = StickerTemplateDTO.builder()
+    private FigurinhaPrototipoDTO buildFigurinhaPrototipoDTO() {
+        final FigurinhaPrototipoDTO figurinhaPrototipoDTO = FigurinhaPrototipoDTO.builder()
                 .id(UUID.randomUUID().toString())
-                .albumTemplateId(UUID.randomUUID().toString())
+                .albumPrototipoId(UUID.randomUUID().toString())
                 .number(1)
-                .description("Sticker 1")
+                .description("Figurinha 1")
                 .image("base64image")
-                .rarity(1)
-                .stickerPrice(new BigDecimal(1))
+                .raridade(1)
+                .figurinhaPrice(new BigDecimal(1))
                 .build();
-        return stickerTemplateDTO;
+        return figurinhaPrototipoDTO;
     }
 
-    private StickerToSellCreationDTO buildStickerToSellCreationDTO() {
-        final StickerMapper stickerMapper = new StickerMapperImpl();
-        final StickerToSellCreationDTO stickerToSellCreationDTO = StickerToSellCreationDTO.builder()
-                .sticker(stickerMapper.parseEntity(buildStickerDTO()))
+    private FigurinhaToSellCreationDTO buildFigurinhaToSellCreationDTO() {
+        final FigurinhaMapper figurinhaMapper = new FigurinhaMapperImpl();
+        final FigurinhaToSellCreationDTO figurinhaToSellCreationDTO = FigurinhaToSellCreationDTO.builder()
+                .figurinha(figurinhaMapper.parseEntity(buildFigurinhaDTO()))
                 .price(new BigDecimal(1))
                 .build();
-        return stickerToSellCreationDTO;
+        return figurinhaToSellCreationDTO;
     }
 
-    private StickerToSellUpdateDTO buildStickerToSellUpdateDTO() {
-        final StickerToSellUpdateDTO stickerToSellUpdateDTO = StickerToSellUpdateDTO.builder()
+    private FigurinhaToSellUpdateDTO buildFigurinhaToSellUpdateDTO() {
+        final FigurinhaToSellUpdateDTO figurinhaToSellUpdateDTO = FigurinhaToSellUpdateDTO.builder()
                 .price(new BigDecimal(1))
                 .build();
-        return stickerToSellUpdateDTO;
+        return figurinhaToSellUpdateDTO;
     }
 
 }

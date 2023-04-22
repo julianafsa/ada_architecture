@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "album_template")
+@Table(name = "album_prototipo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AlbumTemplate {
+public class AlbumPrototipo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,8 +35,8 @@ public class AlbumTemplate {
   @Column(name = "cover", nullable = false)
   private String cover;
 
-  @Column(name = "numStickers", nullable = false)
-  private Long numStickers;
+  @Column(name = "numFigurinhas", nullable = false)
+  private Long numFigurinhas;
 
   @Column(name = "albumPrice", nullable = false)
   private BigDecimal price;

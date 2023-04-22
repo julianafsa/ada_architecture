@@ -1,4 +1,4 @@
-package br.com.ada.stickers.model.entity;
+package br.com.ada.figurinhas.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,17 +10,17 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "sticker_template")
+@Table(name = "figurinha_prototipo")
 @NoArgsConstructor
 @AllArgsConstructor
-public class StickerTemplate {
+public class FigurinhaPrototipo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private String id;
 
-    @Column(name = "albumTemplateId", nullable = false)
-    private String albumTemplateId;
+    @Column(name = "albumPrototipoId", nullable = false)
+    private String albumPrototipoId;
 
     @Column(name = "number", nullable = false)
     private Integer number;
@@ -31,12 +31,12 @@ public class StickerTemplate {
     @Column(name = "image", nullable = false)
     private String image;
 
-    @Column(name = "rarity", nullable = false)
-    private Integer rarity;
+    @Column(name = "raridade", nullable = false)
+    private Integer raridade;
 
-    @Column(name = "sticker_price", nullable = false)
-    private BigDecimal stickerPrice;
+    @Column(name = "figurinha_price", nullable = false)
+    private BigDecimal figurinhaPrice;
 
-    @OneToMany(mappedBy = "stickerTemplate")
-    private List<Sticker> stickers;
+    @OneToMany(mappedBy = "figurinhaPrototipo")
+    private List<Figurinha> figurinhas;
 }

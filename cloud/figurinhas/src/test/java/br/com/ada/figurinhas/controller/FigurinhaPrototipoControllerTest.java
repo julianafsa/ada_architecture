@@ -1,4 +1,4 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -15,30 +15,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.ada.stickers.model.dto.StickerTemplateCreationDTO;
-import br.com.ada.stickers.model.dto.StickerTemplateDTO;
-import br.com.ada.stickers.model.dto.StickerTemplateUpdateDTO;
-import br.com.ada.stickers.service.impl.StickerTemplateServiceImpl;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoUpdateDTO;
+import br.com.ada.figurinhas.service.impl.FigurinhaPrototipoServiceImpl;
 
 @SpringBootTest
-public class StickerTemplateControllerTest {
+public class FigurinhaPrototipoControllerTest {
 
   @Mock
-  private StickerTemplateServiceImpl service;
+  private FigurinhaPrototipoServiceImpl service;
 
   @InjectMocks
-  private StickerTemplateController controller;
+  private FigurinhaPrototipoController controller;
 
   @Test
-  public void shouldRetrieveAllStickersTemplates() {
+  public void shouldRetrieveAllFigurinhasPrototipos() {
 
-    List<StickerTemplateDTO> stickerTemplateDTOList = new ArrayList<>();
-    StickerTemplateDTO stickerTemplateDTO = new StickerTemplateDTO();
-    stickerTemplateDTOList.add(stickerTemplateDTO);
+    List<FigurinhaPrototipoDTO> figurinhaPrototipoDTOList = new ArrayList<>();
+    FigurinhaPrototipoDTO figurinhaPrototipoDTO = new FigurinhaPrototipoDTO();
+    figurinhaPrototipoDTOList.add(figurinhaPrototipoDTO);
 
-    Mockito.when(service.findAll(Optional.empty())).thenReturn(stickerTemplateDTOList);
+    Mockito.when(service.findAll(Optional.empty())).thenReturn(figurinhaPrototipoDTOList);
 
-    ResponseEntity<List<StickerTemplateDTO>> response = controller.findAll(Optional.empty());
+    ResponseEntity<List<FigurinhaPrototipoDTO>> response = controller.findAll(Optional.empty());
 
     Mockito.verify(service).findAll(Optional.empty());
     assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -46,44 +46,44 @@ public class StickerTemplateControllerTest {
   }
 
   @Test
-  public void shouldRetrieveOneStickerTemplateInformingItsId() {
+  public void shouldRetrieveOneFigurinhaPrototipoInformingItsId() {
 
-    StickerTemplateDTO stickerTemplateDTO = new StickerTemplateDTO();
-    Mockito.when(service.findById(anyString())).thenReturn(stickerTemplateDTO);
+    FigurinhaPrototipoDTO figurinhaPrototipoDTO = new FigurinhaPrototipoDTO();
+    Mockito.when(service.findById(anyString())).thenReturn(figurinhaPrototipoDTO);
 
-    ResponseEntity<StickerTemplateDTO> response = controller.findById("1");
+    ResponseEntity<FigurinhaPrototipoDTO> response = controller.findById("1");
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
 
   }
 
   @Test
-  public void shouldCreateAnotherInstanceOfStickerTemplate() {
+  public void shouldCreateAnotherInstanceOfFigurinhaPrototipo() {
 
-    StickerTemplateDTO stickerTemplateDTO = new StickerTemplateDTO();
-    StickerTemplateCreationDTO stickerTemplateCreationDTO = new StickerTemplateCreationDTO();
-    Mockito.when(service.create(stickerTemplateCreationDTO)).thenReturn(stickerTemplateDTO);
+    FigurinhaPrototipoDTO figurinhaPrototipoDTO = new FigurinhaPrototipoDTO();
+    FigurinhaPrototipoCreationDTO figurinhaPrototipoCreationDTO = new FigurinhaPrototipoCreationDTO();
+    Mockito.when(service.create(figurinhaPrototipoCreationDTO)).thenReturn(figurinhaPrototipoDTO);
 
-    ResponseEntity<StickerTemplateDTO> response = controller.create(stickerTemplateCreationDTO);
+    ResponseEntity<FigurinhaPrototipoDTO> response = controller.create(figurinhaPrototipoCreationDTO);
 
-    Mockito.verify(service).create(stickerTemplateCreationDTO);
+    Mockito.verify(service).create(figurinhaPrototipoCreationDTO);
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
   }
 
   @Test
-  public void shouldUpdateDataFromStickerTemplateInformingItsId(){
-    StickerTemplateDTO stickerTemplateDTO = new StickerTemplateDTO();
-    StickerTemplateUpdateDTO stickerTemplateUpdateDTO = new StickerTemplateUpdateDTO();
-    Mockito.when(service.edit("1", stickerTemplateUpdateDTO)).thenReturn(stickerTemplateDTO);
+  public void shouldUpdateDataFromFigurinhaPrototipoInformingItsId(){
+    FigurinhaPrototipoDTO figurinhaPrototipoDTO = new FigurinhaPrototipoDTO();
+    FigurinhaPrototipoUpdateDTO figurinhaPrototipoUpdateDTO = new FigurinhaPrototipoUpdateDTO();
+    Mockito.when(service.edit("1", figurinhaPrototipoUpdateDTO)).thenReturn(figurinhaPrototipoDTO);
 
-    ResponseEntity<StickerTemplateDTO> response = controller.edit("1", stickerTemplateUpdateDTO);
+    ResponseEntity<FigurinhaPrototipoDTO> response = controller.edit("1", figurinhaPrototipoUpdateDTO);
 
-    Mockito.verify(service).edit("1", stickerTemplateUpdateDTO);
+    Mockito.verify(service).edit("1", figurinhaPrototipoUpdateDTO);
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
 
   @Test
-  public void shouldDeleteAStickerTemplateByInformingItsId(){
+  public void shouldDeleteAFigurinhaPrototipoByInformingItsId(){
 
     ResponseEntity<Object> response = controller.delete("1");
 

@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AlbumTemplateDTO {
+public class AlbumPrototipoDTO {
 
   private String id;
 
@@ -22,7 +22,7 @@ public class AlbumTemplateDTO {
 
   private String cover;
 
-  private Long numStickers;
+  private Long numFigurinhas;
 
   private BigDecimal price;
 

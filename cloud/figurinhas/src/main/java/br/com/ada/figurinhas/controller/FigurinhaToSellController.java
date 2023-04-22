@@ -1,10 +1,10 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.StickerToSellCreationDTO;
-import br.com.ada.stickers.model.dto.StickerToSellDTO;
-import br.com.ada.stickers.model.dto.StickerToSellUpdateDTO;
-import br.com.ada.stickers.model.mapper.StickerToSellMapper;
-import br.com.ada.stickers.service.StickerToSellService;
+import br.com.ada.figurinhas.model.dto.FigurinhaToSellCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaToSellDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaToSellUpdateDTO;
+import br.com.ada.figurinhas.model.mapper.FigurinhaToSellMapper;
+import br.com.ada.figurinhas.service.FigurinhaToSellService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,20 +18,20 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/sticker/sell")
-public class StickerToSellController {
+@RequestMapping(value = "/figurinha/sell")
+public class FigurinhaToSellController {
 
-    private final StickerToSellService service;
-    private final StickerToSellMapper mapper;
-    public StickerToSellController(final StickerToSellService service,
-                                   final StickerToSellMapper mapper) {
+    private final FigurinhaToSellService service;
+    private final FigurinhaToSellMapper mapper;
+    public FigurinhaToSellController(final FigurinhaToSellService service,
+                                   final FigurinhaToSellMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<StickerToSellDTO>> findAll() {
-        final List<StickerToSellDTO> response = service.findAll();
+    public ResponseEntity<List<FigurinhaToSellDTO>> findAll() {
+        final List<FigurinhaToSellDTO> response = service.findAll();
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
         }
@@ -39,7 +39,7 @@ public class StickerToSellController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StickerToSellDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<FigurinhaToSellDTO> findById(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(mapper.parseDTO(service.findById(id)));
         } catch (EntityNotFoundException ex) {
@@ -51,7 +51,7 @@ public class StickerToSellController {
     }
 
     @PostMapping
-    public ResponseEntity<StickerToSellDTO> create(@RequestBody @Valid StickerToSellCreationDTO creationDTO) {
+    public ResponseEntity<FigurinhaToSellDTO> create(@RequestBody @Valid FigurinhaToSellCreationDTO creationDTO) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -64,8 +64,8 @@ public class StickerToSellController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StickerToSellDTO> edit(@PathVariable("id") String id,
-                                           @RequestBody @Valid StickerToSellUpdateDTO updateDTO) {
+    public ResponseEntity<FigurinhaToSellDTO> edit(@PathVariable("id") String id,
+                                           @RequestBody @Valid FigurinhaToSellUpdateDTO updateDTO) {
         try {
             return ResponseEntity.ok(service.edit(id, updateDTO));
         } catch (EntityNotFoundException ex) {

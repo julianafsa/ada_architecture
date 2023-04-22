@@ -1,7 +1,7 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.config.RedisProperties;
-import br.com.ada.stickers.service.RedisService;
+import br.com.ada.figurinhas.config.RedisProperties;
+import br.com.ada.figurinhas.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;

@@ -1,13 +1,13 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.exceptions.StickerNotAvailableForSaleException;
-import br.com.ada.stickers.model.dto.*;
-import br.com.ada.stickers.model.entity.Sticker;
-import br.com.ada.stickers.model.entity.StickerToSell;
-import br.com.ada.stickers.model.mapper.StickerMapper;
-import br.com.ada.stickers.service.*;
-import br.com.ada.stickers.service.producer.BalanceService;
-import br.com.ada.stickers.strategy.StickerPackStrategy;
+import br.com.ada.figurinhas.exceptions.FigurinhaNotAvailableForSaleException;
+import br.com.ada.figurinhas.model.dto.*;
+import br.com.ada.figurinhas.model.entity.Figurinha;
+import br.com.ada.figurinhas.model.entity.FigurinhaToSell;
+import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
+import br.com.ada.figurinhas.service.*;
+import br.com.ada.figurinhas.service.producer.BalanceService;
+import br.com.ada.figurinhas.strategy.FigurinhaPacoteStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,131 +17,131 @@ import java.util.List;
 import java.util.Optional;
 
 /* Design Pattern: Strategy Pattern.
- * In the buyStickerPack method, we need to get stickers to add to a pack.
- * There are many strategies for choosing stickers. Therefore, we can create an
+ * In the buyFigurinhaPacote method, we need to get figurinhas to add to a pacote.
+ * There are many strategies for choosing figurinhas. Therefore, we can create an
  * interface and several implementations of this interface that choose
- * the stickers in different ways. Here, we have created an algorithm that
- * chooses stickers randomly (RandomStickerPackStrategyImpl.java).
+ * the figurinhas in different ways. Here, we have created an algorithm that
+ * chooses figurinhas randomly (RandomFigurinhaPacoteStrategyImpl.java).
  */
 @Slf4j
 @Service
-public class StickerServiceWithJournalImpl implements StickerServiceWithJournal {
+public class FigurinhaServiceWithJournalImpl implements FigurinhaServiceWithJournal {
 
-    private final StickerJournalService stickerJournalService;
-    private final StickerService stickerService;
-    private final StickerMapper stickerMapper;
-    private final StickerToSellService stickerToSellService;
-    private final StickerPackStrategy stickerPackStrategy;
+    private final FigurinhaJournalService figurinhaJournalService;
+    private final FigurinhaService figurinhaService;
+    private final FigurinhaMapper figurinhaMapper;
+    private final FigurinhaToSellService figurinhaToSellService;
+    private final FigurinhaPacoteStrategy figurinhaPacoteStrategy;
     private final AlbumService albumService;
     private final BalanceService balanceService;
-    public StickerServiceWithJournalImpl(final StickerService stickerService,
-                                         final StickerJournalService stickerJournalService,
-                                         final StickerMapper stickerMapper,
-                                         final StickerToSellService stickerToSellService,
-                                         final StickerPackStrategy stickerPackStrategy,
+    public FigurinhaServiceWithJournalImpl(final FigurinhaService figurinhaService,
+                                         final FigurinhaJournalService figurinhaJournalService,
+                                         final FigurinhaMapper figurinhaMapper,
+                                         final FigurinhaToSellService figurinhaToSellService,
+                                         final FigurinhaPacoteStrategy figurinhaPacoteStrategy,
                                          final AlbumService albumService,
                                          final BalanceService balanceService) {
-        this.stickerService = stickerService;
-        this.stickerJournalService = stickerJournalService;
-        this.stickerMapper = stickerMapper;
-        this.stickerToSellService = stickerToSellService;
-        this.stickerPackStrategy = stickerPackStrategy;
+        this.figurinhaService = figurinhaService;
+        this.figurinhaJournalService = figurinhaJournalService;
+        this.figurinhaMapper = figurinhaMapper;
+        this.figurinhaToSellService = figurinhaToSellService;
+        this.figurinhaPacoteStrategy = figurinhaPacoteStrategy;
         this.albumService = albumService;
         this.balanceService = balanceService;
     }
     
     @Override
-    public List<Sticker> buyStickerPack(final StickerBuyPackDTO stickerBuyPackDTO) {
-        List<Sticker> soldStickers = new ArrayList<>();
+    public List<Figurinha> buyFigurinhaPacote(final FigurinhaBuyPacoteDTO figurinhaBuyPacoteDTO) {
+        List<Figurinha> soldFigurinhas = new ArrayList<>();
         final Integer size = 5;
-        final String albumId = stickerBuyPackDTO.getAlbumId();
-        final String destinationAlbumId = stickerBuyPackDTO.getDestinationAlbumId();
+        final String albumId = figurinhaBuyPacoteDTO.getAlbumId();
+        final String destinationAlbumId = figurinhaBuyPacoteDTO.getDestinationAlbumId();
 
-        // Get list of stickers from album
-        final List<Sticker> stickersFromAlbumId = stickerService.findByAlbumId(albumId);
-        //final List<Sticker> stickersFromDestnationAlbumId = stickerService.findByAlbumId(destinationAlbumId);
+        // Get list of figurinhas from album
+        final List<Figurinha> figurinhasFromAlbumId = figurinhaService.findByAlbumId(albumId);
+        //final List<Figurinha> figurinhasFromDestnationAlbumId = figurinhaService.findByAlbumId(destinationAlbumId);
 
-        // It generates a pack of stickers to be sold
-        soldStickers = stickerPackStrategy.createStickerPack(stickersFromAlbumId, size);
+        // It generates a pacote of figurinhas to be sold
+        soldFigurinhas = figurinhaPacoteStrategy.createFigurinhaPacote(figurinhasFromAlbumId, size);
 
-        // Edit all stickers with new album id
-        soldStickers.forEach(sticker -> sticker.setAlbumId(destinationAlbumId));
-        soldStickers = stickerService.editAll(soldStickers);
+        // Edit all figurinhas with new album id
+        soldFigurinhas.forEach(figurinha -> figurinha.setAlbumId(destinationAlbumId));
+        soldFigurinhas = figurinhaService.editAll(soldFigurinhas);
 
-        // Add the sale to the transaction history (sticker journal).
-        soldStickers.forEach(soldSticker -> this.addStickerJournal(albumId, destinationAlbumId, soldSticker,
-                soldSticker.getStickerTemplate().getStickerPrice()));
-        return soldStickers;
+        // Add the sale to the transaction history (figurinha journal).
+        soldFigurinhas.forEach(soldFigurinha -> this.addFigurinhaJournal(albumId, destinationAlbumId, soldFigurinha,
+                soldFigurinha.getFigurinhaPrototipo().getFigurinhaPrice()));
+        return soldFigurinhas;
     }
 
     @Override
-    public Sticker buyStickerFromAlbum(final StickerBuyFromAlbumDTO stickerBuyFromAlbumDTO) {
-        Sticker sticker = null;
-        final String stickerId = stickerBuyFromAlbumDTO.getStickerId();
-        final String destinationAlbumId = stickerBuyFromAlbumDTO.getDestinationAlbumId();
+    public Figurinha buyFigurinhaFromAlbum(final FigurinhaBuyFromAlbumDTO figurinhaBuyFromAlbumDTO) {
+        Figurinha figurinha = null;
+        final String figurinhaId = figurinhaBuyFromAlbumDTO.getFigurinhaId();
+        final String destinationAlbumId = figurinhaBuyFromAlbumDTO.getDestinationAlbumId();
 
-        // Get sticker for sale
-        final Optional<StickerToSell> optional = stickerToSellService.findByStickerId(stickerId);
-        StickerToSell stickerToSell = null;
+        // Get figurinha for sale
+        final Optional<FigurinhaToSell> optional = figurinhaToSellService.findByFigurinhaId(figurinhaId);
+        FigurinhaToSell figurinhaToSell = null;
         if (optional.isPresent()) {
-            stickerToSell = optional.get();
-            sticker = stickerToSell.getSticker();
+            figurinhaToSell = optional.get();
+            figurinha = figurinhaToSell.getFigurinha();
         } else {
-            // Sticker is not available for sale.
-            String errorMsg = "Sticker " + stickerId + " not available for sale";
+            // Figurinha is not available for sale.
+            String errorMsg = "Figurinha " + figurinhaId + " not available for sale";
             log.error(errorMsg);
-            throw new StickerNotAvailableForSaleException();
+            throw new FigurinhaNotAvailableForSaleException();
         }
 
         // Update balance on Redis.
-        final String sourceAlbumId = sticker.getAlbumId();
-        Boolean result = this.updateBalanceUser(sourceAlbumId, stickerToSell.getPrice());
+        final String sourceAlbumId = figurinha.getAlbumId();
+        Boolean result = this.updateBalanceUsuario(sourceAlbumId, figurinhaToSell.getPrice());
         if (!result) {
-            throw new RuntimeException("Fail to increment balance to user");
+            throw new RuntimeException("Fail to increment balance to usuario");
         }
 
-        // Update sticker album.
-        sticker.setAlbumId(destinationAlbumId);
-        final StickerUpdateDTO stickerUpdateDTO = StickerUpdateDTO.builder()
-                .albumId(sticker.getAlbumId())
-                .stickerTemplateId(sticker.getStickerTemplate().getId())
+        // Update figurinha album.
+        figurinha.setAlbumId(destinationAlbumId);
+        final FigurinhaUpdateDTO figurinhaUpdateDTO = FigurinhaUpdateDTO.builder()
+                .albumId(figurinha.getAlbumId())
+                .figurinhaPrototipoId(figurinha.getFigurinhaPrototipo().getId())
                 .build();
-        sticker = stickerService.edit(stickerId, stickerUpdateDTO);
+        figurinha = figurinhaService.edit(figurinhaId, figurinhaUpdateDTO);
 
-        // It makes the sticker unavailable for sale.
-        this.stickerToSellService.deleteByStickerId(stickerId);
+        // It makes the figurinha unavailable for sale.
+        this.figurinhaToSellService.deleteByFigurinhaId(figurinhaId);
 
-        // Add the sale to the transaction history (sticker journal).
-        this.addStickerJournal(sourceAlbumId, destinationAlbumId, sticker, stickerToSell.getPrice());
-        return sticker;
+        // Add the sale to the transaction history (figurinha journal).
+        this.addFigurinhaJournal(sourceAlbumId, destinationAlbumId, figurinha, figurinhaToSell.getPrice());
+        return figurinha;
     }
 
-    private StickerJournalDTO addStickerJournal(final String sourceAlbum, final String destinationAlbumId,
-                                                final Sticker sticker, final BigDecimal price) {
-        final StickerJournalCreationDTO stickerJournalCreationDTO = StickerJournalCreationDTO.builder()
+    private FigurinhaJournalDTO addFigurinhaJournal(final String sourceAlbum, final String destinationAlbumId,
+                                                final Figurinha figurinha, final BigDecimal price) {
+        final FigurinhaJournalCreationDTO figurinhaJournalCreationDTO = FigurinhaJournalCreationDTO.builder()
                 .sourceAlbumId(sourceAlbum)
                 .destinationAlbumId(destinationAlbumId)
-                .sticker(sticker)
+                .figurinha(figurinha)
                 .price(price)
                 .build();
-        return stickerJournalService.create(stickerJournalCreationDTO);
+        return figurinhaJournalService.create(figurinhaJournalCreationDTO);
     }
 
-    private Boolean updateBalanceUser(String sourceAlbumId, BigDecimal price) {
+    private Boolean updateBalanceUsuario(String sourceAlbumId, BigDecimal price) {
         try {
-            Optional<String> userIdOp = albumService.findUserIdByAlbumId(sourceAlbumId);
-            if (userIdOp.isPresent()) {
-                final String userId = userIdOp.get();
+            Optional<String> usuarioIdOp = albumService.findUsuarioIdByAlbumId(sourceAlbumId);
+            if (usuarioIdOp.isPresent()) {
+                final String usuarioId = usuarioIdOp.get();
                 try {
-                    this.balanceService.incrementBalance(userId, price);
+                    this.balanceService.incrementBalance(usuarioId, price);
                 } catch (Exception e) {
-                    log.error("[REDIS] Fail to add {} to balance of user with id {}...", price, userId);
+                    log.error("[REDIS] Fail to add {} to balance of usuario with id {}...", price, usuarioId);
                     return Boolean.FALSE;
                 }
-                log.info("[REDIS] Adding {} to user with id {}...", price, userId);
+                log.info("[REDIS] Adding {} to usuario with id {}...", price, usuarioId);
             }
         } catch (Exception exception) {
-            log.error("[FEIGN] Fail to get userId from album id = {}", sourceAlbumId);
+            log.error("[FEIGN] Fail to get usuarioId from album id = {}", sourceAlbumId);
         }
         return Boolean.TRUE;
     }

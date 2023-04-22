@@ -1,7 +1,7 @@
-package br.com.ada.stickers.service;
+package br.com.ada.figurinhas.service;
 
 import java.util.Optional;
 
 public interface AlbumService {
-    Optional<String> findUserIdByAlbumId(String albumId);
+    Optional<String> findUsuarioIdByAlbumId(String albumId);
 }

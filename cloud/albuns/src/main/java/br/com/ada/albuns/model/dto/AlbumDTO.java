@@ -13,7 +13,7 @@ public class AlbumDTO {
 
   private String id;
 
-  private String userId;
+  private String usuarioId;
 
-  private String albumTemplateId;
+  private String albumPrototipoId;
 }

@@ -1,7 +1,7 @@
-package br.com.ada.stickers.service.impl;
+package br.com.ada.figurinhas.service.impl;
 
-import br.com.ada.stickers.client.AlbumClient;
-import br.com.ada.stickers.service.AlbumService;
+import br.com.ada.figurinhas.client.AlbumClient;
+import br.com.ada.figurinhas.service.AlbumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class AlbumServiceImpl implements AlbumService {
         this.albumClient = albumClient;
     }
     @Override
-    public Optional<String> findUserIdByAlbumId(String albumId) {
-        final ResponseEntity<String> response = albumClient.findUserIdByAlbumId(albumId);
+    public Optional<String> findUsuarioIdByAlbumId(String albumId) {
+        final ResponseEntity<String> response = albumClient.findUsuarioIdByAlbumId(albumId);
         if (!response.getStatusCode().is2xxSuccessful()) {
-            log.error("Error retrieving user id from album id: {}", response.getStatusCode());
+            log.error("Error retrieving usuario id from album id: {}", response.getStatusCode());
             return Optional.empty();
         }
-        final String userId = response.getBody();
-        log.info("Getting user id from albumId = {}. User id is {}", albumId, userId);
-        return Optional.of(userId);
+        final String usuarioId = response.getBody();
+        log.info("Getting usuario id from albumId = {}. Usuario id is {}", albumId, usuarioId);
+        return Optional.of(usuarioId);
     }
 }

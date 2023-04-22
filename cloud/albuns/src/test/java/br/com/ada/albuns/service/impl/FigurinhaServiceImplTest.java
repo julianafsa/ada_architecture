@@ -13,50 +13,50 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
-import br.com.ada.albuns.client.StickerClient;
-import br.com.ada.albuns.client.StickerTemplateClient;
-import br.com.ada.albuns.client.dto.StickerTemplateDTO;
+import br.com.ada.albuns.client.FigurinhaClient;
+import br.com.ada.albuns.client.FigurinhaPrototipoClient;
+import br.com.ada.albuns.client.dto.FigurinhaPrototipoDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.repository.AlbumRepository;
 
-public class StickerServiceImplTest {
+public class FigurinhaServiceImplTest {
 	private AlbumRepository albumRepository;
-	private StickerTemplateClient stickerTemplateClient;
-	private StickerClient stickerClient;
-	private StickerServiceImpl service;
+	private FigurinhaPrototipoClient figurinhaPrototipoClient;
+	private FigurinhaClient figurinhaClient;
+	private FigurinhaServiceImpl service;
 	
 	@BeforeEach
 	public void setUp() {
 		this.albumRepository = mock(AlbumRepository.class);
-		this.stickerTemplateClient = mock(StickerTemplateClient.class);
-		this.stickerClient = mock(StickerClient.class);
-		this.service = new StickerServiceImpl(albumRepository, stickerTemplateClient, stickerClient);
+		this.figurinhaPrototipoClient = mock(FigurinhaPrototipoClient.class);
+		this.figurinhaClient = mock(FigurinhaClient.class);
+		this.service = new FigurinhaServiceImpl(albumRepository, figurinhaPrototipoClient, figurinhaClient);
 	}
 	
 	@Test
-	public void testCreateStickersForAlbum() {
+	public void testCreateFigurinhasForAlbum() {
 		// Arrange
-		String albumTemplateId = UUID.randomUUID().toString();
-		String defaultAlbumId = UUID.randomUUID().toString();
-		StickerTemplateDTO stickerTemplateDTO = StickerTemplateDTO.builder()
-				.albumTemplateId(albumTemplateId)
-				.rarity(1)
+		String albumPrototipoId = UUID.randomUUID().toString();
+		String padraoAlbumId = UUID.randomUUID().toString();
+		FigurinhaPrototipoDTO figurinhaPrototipoDTO = FigurinhaPrototipoDTO.builder()
+				.albumPrototipoId(albumPrototipoId)
+				.raridade(1)
 				.build();
-		List<StickerTemplateDTO> stickerTemplatesDTO = List.of(stickerTemplateDTO);
-		ResponseEntity<List<StickerTemplateDTO>> response = ResponseEntity.ok(stickerTemplatesDTO);
-		Album defaultAlbum = Album.builder()
-				.id(defaultAlbumId)
+		List<FigurinhaPrototipoDTO> figurinhaPrototiposDTO = List.of(figurinhaPrototipoDTO);
+		ResponseEntity<List<FigurinhaPrototipoDTO>> response = ResponseEntity.ok(figurinhaPrototiposDTO);
+		Album padraoAlbum = Album.builder()
+				.id(padraoAlbumId)
 				.build();
 		
-		when(stickerTemplateClient.findAll(albumTemplateId)).thenReturn(response);
-		when(albumRepository.findByUserIdAndAlbumTemplateId(null, albumTemplateId)).thenReturn(Optional.of(defaultAlbum));
-		when(stickerClient.create(any())).thenReturn(ResponseEntity.ok().build());
+		when(figurinhaPrototipoClient.findAll(albumPrototipoId)).thenReturn(response);
+		when(albumRepository.findByUsuarioIdAndAlbumPrototipoId(null, albumPrototipoId)).thenReturn(Optional.of(padraoAlbum));
+		when(figurinhaClient.create(any())).thenReturn(ResponseEntity.ok().build());
 		
 		// Act
-		this.service.createStickersForAlbum(albumTemplateId);
+		this.service.createFigurinhasForAlbum(albumPrototipoId);
 		
 		// Assert
-		verify(stickerClient).create(any());
+		verify(figurinhaClient).create(any());
 	}
 
 }

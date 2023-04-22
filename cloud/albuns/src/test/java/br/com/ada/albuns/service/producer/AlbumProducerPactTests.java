@@ -7,10 +7,10 @@ import static org.mockito.Mockito.verify;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.TestPrototipo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.KafkaPrototipo;
 
 import au.com.dius.pact.provider.MessageAndMetadata;
 import au.com.dius.pact.provider.PactVerifyProvider;
@@ -20,38 +20,38 @@ import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvide
 import au.com.dius.pact.provider.junitsupport.Consumer;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
-import br.com.ada.albuns.model.dto.CreateStickerMessage;
+import br.com.ada.albuns.model.dto.CreateFigurinhaMessage;
 
 @Provider("albuns")
 @Consumer("figurinhas")
 @PactFolder("../../pacts")
 public class AlbumProducerPactTests {
 	private AlbumProducer producer;
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaPrototipo<String, String> kafkaPrototipo;
 
 	@BeforeEach
 	public void before(PactVerificationContext context) {
 		context.setTarget(new MessageTestTarget());
 		
-		kafkaTemplate = (KafkaTemplate<String, String>)mock(KafkaTemplate.class);
-		producer = new AlbumProducer(kafkaTemplate);
+		kafkaPrototipo = (KafkaPrototipo<String, String>)mock(KafkaPrototipo.class);
+		producer = new AlbumProducer(kafkaPrototipo);
 	}
 	
-	@TestTemplate
+	@TestPrototipo
 	@ExtendWith(PactVerificationInvocationContextProvider.class)
-	public void pactVerificationTestTemplate(PactVerificationContext context) {
+	public void pactVerificationTestPrototipo(PactVerificationContext context) {
 		context.verifyInteraction();
 	}
 	
 	@PactVerifyProvider("Criacao de figurinhas")
 	public MessageAndMetadata verifySimpleMessageEvent() {
 		Map<String, Object> metadata = Map.of("contentType", "application/json");
-		CreateStickerMessage createStickerMessage = new CreateStickerMessage("AlbumId", "AlbumTemplateId", "DefaultAlbumId");
+		CreateFigurinhaMessage createFigurinhaMessage = new CreateFigurinhaMessage("AlbumId", "AlbumPrototipoId", "PadraoAlbumId");
 		ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
 		
-		producer.send(createStickerMessage);
+		producer.send(createFigurinhaMessage);
 		
-		verify(kafkaTemplate).send(any(), any(), stringCaptor.capture());
+		verify(kafkaPrototipo).send(any(), any(), stringCaptor.capture());
 		
 		return new MessageAndMetadata(stringCaptor.getValue().getBytes(), metadata);
 	}

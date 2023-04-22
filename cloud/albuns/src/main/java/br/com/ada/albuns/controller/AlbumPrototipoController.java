@@ -14,31 +14,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
-import br.com.ada.albuns.service.AlbumTemplateService;
+import br.com.ada.albuns.model.dto.AlbumPrototipoDTO;
+import br.com.ada.albuns.service.AlbumPrototipoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/album/template")
+@RequestMapping("/album/prototipo")
 @Slf4j
-public class AlbumTemplateController {
+public class AlbumPrototipoController {
 
-    protected final AlbumTemplateService service;
+    protected final AlbumPrototipoService service;
 
-    public AlbumTemplateController(AlbumTemplateService service) {
+    public AlbumPrototipoController(AlbumPrototipoService service) {
         this.service = service;
     }
 
     /* Create Album Teamplate */
     @PostMapping
-    public ResponseEntity<AlbumTemplateDTO> create(@RequestBody @Valid AlbumTemplateDTO albumTemplateDTO) {
+    public ResponseEntity<AlbumPrototipoDTO> create(@RequestBody @Valid AlbumPrototipoDTO albumPrototipoDTO) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(service.create(albumTemplateDTO));
+                    .body(service.create(albumPrototipoDTO));
         } catch (Exception ex) {
             log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -47,9 +47,9 @@ public class AlbumTemplateController {
 
     /* Retrive All Album Teamplate */
     @GetMapping
-    public ResponseEntity<List<AlbumTemplateDTO>> findAll() {
+    public ResponseEntity<List<AlbumPrototipoDTO>> findAll() {
     	try {
-	        List<AlbumTemplateDTO> result = service.findAll();
+	        List<AlbumPrototipoDTO> result = service.findAll();
 	        if (result.isEmpty()) {
 	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	        }
@@ -61,7 +61,7 @@ public class AlbumTemplateController {
 
     /* Retrive Album By Id */
     @GetMapping("/{id}")
-    public ResponseEntity<AlbumTemplateDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<AlbumPrototipoDTO> findById(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(service.findById(id));
         } catch (EntityNotFoundException ex) {
@@ -74,10 +74,10 @@ public class AlbumTemplateController {
 
     /* Update Album Teamplate */
     @PutMapping("/{id}")
-    public ResponseEntity<AlbumTemplateDTO> edit(@PathVariable("id") String id,
-                                                 @RequestBody @Valid AlbumTemplateDTO albumTemplateDTO) {
+    public ResponseEntity<AlbumPrototipoDTO> edit(@PathVariable("id") String id,
+                                                 @RequestBody @Valid AlbumPrototipoDTO albumPrototipoDTO) {
         try {
-            return ResponseEntity.ok(service.edit(id, albumTemplateDTO));
+            return ResponseEntity.ok(service.edit(id, albumPrototipoDTO));
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception ex) {

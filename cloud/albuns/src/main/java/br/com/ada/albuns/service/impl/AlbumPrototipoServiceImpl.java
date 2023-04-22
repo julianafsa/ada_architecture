@@ -5,57 +5,57 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.ada.albuns.model.dto.AlbumTemplateDTO;
+import br.com.ada.albuns.model.dto.AlbumPrototipoDTO;
 import br.com.ada.albuns.model.entity.Album;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
-import br.com.ada.albuns.model.mapper.AlbumTemplateMapper;
+import br.com.ada.albuns.model.entity.AlbumPrototipo;
+import br.com.ada.albuns.model.mapper.AlbumPrototipoMapper;
 import br.com.ada.albuns.repository.AlbumRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
-import br.com.ada.albuns.service.AlbumTemplateService;
+import br.com.ada.albuns.repository.AlbumPrototipoRepository;
+import br.com.ada.albuns.service.AlbumPrototipoService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class AlbumTemplateServiceImpl implements AlbumTemplateService {
+public class AlbumPrototipoServiceImpl implements AlbumPrototipoService {
 
-  private final AlbumTemplateRepository repository;
-  private final AlbumTemplateMapper mapper;
+  private final AlbumPrototipoRepository repository;
+  private final AlbumPrototipoMapper mapper;
   private final AlbumRepository albumRepository;
 
-  public AlbumTemplateServiceImpl(AlbumTemplateRepository repository, AlbumTemplateMapper mapper, AlbumRepository albumRepository) {
+  public AlbumPrototipoServiceImpl(AlbumPrototipoRepository repository, AlbumPrototipoMapper mapper, AlbumRepository albumRepository) {
     this.repository = repository;
     this.mapper = mapper;
     this.albumRepository = albumRepository;
   }
 
   @Override
-  public List<AlbumTemplateDTO> findAll() {
+  public List<AlbumPrototipoDTO> findAll() {
     return mapper.parseListDTO(repository.findAll());
   }
 
   @Override
-  public AlbumTemplateDTO findById(String id) {
-    Optional<AlbumTemplate> albumTemplateOptional = repository.findById(id);
-    if (albumTemplateOptional.isPresent()) {
-      AlbumTemplate albumTemplate = albumTemplateOptional.get();
-      return mapper.parseDTO(albumTemplate);
+  public AlbumPrototipoDTO findById(String id) {
+    Optional<AlbumPrototipo> albumPrototipoOptional = repository.findById(id);
+    if (albumPrototipoOptional.isPresent()) {
+      AlbumPrototipo albumPrototipo = albumPrototipoOptional.get();
+      return mapper.parseDTO(albumPrototipo);
     }
     throw new EntityNotFoundException();
   }
 
   @Override
-  public AlbumTemplateDTO create(AlbumTemplateDTO entity) {
-    AlbumTemplate albumTemplate = mapper.parseEntity(entity);
-    albumTemplate.setId(null);
+  public AlbumPrototipoDTO create(AlbumPrototipoDTO entity) {
+    AlbumPrototipo albumPrototipo = mapper.parseEntity(entity);
+    albumPrototipo.setId(null);
 
-    albumTemplate = repository.save(albumTemplate);
-    this.createDefaultAlbum(albumTemplate);
-    return mapper.parseDTO(albumTemplate);
+    albumPrototipo = repository.save(albumPrototipo);
+    this.createPadraoAlbum(albumPrototipo);
+    return mapper.parseDTO(albumPrototipo);
   }
 
   @Override
-  public AlbumTemplateDTO edit(String id, AlbumTemplateDTO albumTemplateDTO) {
+  public AlbumPrototipoDTO edit(String id, AlbumPrototipoDTO albumPrototipoDTO) {
     if (repository.existsById(id)) {
-      AlbumTemplate entity = mapper.parseEntity(albumTemplateDTO);
+      AlbumPrototipo entity = mapper.parseEntity(albumPrototipoDTO);
       entity.setId(id);
       entity = repository.save(entity);
       return mapper.parseDTO(entity);
@@ -71,11 +71,11 @@ public class AlbumTemplateServiceImpl implements AlbumTemplateService {
     repository.deleteById(id);
   }
   
-  private void createDefaultAlbum(AlbumTemplate albumTemplate) {
+  private void createPadraoAlbum(AlbumPrototipo albumPrototipo) {
 	  Album album = Album.builder()
 			  .id(null)
-			  .userId(null)
-			  .albumTemplateId(albumTemplate.getId())
+			  .usuarioId(null)
+			  .albumPrototipoId(albumPrototipo.getId())
 			  .build();
 	  albumRepository.save(album);
   }

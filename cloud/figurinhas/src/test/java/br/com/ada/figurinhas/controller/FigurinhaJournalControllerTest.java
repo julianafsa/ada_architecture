@@ -1,10 +1,10 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.StickerCreationDTO;
-import br.com.ada.stickers.model.dto.StickerDTO;
-import br.com.ada.stickers.model.dto.StickerJournalCreationDTO;
-import br.com.ada.stickers.model.dto.StickerJournalDTO;
-import br.com.ada.stickers.service.StickerJournalService;
+import br.com.ada.figurinhas.model.dto.FigurinhaCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaJournalDTO;
+import br.com.ada.figurinhas.service.FigurinhaJournalService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,21 +21,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-class StickerJournalControllerTest {
+class FigurinhaJournalControllerTest {
 
     @Mock
-    private StickerJournalService service;
+    private FigurinhaJournalService service;
 
     @InjectMocks
-    private StickerJournalController stickerJournalController;
+    private FigurinhaJournalController figurinhaJournalController;
 
     @Test
     void findAll() {
-        List<StickerJournalDTO> stickerJournalDTOList = new ArrayList<>();
-        stickerJournalDTOList.add(new StickerJournalDTO());
-        Mockito.when(service.findAll()).thenReturn(stickerJournalDTOList);
+        List<FigurinhaJournalDTO> figurinhaJournalDTOList = new ArrayList<>();
+        figurinhaJournalDTOList.add(new FigurinhaJournalDTO());
+        Mockito.when(service.findAll()).thenReturn(figurinhaJournalDTOList);
 
-        ResponseEntity<List<StickerJournalDTO>> response = stickerJournalController.findAll();
+        ResponseEntity<List<FigurinhaJournalDTO>> response = figurinhaJournalController.findAll();
 
         Mockito.verify(service).findAll();
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -43,11 +43,11 @@ class StickerJournalControllerTest {
 
     @Test
     void findById() {
-        StickerJournalDTO stickerJournalDTO = new StickerJournalDTO();
+        FigurinhaJournalDTO figurinhaJournalDTO = new FigurinhaJournalDTO();
 
-        Mockito.when(service.findById(any())).thenReturn(stickerJournalDTO);
+        Mockito.when(service.findById(any())).thenReturn(figurinhaJournalDTO);
 
-        ResponseEntity<StickerJournalDTO> response = stickerJournalController.findById("dummy");
+        ResponseEntity<FigurinhaJournalDTO> response = figurinhaJournalController.findById("dummy");
 
         Mockito.verify(service).findById("dummy");
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -56,10 +56,10 @@ class StickerJournalControllerTest {
     @Test
     void create() {
 
-        Mockito.when(service.create(any())).thenReturn(new StickerJournalDTO());
-        ResponseEntity<StickerJournalDTO> response = stickerJournalController.create(new StickerJournalCreationDTO());
+        Mockito.when(service.create(any())).thenReturn(new FigurinhaJournalDTO());
+        ResponseEntity<FigurinhaJournalDTO> response = figurinhaJournalController.create(new FigurinhaJournalCreationDTO());
 
-        Mockito.verify(service).create(new StickerJournalCreationDTO() );
+        Mockito.verify(service).create(new FigurinhaJournalCreationDTO() );
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 }

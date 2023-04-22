@@ -1,4 +1,4 @@
-package br.com.ada.stickers.service.consumer;
+package br.com.ada.figurinhas.service.consumer;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.mock;
@@ -21,21 +21,21 @@ import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
 import au.com.dius.pact.core.model.messaging.Message;
 import au.com.dius.pact.core.model.messaging.MessagePact;
-import br.com.ada.stickers.service.StickerService;
+import br.com.ada.figurinhas.service.FigurinhaService;
 
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "albuns", providerType = ProviderType.ASYNCH)
 @PactFolder("../../pacts")
-public class StickerConsumerPactTest {
-	private StickerConsumer consumer;
-	private StickerService service;
+public class FigurinhaConsumerPactTest {
+	private FigurinhaConsumer consumer;
+	private FigurinhaService service;
 	
 	@Pact(consumer = "figurinhas")
 	MessagePact criarFigurinhasPact(MessagePactBuilder builder) {
 		PactDslJsonBody body = new PactDslJsonBody();
 		body.stringType("albumId", "AlbumId");
-		body.stringType("albumTemplateId", "AlbumTemplateId");
-		body.stringType("defaultAlbumId", "DefaultAlbumId");
+		body.stringType("albumPrototipoId", "AlbumPrototipoId");
+		body.stringType("padraoAlbumId", "PadraoAlbumId");
 		
 		return builder
 				.expectsToReceive("Criacao de figurinhas")
@@ -47,9 +47,9 @@ public class StickerConsumerPactTest {
 	
 	@BeforeEach
 	public void setUp() {
-		this.consumer = new StickerConsumer();
-		this.service = mock(StickerService.class);
-		ReflectionTestUtils.setField(this.consumer, "stickerService", service);
+		this.consumer = new FigurinhaConsumer();
+		this.service = mock(FigurinhaService.class);
+		ReflectionTestUtils.setField(this.consumer, "figurinhaService", service);
 	}
 
 	@Test

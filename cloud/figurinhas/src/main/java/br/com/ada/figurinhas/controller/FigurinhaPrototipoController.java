@@ -1,9 +1,9 @@
-package br.com.ada.stickers.controller;
+package br.com.ada.figurinhas.controller;
 
-import br.com.ada.stickers.model.dto.StickerTemplateCreationDTO;
-import br.com.ada.stickers.model.dto.StickerTemplateDTO;
-import br.com.ada.stickers.model.dto.StickerTemplateUpdateDTO;
-import br.com.ada.stickers.service.StickerTemplateService;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoCreationDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoDTO;
+import br.com.ada.figurinhas.model.dto.FigurinhaPrototipoUpdateDTO;
+import br.com.ada.figurinhas.service.FigurinhaPrototipoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +18,17 @@ import java.util.Optional;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/sticker/template")
-public class StickerTemplateController {
+@RequestMapping(value = "/figurinha/prototipo")
+public class FigurinhaPrototipoController {
 
-    private final StickerTemplateService service;
-    public StickerTemplateController(final StickerTemplateService service) {
+    private final FigurinhaPrototipoService service;
+    public FigurinhaPrototipoController(final FigurinhaPrototipoService service) {
         this.service = service;
     
     }
     @GetMapping
-    public ResponseEntity<List<StickerTemplateDTO>> findAll(@RequestParam("albumTemplateId") Optional<String> opAlbumTemplateId) {
-        final List<StickerTemplateDTO> response = service.findAll(opAlbumTemplateId);
+    public ResponseEntity<List<FigurinhaPrototipoDTO>> findAll(@RequestParam("albumPrototipoId") Optional<String> opAlbumPrototipoId) {
+        final List<FigurinhaPrototipoDTO> response = service.findAll(opAlbumPrototipoId);
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
         }
@@ -36,7 +36,7 @@ public class StickerTemplateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StickerTemplateDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<FigurinhaPrototipoDTO> findById(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(service.findById(id));
         } catch (EntityNotFoundException ex) {
@@ -48,7 +48,7 @@ public class StickerTemplateController {
     }
 
     @PostMapping
-    public ResponseEntity<StickerTemplateDTO> create(@RequestBody @Valid StickerTemplateCreationDTO creationDTO) {
+    public ResponseEntity<FigurinhaPrototipoDTO> create(@RequestBody @Valid FigurinhaPrototipoCreationDTO creationDTO) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -61,8 +61,8 @@ public class StickerTemplateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StickerTemplateDTO> edit(@PathVariable("id") String id,
-                                           @RequestBody @Valid StickerTemplateUpdateDTO updateDTO) {
+    public ResponseEntity<FigurinhaPrototipoDTO> edit(@PathVariable("id") String id,
+                                           @RequestBody @Valid FigurinhaPrototipoUpdateDTO updateDTO) {
         try {
             return ResponseEntity.ok(service.edit(id, updateDTO));
         } catch (EntityNotFoundException ex) {

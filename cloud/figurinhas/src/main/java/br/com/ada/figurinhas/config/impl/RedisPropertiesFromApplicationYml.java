@@ -1,6 +1,6 @@
-package br.com.ada.stickers.config.impl;
+package br.com.ada.figurinhas.config.impl;
 
-import br.com.ada.stickers.config.RedisProperties;
+import br.com.ada.figurinhas.config.RedisProperties;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;

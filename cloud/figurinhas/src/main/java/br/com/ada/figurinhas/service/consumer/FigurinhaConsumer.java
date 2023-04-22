@@ -1,7 +1,7 @@
-package br.com.ada.stickers.service.consumer;
+package br.com.ada.figurinhas.service.consumer;
 
-import br.com.ada.stickers.model.dto.CreateStickerMessage;
-import br.com.ada.stickers.service.StickerService;
+import br.com.ada.figurinhas.model.dto.CreateFigurinhaMessage;
+import br.com.ada.figurinhas.service.FigurinhaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class StickerConsumer {
+public class FigurinhaConsumer {
     private final String topicName = "TOPIC_CREATE_STICKERS";
 
     @Autowired
-    private StickerService stickerService;
+    private FigurinhaService figurinhaService;
 
     @KafkaListener(topics = "TOPIC_CREATE_STICKERS", groupId = "group_id" )
     public void consume(ConsumerRecord<String, String> message){
@@ -29,15 +29,15 @@ public class StickerConsumer {
         log.info("Partion: {}", message.partition());
         log.info("Order: {}", message.value());
 
-        stickerService.createStickersForAlbum(convertToModel(message));
+        figurinhaService.createFigurinhasForAlbum(convertToModel(message));
 
     }
 
 
-    private CreateStickerMessage convertToModel(ConsumerRecord<String, String> payload) {
+    private CreateFigurinhaMessage convertToModel(ConsumerRecord<String, String> payload) {
         try{
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(payload.value(), CreateStickerMessage.class);
+            return mapper.readValue(payload.value(), CreateFigurinhaMessage.class);
         } catch (JsonMappingException e) {
             e.printStackTrace();
         } catch (JsonProcessingException e) {

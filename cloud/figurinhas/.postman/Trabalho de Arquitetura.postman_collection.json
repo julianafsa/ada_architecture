@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Users",
+			"name": "Usuarios",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -15,14 +15,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8100/users",
+							"raw": "http://localhost:8100/usuarios",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users"
+								"usuarios"
 							]
 						}
 					},
@@ -34,15 +34,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8100/users/{{userId}}/phones",
+							"raw": "http://localhost:8100/usuarios/{{usuarioId}}/phones",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users",
-								"{{userId}}",
+								"usuarios",
+								"{{usuarioId}}",
 								"phones"
 							]
 						}
@@ -55,15 +55,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8100/users/{{userId}}",
+							"raw": "http://localhost:8100/usuarios/{{usuarioId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users",
-								"{{userId}}"
+								"usuarios",
+								"{{usuarioId}}"
 							]
 						}
 					},
@@ -78,7 +78,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"userId\", jsonData.id)"
+									"pm.collectionVariables.set(\"usuarioId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -97,14 +97,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8100/users",
+							"raw": "http://localhost:8100/usuarios",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users"
+								"usuarios"
 							]
 						}
 					},
@@ -125,15 +125,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8100/users/{{userId}}",
+							"raw": "http://localhost:8100/usuarios/{{usuarioId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users",
-								"{{userId}}"
+								"usuarios",
+								"{{usuarioId}}"
 							]
 						}
 					},
@@ -145,15 +145,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8100/users/{{userId}}",
+							"raw": "http://localhost:8100/usuarios/{{usuarioId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8100",
 							"path": [
-								"users",
-								"{{userId}}"
+								"usuarios",
+								"{{usuarioId}}"
 							]
 						}
 					},
@@ -243,7 +243,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"countryCode\": \"55\",\n    \"areaCode\": \"21\",\n    \"phoneNumber\": \"980228741\",\n    \"user\": {\n        \"id\": \"{{userId}}\"\n    }\n}\n",
+							"raw": "{\n    \"countryCode\": \"55\",\n    \"areaCode\": \"21\",\n    \"phoneNumber\": \"980228741\",\n    \"usuario\": {\n        \"id\": \"{{usuarioId}}\"\n    }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"countryCode\": \"55\",\n    \"areaCode\": \"21\",\n    \"phoneNumber\": \"980228742\",\n    \"user\": {\n        \"id\": \"{{userId}}\"\n    }\n}",
+							"raw": "{\n    \"countryCode\": \"55\",\n    \"areaCode\": \"21\",\n    \"phoneNumber\": \"980228742\",\n    \"usuario\": {\n        \"id\": \"{{usuarioId}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -316,7 +316,7 @@
 			]
 		},
 		{
-			"name": "AlbumTemplate",
+			"name": "AlbumPrototipo",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -324,7 +324,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/album/template",
+							"raw": "http://localhost:8080/album/prototipo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -332,7 +332,7 @@
 							"port": "8080",
 							"path": [
 								"album",
-								"template"
+								"prototipo"
 							]
 						}
 					},
@@ -344,7 +344,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/album/template/{{albumTemplateId}}",
+							"raw": "http://localhost:8080/album/prototipo/{{albumPrototipoId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -352,8 +352,8 @@
 							"port": "8080",
 							"path": [
 								"album",
-								"template",
-								"{{albumTemplateId}}"
+								"prototipo",
+								"{{albumPrototipoId}}"
 							]
 						}
 					},
@@ -368,7 +368,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"albumTemplateId\", jsonData.id)"
+									"pm.collectionVariables.set(\"albumPrototipoId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -379,7 +379,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Album 1\",\n    \"cover\": \"imagem\",\n    \"numStickers\": 100,\n    \"price\": 50,\n    \"launchDate\": \"01-01-2023 00:00\",\n    \"expirationDate\": \"31-12-2023 00:00\"\n}",
+							"raw": "{\n    \"name\": \"Album 1\",\n    \"cover\": \"imagem\",\n    \"numFigurinhas\": 100,\n    \"price\": 50,\n    \"launchDate\": \"01-01-2023 00:00\",\n    \"expirationDate\": \"31-12-2023 00:00\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -387,7 +387,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/album/template",
+							"raw": "http://localhost:8080/album/prototipo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -395,7 +395,7 @@
 							"port": "8080",
 							"path": [
 								"album",
-								"template"
+								"prototipo"
 							]
 						}
 					},
@@ -410,7 +410,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"albumTemplateId\", jsonData.id)"
+									"pm.collectionVariables.set(\"albumPrototipoId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -421,7 +421,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Album 1 Modificado\",\n    \"cover\": \"imagem\",\n    \"numStickers\": 100,\n    \"price\": 50,\n    \"launchDate\": \"01-01-2023 00:00\",\n    \"expirationDate\": \"31-12-2023 00:00\"\n}",
+							"raw": "{\n    \"name\": \"Album 1 Modificado\",\n    \"cover\": \"imagem\",\n    \"numFigurinhas\": 100,\n    \"price\": 50,\n    \"launchDate\": \"01-01-2023 00:00\",\n    \"expirationDate\": \"31-12-2023 00:00\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,7 +429,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/album/template/{{albumTemplateId}}",
+							"raw": "http://localhost:8080/album/prototipo/{{albumPrototipoId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -437,8 +437,8 @@
 							"port": "8080",
 							"path": [
 								"album",
-								"template",
-								"{{albumTemplateId}}"
+								"prototipo",
+								"{{albumPrototipoId}}"
 							]
 						}
 					},
@@ -453,7 +453,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"albumTemplateId\", jsonData.id)"
+									"pm.collectionVariables.set(\"albumPrototipoId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -472,7 +472,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/album/template/{{albumTemplateId}}",
+							"raw": "http://localhost:8080/album/prototipo/{{albumPrototipoId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -480,8 +480,8 @@
 							"port": "8080",
 							"path": [
 								"album",
-								"template",
-								"{{albumTemplateId}}"
+								"prototipo",
+								"{{albumPrototipoId}}"
 							]
 						}
 					},
@@ -551,7 +551,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"Juliana\",\n    \"albumTemplateId\": \"{{albumTemplateId}}\"\n}",
+							"raw": "{\n    \"usuarioId\": \"Juliana\",\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -640,7 +640,7 @@
 			]
 		},
 		{
-			"name": "1. Stickers Template",
+			"name": "1. Figurinhas Prototipo",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -648,15 +648,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/template",
+							"raw": "http://localhost:8090/figurinha/prototipo",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
-								"template"
+								"figurinha",
+								"prototipo"
 							]
 						}
 					},
@@ -668,15 +668,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/template/1",
+							"raw": "http://localhost:8090/figurinha/prototipo/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
-								"template",
+								"figurinha",
+								"prototipo",
 								"1"
 							]
 						}
@@ -692,7 +692,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerTemplateId\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -703,7 +703,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"albumTemplateId\": \"{{albumTemplateId}}\",\n    \"number\": 6,\n    \"description\": \"Figurinha do Jogador Neymar 6\",\n    \"image\": \"image\",\n    \"rarity\": 1,\n    \"stickerPrice\": 2\n}",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 6,\n    \"description\": \"Figurinha do Jogador Neymar 6\",\n    \"image\": \"image\",\n    \"raridade\": 1,\n    \"figurinhaPrice\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -711,15 +711,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/template",
+							"raw": "http://localhost:8090/figurinha/prototipo",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
-								"template"
+								"figurinha",
+								"prototipo"
 							]
 						}
 					},
@@ -732,7 +732,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"image\": \"image_modified.png\",\n    \"description\": \"Figurinha do Pombo 2\",\n    \"rarity\": \"1\",\n    \"price\": 10\n}",
+							"raw": "{\n    \"image\": \"image_modified.png\",\n    \"description\": \"Figurinha do Pombo 2\",\n    \"raridade\": \"1\",\n    \"price\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -740,14 +740,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/stickers/1",
+							"raw": "http://localhost:8090/figurinhas/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"stickers",
+								"figurinhas",
 								"1"
 							]
 						}
@@ -777,7 +777,7 @@
 			]
 		},
 		{
-			"name": "2. Stickers",
+			"name": "2. Figurinhas",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -785,14 +785,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker",
+							"raw": "http://localhost:8090/figurinha",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker"
+								"figurinha"
 							]
 						}
 					},
@@ -804,14 +804,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/1653317c-51de-4944-b3d8-ef55e8b9e1bf",
+							"raw": "http://localhost:8090/figurinha/1653317c-51de-4944-b3d8-ef55e8b9e1bf",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"1653317c-51de-4944-b3d8-ef55e8b9e1bf"
 							]
 						}
@@ -827,7 +827,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerId\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -838,7 +838,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"stickerTemplateId\": \"{{stickerTemplateId}}\",\n    \"albumId\": \"{{albumId}}\"\n}",
+							"raw": "{\n    \"figurinhaPrototipoId\": \"{{figurinhaPrototipoId}}\",\n    \"albumId\": \"{{albumId}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -846,14 +846,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker",
+							"raw": "http://localhost:8090/figurinha",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker"
+								"figurinha"
 							]
 						}
 					},
@@ -866,7 +866,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"stickerTemplate\": {\n        \"id\": \"{{stickerTemplateId}}\"\n    },\n    \"albumId\": \"2\"\n}",
+							"raw": "{\n    \"figurinhaPrototipo\": {\n        \"id\": \"{{figurinhaPrototipoId}}\"\n    },\n    \"albumId\": \"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -874,14 +874,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/5ee55c7f-65ae-406a-8e1e-ce1620b5d839",
+							"raw": "http://localhost:8090/figurinha/5ee55c7f-65ae-406a-8e1e-ce1620b5d839",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"5ee55c7f-65ae-406a-8e1e-ce1620b5d839"
 							]
 						}
@@ -894,14 +894,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/815029ed-cccc-4412-aa95-f930f6873116",
+							"raw": "http://localhost:8090/figurinha/815029ed-cccc-4412-aa95-f930f6873116",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"815029ed-cccc-4412-aa95-f930f6873116"
 							]
 						}
@@ -909,7 +909,7 @@
 					"response": []
 				},
 				{
-					"name": "Buy Pack",
+					"name": "Buy Pacote",
 					"event": [
 						{
 							"listen": "test",
@@ -917,7 +917,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerId\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -936,16 +936,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/buy/pack",
+							"raw": "http://localhost:8090/figurinha/buy/pacote",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"buy",
-								"pack"
+								"pacote"
 							]
 						}
 					},
@@ -960,7 +960,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerId\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -971,7 +971,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"stickerId\": \"{{stickerId}}\",\n    \"destinationAlbumId\": \"3\"\n}",
+							"raw": "{\n    \"figurinhaId\": \"{{figurinhaId}}\",\n    \"destinationAlbumId\": \"3\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -979,14 +979,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/buy",
+							"raw": "http://localhost:8090/figurinha/buy",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"buy"
 							]
 						}
@@ -1020,14 +1020,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/album/458766f1-eb52-4206-bc35-5ccc5deb0128",
+							"raw": "http://localhost:8090/figurinha/album/458766f1-eb52-4206-bc35-5ccc5deb0128",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"album",
 								"458766f1-eb52-4206-bc35-5ccc5deb0128"
 							]
@@ -1038,7 +1038,7 @@
 			]
 		},
 		{
-			"name": "3. Stickers Journal",
+			"name": "3. Figurinhas Journal",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -1046,14 +1046,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/journal",
+							"raw": "http://localhost:8090/figurinha/journal",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"journal"
 							]
 						}
@@ -1066,14 +1066,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/journal/edf81cbc-0d6e-48be-b6da-c71900498f03",
+							"raw": "http://localhost:8090/figurinha/journal/edf81cbc-0d6e-48be-b6da-c71900498f03",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"journal",
 								"edf81cbc-0d6e-48be-b6da-c71900498f03"
 							]
@@ -1090,7 +1090,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerTemplateId\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -1101,7 +1101,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"sourceAlbumId\": \"1\",\n    \"destinationAlbumId\": \"1\",\n    \"sticker\": {\n        \"id\": \"{{stickerId}}\"\n    },\n    \"price\": 2\n}",
+							"raw": "{\n    \"sourceAlbumId\": \"1\",\n    \"destinationAlbumId\": \"1\",\n    \"figurinha\": {\n        \"id\": \"{{figurinhaId}}\"\n    },\n    \"price\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1109,14 +1109,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/journal",
+							"raw": "http://localhost:8090/figurinha/journal",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"journal"
 							]
 						}
@@ -1146,7 +1146,7 @@
 			]
 		},
 		{
-			"name": "4. Stickers To Sell",
+			"name": "4. Figurinhas To Sell",
 			"item": [
 				{
 					"name": "Buscar todos",
@@ -1154,14 +1154,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/sell",
+							"raw": "http://localhost:8090/figurinha/sell",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"sell"
 							]
 						}
@@ -1174,14 +1174,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/sell/3bb2feb6-1c9e-4de8-a945-0b197110bd30",
+							"raw": "http://localhost:8090/figurinha/sell/3bb2feb6-1c9e-4de8-a945-0b197110bd30",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"sell",
 								"3bb2feb6-1c9e-4de8-a945-0b197110bd30"
 							]
@@ -1198,7 +1198,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody)",
 									"",
-									"pm.collectionVariables.set(\"stickerToSell\", jsonData.id)"
+									"pm.collectionVariables.set(\"figurinhaToSell\", jsonData.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -1209,7 +1209,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"sticker\": {\n        \"id\": \"{{stickerId}}\"\n    },\n    \"price\": 1.97\n}",
+							"raw": "{\n    \"figurinha\": {\n        \"id\": \"{{figurinhaId}}\"\n    },\n    \"price\": 1.97\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1217,14 +1217,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/sell",
+							"raw": "http://localhost:8090/figurinha/sell",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"sell"
 							]
 						}
@@ -1246,16 +1246,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8090/sticker/sell/{{stickerToSell}}",
+							"raw": "http://localhost:8090/figurinha/sell/{{figurinhaToSell}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"sell",
-								"{{stickerToSell}}"
+								"{{figurinhaToSell}}"
 							]
 						}
 					},
@@ -1267,16 +1267,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/sticker/sell/{{stickerToSell}}",
+							"raw": "http://localhost:8090/figurinha/sell/{{figurinhaToSell}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"sticker",
+								"figurinha",
 								"sell",
-								"{{stickerToSell}}"
+								"{{figurinhaToSell}}"
 							]
 						}
 					},
@@ -1287,19 +1287,19 @@
 	],
 	"variable": [
 		{
-			"key": "stickerTemplateId",
+			"key": "figurinhaPrototipoId",
 			"value": ""
 		},
 		{
-			"key": "stickerId",
+			"key": "figurinhaId",
 			"value": ""
 		},
 		{
-			"key": "stickerToSell",
+			"key": "figurinhaToSell",
 			"value": ""
 		},
 		{
-			"key": "userId",
+			"key": "usuarioId",
 			"value": ""
 		},
 		{
@@ -1307,7 +1307,7 @@
 			"value": ""
 		},
 		{
-			"key": "albumTemplateId",
+			"key": "albumPrototipoId",
 			"value": ""
 		},
 		{
