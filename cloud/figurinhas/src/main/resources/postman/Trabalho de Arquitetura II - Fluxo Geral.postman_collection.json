@@ -9,7 +9,7 @@
 			"name": "Fluxo geral",
 			"item": [
 				{
-					"name": "1. Criar AlbumTemplate",
+					"name": "1. Criar Protótipo de Álbum",
 					"event": [
 						{
 							"listen": "test",
@@ -52,7 +52,7 @@
 					"response": []
 				},
 				{
-					"name": "2.1 Criar Sticker Template (Figurinha da Seleção)",
+					"name": "2.1 Criar Protótipo de Figurinha (Seleção)",
 					"event": [
 						{
 							"listen": "test",
@@ -95,7 +95,7 @@
 					"response": []
 				},
 				{
-					"name": "2.2 Criar Sticker Template (Logo do Brasil)",
+					"name": "2.2 Criar Protótipo de Figurinha  (Logo do Brasil)",
 					"event": [
 						{
 							"listen": "test",
@@ -138,7 +138,7 @@
 					"response": []
 				},
 				{
-					"name": "2.3 Criar Sticker Template (Alisson)",
+					"name": "2.3 Criar Protótipo de Figurinha (Alisson)",
 					"event": [
 						{
 							"listen": "test",
@@ -181,7 +181,7 @@
 					"response": []
 				},
 				{
-					"name": "2.4 Criar Sticker Template (Ederson)",
+					"name": "2.4 Criar Protótipo de Figurinha  (Ederson)",
 					"event": [
 						{
 							"listen": "test",
@@ -224,7 +224,7 @@
 					"response": []
 				},
 				{
-					"name": "2.5 Criar Sticker Template (Alexsandro)",
+					"name": "2.5 Criar Protótipo de Figurinha  (Alexsandro)",
 					"event": [
 						{
 							"listen": "test",
@@ -267,7 +267,7 @@
 					"response": []
 				},
 				{
-					"name": "2.6 Criar Sticker Template (Danilo)",
+					"name": "2.6 Criar Protótipo de Figurinha  (Danilo)",
 					"event": [
 						{
 							"listen": "test",
@@ -310,7 +310,7 @@
 					"response": []
 				},
 				{
-					"name": "2.7 Criar Sticker Template (Éder Militão)",
+					"name": "2.7 Criar Protótipo de Figurinha  (Éder Militão)",
 					"event": [
 						{
 							"listen": "test",
@@ -353,7 +353,7 @@
 					"response": []
 				},
 				{
-					"name": "2.8 Criar Sticker Template (Marquinhos)",
+					"name": "2.8 Criar Protótipo de Figurinha (Marquinhos)",
 					"event": [
 						{
 							"listen": "test",
@@ -396,7 +396,7 @@
 					"response": []
 				},
 				{
-					"name": "2.9 Criar Sticker Template (ThiagoSilva)",
+					"name": "2.9 Criar Protótipo de Figurinha (ThiagoSilva)",
 					"event": [
 						{
 							"listen": "test",
@@ -439,7 +439,7 @@
 					"response": []
 				},
 				{
-					"name": "2.10 Criar Sticker Template (Casemiro)",
+					"name": "2.10 Criar Protótipo de Figurinha (Casemiro)",
 					"event": [
 						{
 							"listen": "test",
@@ -482,7 +482,7 @@
 					"response": []
 				},
 				{
-					"name": "2.11 Criar Sticker Template (Philippe Coutinho)",
+					"name": "2.11 Criar Protótipo de Figurinha (Philippe Coutinho)",
 					"event": [
 						{
 							"listen": "test",
@@ -525,7 +525,7 @@
 					"response": []
 				},
 				{
-					"name": "2.12 Criar Sticker Template (Fabinho)",
+					"name": "2.12 Criar Protótipo de Figurinha (Fabinho)",
 					"event": [
 						{
 							"listen": "test",
@@ -568,7 +568,7 @@
 					"response": []
 				},
 				{
-					"name": "2.13 Criar Sticker Template (Fred)",
+					"name": "2.13 Criar Protótipo de Figurinha (Fred)",
 					"event": [
 						{
 							"listen": "test",
@@ -611,7 +611,7 @@
 					"response": []
 				},
 				{
-					"name": "2.14 Criar Sticker Template (Lucas Paquetá)",
+					"name": "2.14 Criar Protótipo de Figurinha (Lucas Paquetá)",
 					"event": [
 						{
 							"listen": "test",
@@ -654,7 +654,7 @@
 					"response": []
 				},
 				{
-					"name": "2.15 Criar Sticker Template (Antony)",
+					"name": "2.15 Criar Protótipo de Figurinha (Antony)",
 					"event": [
 						{
 							"listen": "test",
@@ -697,7 +697,7 @@
 					"response": []
 				},
 				{
-					"name": "2.16 Criar Sticker Template (Gabriel Jesus)",
+					"name": "2.16 Criar Protótipo de Figurinha (Gabriel Jesus)",
 					"event": [
 						{
 							"listen": "test",
@@ -740,7 +740,7 @@
 					"response": []
 				},
 				{
-					"name": "2.17 Criar Sticker Template (Neymar Jr)",
+					"name": "2.17 Criar Protótipo de Figurinha (Neymar Jr)",
 					"event": [
 						{
 							"listen": "test",
@@ -783,7 +783,7 @@
 					"response": []
 				},
 				{
-					"name": "2.18 Criar Sticker Template (Raphinha)",
+					"name": "2.18 Criar Protótipo de Figurinha (Raphinha)",
 					"event": [
 						{
 							"listen": "test",
@@ -826,7 +826,7 @@
 					"response": []
 				},
 				{
-					"name": "2.19 Criar Sticker Template (Richarlison)",
+					"name": "2.19 Criar Protótipo de Figurinha (Richarlison)",
 					"event": [
 						{
 							"listen": "test",
@@ -869,7 +869,7 @@
 					"response": []
 				},
 				{
-					"name": "2.20 Criar Sticker Template (Vinícius Jr)",
+					"name": "2.20 Criar Protótipo de Figurinha (Vinícius Jr)",
 					"event": [
 						{
 							"listen": "test",
@@ -1054,7 +1054,7 @@
 					"response": []
 				},
 				{
-					"name": "7. Buscar StickerJournal (logs)",
+					"name": "7. Buscar transações de figurinhas (logs)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1311,7 +1311,7 @@
 					"response": []
 				},
 				{
-					"name": "15. Buscar StickerJournal (logs)",
+					"name": "15. Buscar transações de figurinhas (logs)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1358,132 +1358,132 @@
 	],
 	"variable": [
 		{
-			"id": "789678a2-3ecc-48a8-a070-c323aaa6b11e",
+			"id": "abc15dcb-f660-4ee7-be5f-cdc2aa19a8b2",
 			"key": "albumTemplateId",
 			"value": ""
 		},
 		{
-			"id": "83d29586-e63c-43ff-9230-3486cf513134",
+			"id": "73239e4b-739d-479e-9463-3d31a2ce482a",
 			"key": "stickerTemplateId",
 			"value": ""
 		},
 		{
-			"id": "087ba372-92ca-4eaf-868b-8ae208dc93b1",
+			"id": "d8f672f5-056e-4848-9ea7-43f0d59f63cc",
 			"key": "albumId",
 			"value": ""
 		},
 		{
-			"id": "9afee1ed-5c37-413f-a385-861007dfcc80",
+			"id": "c43ee67b-251b-4356-8d0c-5dbf589ba1d7",
 			"key": "stickerId",
 			"value": ""
 		},
 		{
-			"id": "1c03610f-31d8-46a4-95d0-9d6a2ead39b7",
+			"id": "1d6ee0f7-2373-4a3c-94ce-1c6b72cc562a",
 			"key": "stickerToSell",
 			"value": ""
 		},
 		{
-			"id": "0c4f1dc8-1cd3-4deb-ab86-f046e4b9f87a",
+			"id": "da292a45-f086-4990-bdac-65da737370e3",
 			"key": "destinationAlbumId",
 			"value": ""
 		},
 		{
-			"id": "73d86852-e23f-4029-83ec-b622f9125542",
+			"id": "dae3fcb8-6db3-4c33-976a-cb8e6de4fb9c",
 			"key": "sourceAlbumId",
 			"value": ""
 		},
 		{
-			"id": "2a3bfe3a-1f32-465a-b147-1752b2f3d8cc",
+			"id": "c6eaaf2d-d24f-409b-b76f-cd54f8c6e835",
 			"key": "stickerId1",
 			"value": ""
 		},
 		{
-			"id": "cf1c5ab5-0a81-40db-a139-ac7dc1294a72",
+			"id": "142a0271-0b93-455f-b4ad-2502398118ba",
 			"key": "stickerId2",
 			"value": ""
 		},
 		{
-			"id": "e26f87d3-e4ad-4aff-bf79-443d8a979128",
+			"id": "7d3e8986-7204-434f-9d10-2c522cc2c419",
 			"key": "stickerId3",
 			"value": ""
 		},
 		{
-			"id": "74c34060-9883-4243-b3df-c10b138d7acd",
+			"id": "a56b3430-02be-40c6-992b-9e59298c7b8c",
 			"key": "stickerId4",
 			"value": ""
 		},
 		{
-			"id": "86c75d3f-2a7a-49f3-8942-b7511e6dcbee",
+			"id": "adef5acd-09fe-4fb9-8d2c-c97e4ed49f68",
 			"key": "stickerId5",
 			"value": ""
 		},
 		{
-			"id": "1fce7be6-8bf4-420e-8838-b530dc91f840",
+			"id": "65b21b39-7cd3-4bff-8259-d596a910ac10",
 			"key": "stickerToSell1",
 			"value": ""
 		},
 		{
-			"id": "bd44549f-3772-4ccf-855f-d02d008b8746",
+			"id": "5eeb5780-a521-4e04-8190-5c90889854b0",
 			"key": "stickerToSell2",
 			"value": ""
 		},
 		{
-			"id": "a043cff2-089e-4c4e-b9cd-fee18857baf6",
+			"id": "ebb837bf-4601-4c08-b531-eaa42c720299",
 			"key": "stickerToSell3",
 			"value": ""
 		},
 		{
-			"id": "501d9f73-9eaa-4229-aba0-e45f6c1dc92e",
+			"id": "89e8918f-f941-466d-8c85-6a8e9394f7a5",
 			"key": "stickerToSell4",
 			"value": ""
 		},
 		{
-			"id": "71d99cc9-a76d-4700-a90f-d9652115fa0c",
+			"id": "6e50601b-cc20-4a3f-ac50-9579e8b1a07c",
 			"key": "stickerToSell5",
 			"value": ""
 		},
 		{
-			"id": "b73fb2dd-b152-4aeb-b47b-894208442a26",
+			"id": "220a726b-7155-4ecb-94fa-9bab1077741c",
 			"key": "albumPrototipoId",
 			"value": ""
 		},
 		{
-			"id": "0311a6b2-8d1a-4260-abc7-93a865d93df3",
+			"id": "4897c6c6-f716-42bd-b0eb-a432929bee70",
 			"key": "figurinhaPrototipoId",
 			"value": ""
 		},
 		{
-			"id": "dc037e5e-c7be-4dcc-badd-0bbcbcedea07",
+			"id": "409eae54-7e2e-4501-9f28-2b28841e6012",
 			"key": "figurinhaId1",
 			"value": ""
 		},
 		{
-			"id": "d607c34b-7882-47dc-81b2-24240480e367",
+			"id": "80c3f39e-987b-4878-9b8b-5fd1dab0e67b",
 			"key": "figurinhaId2",
 			"value": ""
 		},
 		{
-			"id": "bd5a31b3-bff2-47a4-9e09-92e79f213616",
+			"id": "862d0bd3-3da1-4b71-8fd3-48e548c94ca1",
 			"key": "figurinhaId3",
 			"value": ""
 		},
 		{
-			"id": "44f8ffc5-0430-49a8-9fd3-3d75ba9fa689",
+			"id": "690c20ae-b674-428e-95ad-d69aacf8f196",
 			"key": "figurinhaId4",
 			"value": ""
 		},
 		{
-			"id": "7066534c-56a6-411c-b253-4852d6c2360a",
+			"id": "057dee1a-ca82-4469-bce6-fe23145eea43",
 			"key": "figurinhaId5",
 			"value": ""
 		},
 		{
-			"id": "8926f954-25de-42bc-a0b2-3a2ba4a021d3",
+			"id": "f6fe19e0-3dae-479f-a04f-b192a29b88ba",
 			"key": "figurinhaToSell1",
 			"value": ""
 		},
 		{
-			"id": "c6771d8a-4a0d-4f5b-b80c-31867b2d4fe1",
+			"id": "1375f34e-a1af-4d31-bfe4-38f4b703cbed",
 			"key": "figurinhaId",
 			"value": ""
 		}
