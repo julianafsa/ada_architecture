@@ -1,7 +1,7 @@
 package br.com.ada.figurinhas.service.impl;
 
 import br.com.ada.figurinhas.service.RedisService;
-import br.com.ada.figurinhas.service.producer.BalanceService;
+import br.com.ada.figurinhas.service.BalanceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

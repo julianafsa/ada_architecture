@@ -6,7 +6,7 @@ import br.com.ada.figurinhas.model.entity.Figurinha;
 import br.com.ada.figurinhas.model.entity.FigurinhaToSell;
 import br.com.ada.figurinhas.model.mapper.FigurinhaMapper;
 import br.com.ada.figurinhas.service.*;
-import br.com.ada.figurinhas.service.producer.BalanceService;
+import br.com.ada.figurinhas.service.BalanceService;
 import br.com.ada.figurinhas.strategy.FigurinhaPacoteStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

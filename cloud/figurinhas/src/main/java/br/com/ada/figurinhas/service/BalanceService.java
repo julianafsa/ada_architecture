@@ -1,4 +1,4 @@
-package br.com.ada.figurinhas.service.producer;
+package br.com.ada.figurinhas.service;
 
 import java.math.BigDecimal;
 
