@@ -26,9 +26,9 @@ public class Album {
   @Column(name = "id")
   private String id;
 
-  @Column(name = "userId", nullable = true)
-  private String userId;
+  @Column(name = "usuarioId", nullable = true)
+  private String usuarioId;
 
-  @Column(name = "albumTemplateId", nullable = false)
-  private String albumTemplateId;
+  @Column(name = "albumPrototipoId", nullable = false)
+  private String albumPrototipoId;
 }

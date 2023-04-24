@@ -12,7 +12,7 @@ public interface AlbumService {
   AlbumDTO findById(String id);
   Optional<Album> findByAlbumId(String id);
   AlbumDTO create(AlbumDTO entity);
-  AlbumDTO findDefaultAlbum(String albumTemplateId);
-  Optional<String> findUserIdByAlbumId(String albumId);
+  AlbumDTO findPadraoAlbum(String albumPrototipoId);
+  Optional<String> findUsuarioIdByAlbumId(String albumId);
   void delete(String albumId);
 }

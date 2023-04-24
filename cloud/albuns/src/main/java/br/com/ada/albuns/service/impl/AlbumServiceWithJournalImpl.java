@@ -3,9 +3,9 @@ package br.com.ada.albuns.service.impl;
 import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.entity.Album;
 import br.com.ada.albuns.model.entity.AlbumJournal;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
+import br.com.ada.albuns.model.entity.AlbumPrototipo;
 import br.com.ada.albuns.repository.AlbumJournalRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
+import br.com.ada.albuns.repository.AlbumPrototipoRepository;
 import br.com.ada.albuns.service.AlbumService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -31,12 +31,12 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
 
     private final AlbumService albumService;
     private final AlbumJournalRepository repository;
-    private final AlbumTemplateRepository albumTemplateRepository;
+    private final AlbumPrototipoRepository albumPrototipoRepository;
 
-    public AlbumServiceWithJournalImpl(AlbumService albumService, AlbumJournalRepository repository, AlbumTemplateRepository albumTemplateRepository) {
+    public AlbumServiceWithJournalImpl(AlbumService albumService, AlbumJournalRepository repository, AlbumPrototipoRepository albumPrototipoRepository) {
         this.albumService = albumService;
         this.repository = repository;
-        this.albumTemplateRepository = albumTemplateRepository;
+        this.albumPrototipoRepository = albumPrototipoRepository;
     }
 
     @Override
@@ -60,14 +60,14 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
         AlbumDTO newAlbum = albumService.create(entity);
 
         // And then add the behavior to log the transaction to the album journal
-        AlbumTemplate albumTemplate = albumTemplateRepository.findById(newAlbum.getAlbumTemplateId()).orElseThrow(() -> new EntityNotFoundException());
+        AlbumPrototipo albumPrototipo = albumPrototipoRepository.findById(newAlbum.getAlbumPrototipoId()).orElseThrow(() -> new EntityNotFoundException());
 
         AlbumJournal albumJournal = AlbumJournal.builder()
-                .userId(newAlbum.getUserId())
+                .usuarioId(newAlbum.getUsuarioId())
                 .albumId(newAlbum.getId())
-                .albumTemplateId(albumTemplate.getId())
-                .albumTemplateName(albumTemplate.getName())
-                .price(albumTemplate.getPrice())
+                .albumPrototipoId(albumPrototipo.getId())
+                .albumPrototipoName(albumPrototipo.getName())
+                .price(albumPrototipo.getPrice())
                 .dateTime(LocalDateTime.now())
                 .build();
 
@@ -78,13 +78,13 @@ public class AlbumServiceWithJournalImpl implements AlbumService {
     }
 
     @Override
-    public AlbumDTO findDefaultAlbum(String albumTemplateId) {
-        return albumService.findDefaultAlbum(albumTemplateId);
+    public AlbumDTO findPadraoAlbum(String albumPrototipoId) {
+        return albumService.findPadraoAlbum(albumPrototipoId);
     }
 
     @Override
-    public Optional<String> findUserIdByAlbumId(String albumId) {
-        return repository.findUserIdByAlbumId(albumId);
+    public Optional<String> findUsuarioIdByAlbumId(String albumId) {
+        return repository.findUsuarioIdByAlbumId(albumId);
     }
 
     @Override

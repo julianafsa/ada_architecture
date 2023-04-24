@@ -18,23 +18,23 @@ import org.mockito.ArgumentCaptor;
 
 import br.com.ada.albuns.model.dto.AlbumDTO;
 import br.com.ada.albuns.model.entity.AlbumJournal;
-import br.com.ada.albuns.model.entity.AlbumTemplate;
+import br.com.ada.albuns.model.entity.AlbumPrototipo;
 import br.com.ada.albuns.repository.AlbumJournalRepository;
-import br.com.ada.albuns.repository.AlbumTemplateRepository;
+import br.com.ada.albuns.repository.AlbumPrototipoRepository;
 import br.com.ada.albuns.service.AlbumService;
 
 public class AlbumServiceWithJournalImplTest {
 	private AlbumService albumService;
 	private AlbumJournalRepository albumJournalRepository;
-	private AlbumTemplateRepository albumTemplateRepository;
+	private AlbumPrototipoRepository albumPrototipoRepository;
 	private AlbumServiceWithJournalImpl albumServiceWithJournal;
 
 	@BeforeEach
 	public void setUp() {
 		this.albumService = mock(AlbumService.class);
 		this.albumJournalRepository = mock(AlbumJournalRepository.class);
-		this.albumTemplateRepository = mock(AlbumTemplateRepository.class);
-		this.albumServiceWithJournal = new AlbumServiceWithJournalImpl(albumService, albumJournalRepository, albumTemplateRepository);
+		this.albumPrototipoRepository = mock(AlbumPrototipoRepository.class);
+		this.albumServiceWithJournal = new AlbumServiceWithJournalImpl(albumService, albumJournalRepository, albumPrototipoRepository);
 	}
 	
 	@Test
@@ -68,28 +68,28 @@ public class AlbumServiceWithJournalImplTest {
 	public void testCreate() {
 		// Arrange
 		String albumId = UUID.randomUUID().toString();
-		String albumTemplateId = "AlbumTemplateId";
-		String albumTemplateName = "AlbumTemplateName";
+		String albumPrototipoId = "AlbumPrototipoId";
+		String albumPrototipoName = "AlbumPrototipoName";
 		BigDecimal albumPrice = new BigDecimal("2.34");
-		String userId = "UserId";
+		String usuarioId = "UsuarioId";
 		AlbumDTO albumDTO = AlbumDTO.builder()
-				.albumTemplateId(albumTemplateId)
-				.userId(userId)
+				.albumPrototipoId(albumPrototipoId)
+				.usuarioId(usuarioId)
 				.build();
 		AlbumDTO savedAlbumDTO = AlbumDTO.builder()
 				.id(albumId)
-				.albumTemplateId(albumTemplateId)
-				.userId(userId)
+				.albumPrototipoId(albumPrototipoId)
+				.usuarioId(usuarioId)
 				.build();
-		AlbumTemplate albumTemplate = AlbumTemplate.builder()
-				.id(albumTemplateId)
-				.name(albumTemplateName)
+		AlbumPrototipo albumPrototipo = AlbumPrototipo.builder()
+				.id(albumPrototipoId)
+				.name(albumPrototipoName)
 				.price(albumPrice)
 				.build();
 		ArgumentCaptor<AlbumJournal> albumJournalCaptor = ArgumentCaptor.forClass(AlbumJournal.class);
 
 		when(albumService.create(albumDTO)).thenReturn(savedAlbumDTO);
-		when(albumTemplateRepository.findById(albumTemplateId)).thenReturn(Optional.of(albumTemplate));
+		when(albumPrototipoRepository.findById(albumPrototipoId)).thenReturn(Optional.of(albumPrototipo));
 		
 		// Act
 		AlbumDTO actualAlbumDTO = albumServiceWithJournal.create(albumDTO);
@@ -99,26 +99,26 @@ public class AlbumServiceWithJournalImplTest {
 		AlbumJournal albumJournal = albumJournalCaptor.getValue();
 		assertNull(albumJournal.getId());
 		assertEquals(albumId, albumJournal.getAlbumId());
-		assertEquals(albumTemplateId, albumJournal.getAlbumTemplateId());
-		assertEquals(albumTemplateName, albumJournal.getAlbumTemplateName());
+		assertEquals(albumPrototipoId, albumJournal.getAlbumPrototipoId());
+		assertEquals(albumPrototipoName, albumJournal.getAlbumPrototipoName());
 		assertNotNull(albumJournal.getDateTime());
 		assertEquals(albumPrice, albumJournal.getPrice());
-		assertEquals(userId, albumJournal.getUserId());
+		assertEquals(usuarioId, albumJournal.getUsuarioId());
 		
 		assertEquals(albumId, actualAlbumDTO.getId());
-		assertEquals(albumTemplateId, actualAlbumDTO.getAlbumTemplateId());
-		assertEquals(userId, actualAlbumDTO.getUserId());
+		assertEquals(albumPrototipoId, actualAlbumDTO.getAlbumPrototipoId());
+		assertEquals(usuarioId, actualAlbumDTO.getUsuarioId());
 	}
 	
 	@Test
-	public void testFindDefaultAlbum() {
+	public void testFindPadraoAlbum() {
 		// Arrange
-		String albumTemplateId = UUID.randomUUID().toString();
+		String albumPrototipoId = UUID.randomUUID().toString();
 		AlbumDTO album = new AlbumDTO();
-		when(albumService.findDefaultAlbum(albumTemplateId)).thenReturn(album);
+		when(albumService.findPadraoAlbum(albumPrototipoId)).thenReturn(album);
 		
 		// Act
-		AlbumDTO actualAlbum = albumServiceWithJournal.findDefaultAlbum(albumTemplateId);
+		AlbumDTO actualAlbum = albumServiceWithJournal.findPadraoAlbum(albumPrototipoId);
 		
 		// Assert
 		assertEquals(album, actualAlbum);

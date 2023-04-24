@@ -20,7 +20,7 @@ import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvide
 import au.com.dius.pact.provider.junitsupport.Consumer;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
-import br.com.ada.albuns.model.dto.CreateStickerMessage;
+import br.com.ada.albuns.model.dto.CreateFigurinhaMessage;
 
 @Provider("albuns")
 @Consumer("figurinhas")
@@ -46,10 +46,10 @@ public class AlbumProducerPactTests {
 	@PactVerifyProvider("Criacao de figurinhas")
 	public MessageAndMetadata verifySimpleMessageEvent() {
 		Map<String, Object> metadata = Map.of("contentType", "application/json");
-		CreateStickerMessage createStickerMessage = new CreateStickerMessage("AlbumId", "AlbumTemplateId", "DefaultAlbumId");
+		CreateFigurinhaMessage createFigurinhaMessage = new CreateFigurinhaMessage("AlbumId", "AlbumPrototipoId", "PadraoAlbumId");
 		ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
 		
-		producer.send(createStickerMessage);
+		producer.send(createFigurinhaMessage);
 		
 		verify(kafkaTemplate).send(any(), any(), stringCaptor.capture());
 		

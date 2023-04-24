@@ -70,14 +70,14 @@ public class AlbumController {
         }
     }
 
-    /* Retrieve UserId By AlbumId */
-    @GetMapping("/user/{albumId}")
-    public ResponseEntity<String> findUserIdByAlbumId(@PathVariable("albumId") String albumId) {
+    /* Retrieve UsuarioId By AlbumId */
+    @GetMapping("/usuario/{albumId}")
+    public ResponseEntity<String> findUsuarioIdByAlbumId(@PathVariable("albumId") String albumId) {
         try {
-            Optional<String> optional = service.findUserIdByAlbumId(albumId);
+            Optional<String> optional = service.findUsuarioIdByAlbumId(albumId);
             if (optional.isPresent()) {
-                String userId = optional.get();
-                return ResponseEntity.ok(userId);
+                String usuarioId = optional.get();
+                return ResponseEntity.ok(usuarioId);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }

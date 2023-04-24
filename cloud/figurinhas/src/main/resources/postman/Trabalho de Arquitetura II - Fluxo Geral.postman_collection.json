@@ -1,0 +1,1492 @@
+{
+	"info": {
+		"_postman_id": "98e0ea5a-a4d7-4266-a357-859d41c6572c",
+		"name": "Trabalho de Arquitetura II - Fluxo Geral",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fluxo geral",
+			"item": [
+				{
+					"name": "1. Criar Protótipo de Álbum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ddbb3dc-8a09-44fa-81f5-31c10cf06bf2",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"albumPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fifa World Cup Qatar 2022\",\n    \"cover\": \"imagem\",\n    \"numFigurinhas\": 20,\n    \"price\": 50,\n    \"launchDate\": \"01-01-2022 00:00\",\n    \"expirationDate\": \"31-12-2022 00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/album/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"album",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1 Criar Protótipo de Figurinha (Seleção)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d64380f-ebc4-4642-82e0-ad05fbf1ca36",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 1,\n    \"description\": \"Figurinha da Seleção\",\n    \"image\": \"image\",\n    \"raridade\": 2,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Criar Protótipo de Figurinha  (Logo do Brasil)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b7e128-ea31-4fa2-bf68-e86205ae497f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 2,\n    \"description\": \"Figurinha do Escudo do Brasil\",\n    \"image\": \"image\",\n    \"raridade\": 2,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Criar Protótipo de Figurinha (Alisson)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1c8f485-7c1f-48cf-b73a-c080a0ca9524",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 3,\n    \"description\": \"Figurinha do Goleiro Alisson\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Criar Protótipo de Figurinha  (Ederson)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4620e5bc-5c4f-4cb9-99cf-642ce88e2542",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 4,\n    \"description\": \"Figurinha do Goleiro Ederson\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Criar Protótipo de Figurinha  (Alexsandro)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8db6195b-9ebf-452a-8b26-75b465020e07",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 5,\n    \"description\": \"Figurinha do Alex Sandro\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Criar Protótipo de Figurinha  (Danilo)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad8f004d-8a04-4bf0-90d5-91f1e27a0445",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 6,\n    \"description\": \"Figurinha do Danilo\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Criar Protótipo de Figurinha  (Éder Militão)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47e655ce-ce48-46f8-ad96-6668d540f44d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 7,\n    \"description\": \"Figurinha do Éder Militão\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Criar Protótipo de Figurinha (Marquinhos)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2bbf1177-84a4-4955-aaf7-197d04d1d020",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 8,\n    \"description\": \"Figurinha do Marquinhos\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.9 Criar Protótipo de Figurinha (ThiagoSilva)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "941b9557-d9ca-49b9-b87b-72c8cf6725ce",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 9,\n    \"description\": \"Figurinha do Thiago Silva\",\n    \"image\": \"image\",\n    \"raridade\": 2,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.10 Criar Protótipo de Figurinha (Casemiro)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d39c5bff-9f50-4005-afb9-1cb5e707eb5b",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 10,\n    \"description\": \"Figurinha do Casemiro\",\n    \"image\": \"image\",\n    \"raridade\": 2,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.11 Criar Protótipo de Figurinha (Philippe Coutinho)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8663134-0b46-4d7e-8d56-a7edbe9db03a",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 11,\n    \"description\": \"Figurinha do Philippe Coutinho\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.12 Criar Protótipo de Figurinha (Fabinho)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3847723-f6a3-4aa4-a667-8384f8843708",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 12,\n    \"description\": \"Figurinha do Fabinho\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.13 Criar Protótipo de Figurinha (Fred)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f4e9c28-2716-4914-ad37-d4a23b199267",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 13,\n    \"description\": \"Figurinha do Fred\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.14 Criar Protótipo de Figurinha (Lucas Paquetá)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "53fede8c-2b0a-44a3-a3ef-d261ed86103f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 14,\n    \"description\": \"Figurinha do Lucas Paquetá\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.15 Criar Protótipo de Figurinha (Antony)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e415ec7-f16c-43b5-845a-c82ad6e41e85",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 15,\n    \"description\": \"Figurinha do Antony\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.16 Criar Protótipo de Figurinha (Gabriel Jesus)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd360553-66e1-4314-95ea-06e3b2f9a54c",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 16,\n    \"description\": \"Figurinha do Gabriel Jesus\",\n    \"image\": \"image\",\n    \"raridade\": 3,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.17 Criar Protótipo de Figurinha (Neymar Jr)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44a8ee06-4913-40c4-b258-2b3921eaf60b",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 17,\n    \"description\": \"Figurinha do Neymar Jr\",\n    \"image\": \"image\",\n    \"raridade\": 1,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.18 Criar Protótipo de Figurinha (Raphinha)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3bc62e25-8f75-4268-8b17-97da567fc63d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 18,\n    \"description\": \"Figurinha do Raphinha\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.19 Criar Protótipo de Figurinha (Richarlison)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82df9d4b-7959-42d2-8997-aa119bd4c6c9",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 19,\n    \"description\": \"Figurinha do Richarlison\",\n    \"image\": \"image\",\n    \"raridade\": 4,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.20 Criar Protótipo de Figurinha (Vinícius Jr)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "747936fe-abd2-4abf-aaab-b2200785a593",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaPrototipoId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\",\n    \"number\": 20,\n    \"description\": \"Figurinha do Vinícius Jr\",\n    \"image\": \"image\",\n    \"raridade\": 1,\n    \"figurinhaPrice\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/prototipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"prototipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Criar Álbum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9c0200f-d1de-496c-8198-c14ef7ae8fd7",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"albumId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuarioId\": \"userId1\",\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/album",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Buscar todos as figurinhas criadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Buscar todos os álbuns",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8bbb7e7d-6568-4768-a383-dcb53c1a0198",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"pm.collectionVariables.set(\"sourceAlbumId\", jsonData[0].id)",
+									"pm.collectionVariables.set(\"destinationAlbumId\", jsonData[1].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/album",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Comprar pacote de figurinha (BuyPack)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "399713a8-e284-430f-b5f7-6fe6e14800d1",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaId1\", jsonData[0].id)",
+									"pm.collectionVariables.set(\"figurinhaId2\", jsonData[1].id)",
+									"pm.collectionVariables.set(\"figurinhaId3\", jsonData[2].id)",
+									"pm.collectionVariables.set(\"figurinhaId4\", jsonData[3].id)",
+									"pm.collectionVariables.set(\"figurinhaId5\", jsonData[4].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"albumId\": \"{{sourceAlbumId}}\",\n    \"destinationAlbumId\": \"{{destinationAlbumId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/buy/pacote",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"buy",
+								"pacote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Buscar transações de figurinhas (logs)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha/journal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"journal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Colocar figurinha a venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3360e813-744f-455d-b8ba-e51ee39ddfd1",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaToSell\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"figurinha\": {\n        \"id\": \"{{figurinhaId1}}\"\n    },\n    \"price\": 3.97\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/sell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"sell"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9. Buscar figurinhas a venda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50ffe0fd-b132-4084-81b1-a9e31b8f9f9f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaToSell1\", jsonData[0].figurinha.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha/sell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"sell"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10. Criar Álbum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "976144c6-eb42-4350-8858-2797914f8465",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"albumId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuarioId\": \"userId2\",\n    \"albumPrototipoId\": \"{{albumPrototipoId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/album",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11. Buscar todos os álbuns",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c8cb2701-f654-4ab4-8fe4-bde6dd834115",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"pm.collectionVariables.set(\"sourceAlbumId\", jsonData[1].id)",
+									"pm.collectionVariables.set(\"destinationAlbumId\", jsonData[2].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/album",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12. Comprar figurinha (BuyFromAlbum)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b2fb7ae-8d10-43bc-a1be-d75e05292f1d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"pm.collectionVariables.set(\"figurinhaId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"figurinhaId\": \"{{figurinhaToSell1}}\",\n    \"destinationAlbumId\": \"{{destinationAlbumId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/figurinha/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "13. Buscar figurinhas do álbum origem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha/album/{{sourceAlbumId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"album",
+								"{{sourceAlbumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "14. Buscar figurinhas do álbum destino",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha/album/{{destinationAlbumId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"album",
+								"{{destinationAlbumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "15. Buscar transações de figurinhas (logs)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/figurinha/journal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"figurinha",
+								"journal"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d044bb37-ad1e-4be9-a9fd-13b18894c7fa",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7da206b-4fa6-4bde-8637-f9bfcf859a70",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "abc15dcb-f660-4ee7-be5f-cdc2aa19a8b2",
+			"key": "albumTemplateId",
+			"value": ""
+		},
+		{
+			"id": "73239e4b-739d-479e-9463-3d31a2ce482a",
+			"key": "stickerTemplateId",
+			"value": ""
+		},
+		{
+			"id": "d8f672f5-056e-4848-9ea7-43f0d59f63cc",
+			"key": "albumId",
+			"value": ""
+		},
+		{
+			"id": "c43ee67b-251b-4356-8d0c-5dbf589ba1d7",
+			"key": "stickerId",
+			"value": ""
+		},
+		{
+			"id": "1d6ee0f7-2373-4a3c-94ce-1c6b72cc562a",
+			"key": "stickerToSell",
+			"value": ""
+		},
+		{
+			"id": "da292a45-f086-4990-bdac-65da737370e3",
+			"key": "destinationAlbumId",
+			"value": ""
+		},
+		{
+			"id": "dae3fcb8-6db3-4c33-976a-cb8e6de4fb9c",
+			"key": "sourceAlbumId",
+			"value": ""
+		},
+		{
+			"id": "c6eaaf2d-d24f-409b-b76f-cd54f8c6e835",
+			"key": "stickerId1",
+			"value": ""
+		},
+		{
+			"id": "142a0271-0b93-455f-b4ad-2502398118ba",
+			"key": "stickerId2",
+			"value": ""
+		},
+		{
+			"id": "7d3e8986-7204-434f-9d10-2c522cc2c419",
+			"key": "stickerId3",
+			"value": ""
+		},
+		{
+			"id": "a56b3430-02be-40c6-992b-9e59298c7b8c",
+			"key": "stickerId4",
+			"value": ""
+		},
+		{
+			"id": "adef5acd-09fe-4fb9-8d2c-c97e4ed49f68",
+			"key": "stickerId5",
+			"value": ""
+		},
+		{
+			"id": "65b21b39-7cd3-4bff-8259-d596a910ac10",
+			"key": "stickerToSell1",
+			"value": ""
+		},
+		{
+			"id": "5eeb5780-a521-4e04-8190-5c90889854b0",
+			"key": "stickerToSell2",
+			"value": ""
+		},
+		{
+			"id": "ebb837bf-4601-4c08-b531-eaa42c720299",
+			"key": "stickerToSell3",
+			"value": ""
+		},
+		{
+			"id": "89e8918f-f941-466d-8c85-6a8e9394f7a5",
+			"key": "stickerToSell4",
+			"value": ""
+		},
+		{
+			"id": "6e50601b-cc20-4a3f-ac50-9579e8b1a07c",
+			"key": "stickerToSell5",
+			"value": ""
+		},
+		{
+			"id": "220a726b-7155-4ecb-94fa-9bab1077741c",
+			"key": "albumPrototipoId",
+			"value": ""
+		},
+		{
+			"id": "4897c6c6-f716-42bd-b0eb-a432929bee70",
+			"key": "figurinhaPrototipoId",
+			"value": ""
+		},
+		{
+			"id": "409eae54-7e2e-4501-9f28-2b28841e6012",
+			"key": "figurinhaId1",
+			"value": ""
+		},
+		{
+			"id": "80c3f39e-987b-4878-9b8b-5fd1dab0e67b",
+			"key": "figurinhaId2",
+			"value": ""
+		},
+		{
+			"id": "862d0bd3-3da1-4b71-8fd3-48e548c94ca1",
+			"key": "figurinhaId3",
+			"value": ""
+		},
+		{
+			"id": "690c20ae-b674-428e-95ad-d69aacf8f196",
+			"key": "figurinhaId4",
+			"value": ""
+		},
+		{
+			"id": "057dee1a-ca82-4469-bce6-fe23145eea43",
+			"key": "figurinhaId5",
+			"value": ""
+		},
+		{
+			"id": "f6fe19e0-3dae-479f-a04f-b192a29b88ba",
+			"key": "figurinhaToSell1",
+			"value": ""
+		},
+		{
+			"id": "1375f34e-a1af-4d31-bfe4-38f4b703cbed",
+			"key": "figurinhaId",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

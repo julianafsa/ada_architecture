@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, String>{
-	Optional<Album> findByUserIdAndAlbumTemplateId(String userId, String albumTemplateId);
-	@Query(value = "SELECT a.userId FROM Album a WHERE a.id = :albumId")
-	Optional<String> findUserIdByAlbumId(String albumId);
+	Optional<Album> findByUsuarioIdAndAlbumPrototipoId(String usuarioId, String albumPrototipoId);
+	@Query(value = "SELECT a.usuarioId FROM Album a WHERE a.id = :albumId")
+	Optional<String> findUsuarioIdByAlbumId(String albumId);
 }
